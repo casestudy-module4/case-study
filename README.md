@@ -14,11 +14,11 @@ Trang web bán hàng Tết được xây dựng nhằm mang đến trải nghi�
 - **Cơ sở dữ liệu**: MySQL.
 - **Quản lý dự án**: GitHub.
 ## Thành Viên Nhóm
-- **Nguyễn Thanh Quốc**:
-- **Trần Thị Kim Hường**:
-- **Nguyễn Hoàng Linh**:
-- **Lê Viết Minh Phương**:
-- **Hoàng Văn Đại**:
+- **Nguyễn Thanh Quốc**: Làm Giao Diện , làm Trang Admin, Làm Trang Customer
+- **Trần Thị Kim Hường**: Làm Trang Admin, Làm Trang Customer
+- **Nguyễn Hoàng Linh**: Làm Trang Customer
+- **Lê Viết Minh Phương**: Làm Trang Customer
+- **Hoàng Văn Đại**: Làm Trang Customer
 #### Cách chạy dự án
 1. Clone repository:
    git clone https://github.com/casestudy-module4/case-study.git
