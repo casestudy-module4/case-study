@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    .bi{
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-secondary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center ms-auto">
+          <!-- Search Form -->
+          <form class="d-flex me-3" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-tertiary bi bi-search" type="submit"></button>
+          </form>
+
+          <!-- Dropdown Login/Sign-in -->
+          <div class="dropdown me-3">
+            <button class="btn dropdown-toggle bi bi-person btn-outline-tertiary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo">Log In</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#"data-bs-toggle="modal" data-bs-target="#signUpModal" data-bs-whatever="@mdo">Sign Up</a></li>
+            </ul>
+          </div>
+
+          <!-- Shopping Cart -->
+          <button type="button" class="btn position-relative bi bi-bag-fill btn-outline-tertiary">
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              1
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container"></div>
+  <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-3">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      <!-- Left -->
+      <div class="me-5 d-none d-lg-block">
+        <span>Get connected with us on social networks:</span>
+      </div>
+      <!-- Left -->
+      <!-- Right -->
+      <div>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Company name
+            </h6>
+            <p>
+              Here you can use rows and columns to organize your footer content. Lorem ipsum
+              dolor sit amet, consectetur adipisicing elit.
+            </p>
+          </div>
+          <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Products
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Angular</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">React</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Vue</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Laravel</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Useful links
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Pricing</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Settings</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Orders</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Help</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              info@example.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2021 Copyright:
+      <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+  <!--Modal Log In-->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center border-0">
+          <h5 class="modal-title fw-bold" id="signInModalLabel">Sign In</h5>
+        </div>
+        <div class="modal-body">
+          <form id="signInForm">
+            <!-- Username -->
+            <div class="mb-3">
+              <label for="signInEmail" class="form-label">Username</label>
+              <input type="text" class="form-control" id="signInEmail" placeholder="Enter your username" required>
+            </div>
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="signInPassword" class="form-label">Password</label>
+              <input type="password" class="form-control" id="signInPassword" placeholder="Enter your password" required>
+            </div>
+            <!-- Forgot Password -->
+            <div class="mb-3 d-flex justify-content-end">
+              <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#forgotModal" data-bs-whatever="@mdo">Forgot Password?</a>
+            </div>
+            <!-- Sign In Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2">Sign In</button>
+            <!-- Divider -->
+            <div class="my-3 text-center text-muted">
+              <span>or</span>
+            </div>
+            <!-- Sign Up Link -->
+            <div class="text-center">
+              <span>Don't have an account? <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#signUpModal" data-bs-whatever="@mdo">Sign Up</a></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!--Sign Up Model-->
+   <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header justify-content-center border-0">
+          <h5 class="modal-title fw-bold" id="signUpModalLabel">Create Your Account</h5>
+        </div>
+        
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form id="signUpForm">
+            <!-- Username -->
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" placeholder="Choose a username" required>
+            </div>
+  
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+  
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Create a strong password" required>
+              <div id="passwordHelp" class="form-text">
+              </div>
+            </div>
+  
+            <!-- Confirm Password -->
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter your password" required>
+              <div id="confirmPasswordHelp" class="form-text">
+              </div>
+            </div>
+  
+            <!-- Terms and Conditions -->
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="terms" required>
+              <label class="form-check-label" for="terms">
+                I agree to the <a href="#" class="text-primary text-decoration-none">Terms of Service</a>.
+              </label>
+            </div>
+  
+            <!-- Sign Up Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2">Sign Up</button>
+          </form>
+  
+          <!-- Footer Section -->
+          <div class="text-center mt-3">
+            <span class="text-muted">Already have an account? <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo">Sign In</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--ForgotPassword-->
+  <div class="modal fade" id="forgotModal" tabindex="-1" aria-labelledby="forgotModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center border-0">
+          <h5 class="modal-title fw-bold" id="signInModalLabel">Forgot Password</h5>
+        </div>
+        <div class="modal-body">
+          <form id="signInForm">
+            <!-- Forgot Password -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Enter Your Email</label>
+              <input type="text" class="form-control" id="email" placeholder="Choose a email" required>
+            </div>
+            <!-- Sign In Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2" data-bs-toggle="modal" data-bs-target="#otpModal" data-bs-whatever="@mdo">Enter</button>
+            <!-- Divider -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--OPTpassword-->
+  <div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center border-0">
+          <h5 class="modal-title fw-bold" id="otpModalLabel">OTP</h5>
+        </div>
+        <div class="modal-body">
+          <form id="signInForm">
+            <!-- Forgot Password -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Enter OPT</label>
+              <input type="number" class="form-control" id="email" placeholder="Enter OTP" required>
+            </div>
+            <!-- Sign In Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2" data-bs-toggle="modal" data-bs-target="#confirmModal" data-bs-whatever="@mdo">Enter</button>
+            <!-- Divider -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--ConfirmPassword-->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center border-0">
+          <h5 class="modal-title fw-bold" id="confirmModalLabel">OTP</h5>
+        </div>
+        <div class="modal-body">
+          <form id="signInForm">
+            <!-- Forgot Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Enter Password</label>
+              <input type="password" class="form-control" id="email" placeholder="Enter Password" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Confirm password</label>
+              <input type="password" class="form-control" id="email" placeholder="Confirm Password" required>
+            </div>
+            <!-- Sign In Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2">Enter</button>
+            <!-- Divider -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>
