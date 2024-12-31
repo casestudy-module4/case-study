@@ -27,6 +27,7 @@ public class ProductController {
 
     @GetMapping
     public String getProducts(@RequestParam(name = "categoryId", required = false) Long categoryId,
+                              @RequestParam(name = "searchQuery", required = false, defaultValue = "") String searchQuery,
                               @RequestParam(defaultValue = "0") int page,
                               Model model) {
 
@@ -34,18 +35,23 @@ public class ProductController {
         model.addAttribute("categories", categories);
 
         Page<Product> productPage;
-        if (categoryId != null) {
-            productPage = productService.getProductsByCategory(categoryId, PageRequest.of(page, 8));
+
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+                productPage = productService.searchProductsByName(searchQuery, PageRequest.of(page, 8));
         } else {
-            productPage = productService.getAllProducts(PageRequest.of(page, 8));
+            if (categoryId != null) {
+                productPage = productService.getProductsByCategory(categoryId, PageRequest.of(page, 8));
+            } else {
+                productPage = productService.getAllProducts(PageRequest.of(page, 8));
+            }
         }
 
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("categoryId", categoryId);
+        model.addAttribute("searchQuery", searchQuery);
 
         return "products";
     }
 }
-
