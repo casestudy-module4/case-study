@@ -4,10 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/case-study.iml" filepath="$PROJECT_DIR$/.idea/case-study.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/case-study.case-study.iml" filepath="$PROJECT_DIR$/.idea/modules/case-study.case-study.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/case-study.case-study.main.iml" filepath="$PROJECT_DIR$/.idea/modules/case-study.case-study.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/case-study.case-study.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/case-study.case-study.main~1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/case-study.case-study.test.iml" filepath="$PROJECT_DIR$/.idea/modules/case-study.case-study.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/case-study.case-study.test~1.iml" filepath="$PROJECT_DIR$/.idea/modules/case-study.case-study.test~1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/case-study.case-study.main~2.iml" filepath="$PROJECT_DIR$/.idea/modules/case-study.case-study.main~2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/case-study.case-study.test~2.iml" filepath="$PROJECT_DIR$/.idea/modules/case-study.case-study.test~2.iml" />
     </modules>
   </component>
 </project>

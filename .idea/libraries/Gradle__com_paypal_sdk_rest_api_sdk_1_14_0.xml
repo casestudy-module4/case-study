@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.paypal.sdk:rest-api-sdk:1.14.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.paypal.sdk" artifactId="rest-api-sdk" version="1.14.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.paypal.sdk/rest-api-sdk/1.14.0/9f226d6034f4b30f7f05e1d44093729ee0a08767/rest-api-sdk-1.14.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
