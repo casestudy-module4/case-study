@@ -1,0 +1,44 @@
+<div th:fragment="modalContent">
+    <div class="modal-header">
+        <h5 class="modal-title">Customer Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered">
+            <tr>
+                <th>ID</th>
+                <td th:text="${selectedCustomer.id}"></td>
+            </tr>
+            <tr>
+                <th>Full Name</th>
+                <td th:text="${selectedCustomer.fullName}"></td>
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td th:text="${selectedCustomer.phoneNumber}"></td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td th:text="${selectedCustomer.address}"></td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td th:text="${selectedCustomer.gender == 0 ? 'Nam' : 'Nữ'}"></td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td th:text="${selectedCustomer.age}"></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td th:text="${selectedCustomer.email}"></td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    <img th:src="${selectedCustomer.image}" alt="Customer Image" class="img-fluid" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

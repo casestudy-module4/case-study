@@ -26,11 +26,11 @@ public class Customer {
     private String phoneNumber;
     @Column(columnDefinition = "VARCHAR(100)")
     private String address;
-    @Column(columnDefinition = "BOOLEAN")
-    private boolean gender;
+    @Column(columnDefinition = "TINYINT")
+    private Integer gender;
     private Integer age;
     @NotNull(message = "Please enter the email")
-    @Pattern(regexp = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/", message = "Invalid format, enter again")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Invalid email format")
     private String email;
     private String image;
 
