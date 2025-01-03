@@ -69,12 +69,17 @@ public class SecurityController {
     public String processResetPassword(@RequestParam("username") String username,
                                        @RequestParam("password") String password,
                                        RedirectAttributes redirectAttributes) {
-        boolean success = accountService.resetPassword(username, password);
-        if (success) {
-            redirectAttributes.addFlashAttribute("message", "Password reset successfully! Please log in.");
-            return "redirect:/admins/login";
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Failed to reset password. Please try again.");
+        try {
+            boolean success = accountService.resetPassword(username, password);
+            if (success) {
+                redirectAttributes.addFlashAttribute("message", "Password reset successfully! Please log in.");
+                return "redirect:/admins/login";
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Failed to reset password. Please try again.");
+                return "redirect:/admins/reset-password?username=" + username;
+            }
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/admins/reset-password?username=" + username;
         }
     }

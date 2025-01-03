@@ -59,14 +59,12 @@
 </div>
 </body>
 <script>
-    // Tự động ẩn thông báo sau 5 giây
     window.addEventListener('DOMContentLoaded', (event) => {
         const messageBoxes = document.getElementsByClassName('message-box');
-        // Duyệt qua tất cả các hộp thông báo và ẩn từng cái
         Array.from(messageBoxes).forEach(messageBox => {
             setTimeout(() => {
                 messageBox.style.display = 'none';
-            }, 5000); // 5000ms = 5 giây
+            }, 5000);
         });
     });
 </script>

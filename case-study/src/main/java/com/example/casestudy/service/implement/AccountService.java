@@ -39,7 +39,7 @@ public class AccountService implements UserDetailsService {
     public boolean resetPassword(String username, String newPassword) {
         Account account = findByUsername(username);
         if (account == null) {
-            return false; // Không tìm thấy tài khoản
+            return false;
         }
         if (!newPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\\$%\\^&\\*])(?=\\S+$).{8,20}$")) {
             throw new IllegalArgumentException("Password must be between 8-20 characters, include uppercase, lowercase, number, and special character.");
