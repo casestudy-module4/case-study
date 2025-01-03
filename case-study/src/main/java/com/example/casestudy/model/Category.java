@@ -18,6 +18,6 @@ public class Category {
     private Integer id;
     @NotEmpty(message = "Please enter the category")
     @Column(columnDefinition = "VARCHAR(20)")
-    private String name_category;
+    private String nameCategory;
 
 }

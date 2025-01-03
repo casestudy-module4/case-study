@@ -15,7 +15,7 @@
     <div class="main p-4">
         <div class="d-flex justify-content-end mb-3">
             <form class="d-flex" style="width: 20%;" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search by title" aria-label="Search"
+                <input class="form-control me-2" type="search" placeholder="Search by Name" aria-label="Search"
                        name="title" id="title2" th:value="${fullName}">
                 <button class="btn btn-outline-success bi bi-search" type="button" id="btn-search"
                         onclick="searchByTitle()"></button>
@@ -43,8 +43,9 @@
                 <td th:text="${row.gender==0} ? 'Nam' : 'Nữ'"></td>
                 <td th:text="${row.age}"></td>
                 <td>
-                    <button type="button" class="btn btn-info bi bi-eye-fill"
-                            th:onclick="'openModal(' + ${row.id} + ')'"></button>
+                    <button type="button" class="btn btn-info bi bi-eye"
+                            th:onclick="'openModal(' + ${row.id} + ')'">
+                    </button>
                     <button type="button" class="btn btn-danger bi bi-trash"
                             th:onclick="'confirmDelete(' + ${row.id} + ')'"></button>
                 </td>
@@ -64,13 +65,6 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-<!--                &lt;!&ndash; Page Numbers &ndash;&gt;-->
-<!--                <li class="page-item" th:each="i : ${#numbers.sequence(0, customer.totalPages - 1)}"-->
-<!--                    th:classappend="${i == customer.number} ? 'active' : ''">-->
-<!--                    <a class="page-link" th:href="@{/admins/customers(page=${i}, title=${fullName})}"-->
-<!--                       th:text="${i + 1}"></a>-->
-<!--                </li>-->
-                <!-- Next -->
                 <li class="page-item" th:if="${customer.hasNext()}">
                     <a class="page-link" th:href="@{/admins/customers(page=${customer.number + 1}, title=${fullName})}"
                        aria-label="Next">
@@ -86,28 +80,10 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteConfirmLabel">Confirm Delete</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to delete this customer?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <form id="deleteCustomerForm" th:action="@{/admins/customers/delete/id}" method="post">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div th:replace="deleteConfirmModal.html :: delete-confirm-modal"></div>
         <div th:replace="toast.html :: toast"></div>
         <div th:insert="logout.html :: logout-modal"></div>
+        <div th:replace="changePasswordModal.html :: change-password-modal"></div>
     </div>
 </div>
 </body>
@@ -127,16 +103,28 @@
     function openModal(customerId) {
         fetch(`/admins/customers/${customerId}`)
             .then(response => {
-                if (!response.ok) throw new Error("Failed to load customer details");
+                if (!response.ok) throw new Error('Failed to load customer details');
                 return response.text();
             })
             .then(html => {
                 document.getElementById('modalContent').innerHTML = html;
                 new bootstrap.Modal(document.getElementById('customerModal')).show();
             })
-            .catch(error => console.error('Error loading customer details:', error));
+            .catch(error => {
+                console.error(error);
+                alert('Unable to load customer details');
+            });
     }
+    /*Change Password Modal*/
+    document.getElementById('changePasswordForm').addEventListener('submit', function (e) {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
 
+        if (newPassword !== confirmPassword) {
+            e.preventDefault();
+            alert('Passwords do not match!');
+        }
+    });
     function confirmDelete(customerId) {
         const form = document.getElementById('deleteCustomerForm');
         form.action = `/admins/customers/${customerId}/delete`;

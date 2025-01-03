@@ -39,7 +39,7 @@ public class AdminController {
             throw new IllegalArgumentException("Customer not found with ID: " + id);
         }
         model.addAttribute("selectedCustomer", customer);
-        return "modalContent :: modalContent";
+        return "modalContent :: customer-details";
     }
 
     // Chỉ ADMIN có thể thực hiện xóa
@@ -57,4 +57,6 @@ public class AdminController {
         }
         return "redirect:/admins/customers";
     }
+
+
 }
