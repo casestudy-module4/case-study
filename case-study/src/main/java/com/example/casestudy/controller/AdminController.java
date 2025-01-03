@@ -2,6 +2,7 @@ package com.example.casestudy.controller;
 
 import com.example.casestudy.model.Customer;
 import com.example.casestudy.service.ICustomerService;
+import com.example.casestudy.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/admins")
 public class AdminController {
 
     @Autowired
     private ICustomerService customerService;
+    @Autowired
+    private IOrderService orderService;
 
     // Chỉ ADMIN có thể truy cập
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -58,5 +63,17 @@ public class AdminController {
         return "redirect:/admins/customers";
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/customers/advanced-statistics")
+    public String getAdvancedCustomerStatistics(Model model) {
+        List<Object[]> customerOrderStats = orderService.getCustomerOrderStatistics();
+        List<Object[]> customerByAddress = customerService.countCustomersByAddress();
+        List<Object[]> averageAgeByGender = customerService.calculateAverageAgeByGender();
 
+        model.addAttribute("customerOrderStats", customerOrderStats);
+        model.addAttribute("customerByAddress", customerByAddress);
+        model.addAttribute("averageAgeByGender", averageAgeByGender);
+
+        return "advancedCustomerStatistics";
+    }
 }

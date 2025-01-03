@@ -11,4 +11,6 @@ public interface ICustomerService {
     void deleteCustomer(int id);
     Page<Customer> findByTitle(String fullName, Integer page);
     Customer findById(int id);
+    public List<Object[]> calculateAverageAgeByGender();
+    public List<Object[]> countCustomersByAddress();
 }
