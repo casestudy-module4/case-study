@@ -7,7 +7,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         /* .bi{
           color: black;
@@ -76,7 +77,7 @@
                 <div class="card-body">
                     <img class="card-img" src="/hien-dai/mau-hop-qua-tet-HQT2025-1.jpg">
                     <p class="card-title">Hiện Đại</p>
-                    <p class="card-text">Đem tới cho người dùng những mẫu hàng được thiết kế với phong cách hiện đại kết hợp với nét truyền thống của người Việt Nam</p>
+                    <p class="card-text"></p>
                     <a href="/products" class="btn btn-primary">Tìm hiểu thêm</a>
                 </div>
             </div>
@@ -86,7 +87,7 @@
                 <div class="card-body">
                     <img class="card-img" src="/truyen-thong/mau-hop-dung-qua-tet-2023-1.jpg">
                     <p class="card-title">Truyền thống</p>
-                    <p class="card-text">Với phong cách truyền thống quen thuộc trong Tết cổ truyền người Việt Nam, đem tới cho người dùng những mẫu hàng thiên về màu đỏ của sự thịnh vượng.</p>
+                    <p class="card-text"></p>
                     <a href="/products" class="btn btn-primary">Tìm hiểu thêm</a>
                 </div>
             </div>
@@ -96,7 +97,7 @@
                 <div class="card-body">
                     <img class="card-img" src="/linh-vat/mau-hop-dung-qua-tet-co-san-song-hac-do.jpg">
                     <p class="card-title">Linh Vật</p>
-                    <p class="card-text">Mang tới cho người dùng những thiết kế thiên về việc sử dụng những linh thú để tượng trưng cho những phong thái, lời chúc.</p>
+                    <p class="card-text"></p>
                     <a href="/products" class="btn btn-primary">Tìm hiểu thêm</a>
                 </div>
             </div>
@@ -106,7 +107,7 @@
                 <div class="card-body">
                     <img class="card-img" src="/chibi/mau-hop-dung-qua-tet-2022-3.jpg">
                     <p class="card-title">Chibi</p>
-                    <p class="card-text">Kết hợp với phong cách vẽ của người Nhật, nhằm mang đến những thiết kể mang phong thái nhí nhảnh, làn gió tươi vui.</p>
+                    <p class="card-text"></p>
                     <a href="/products" class="btn btn-primary">Tìm hiểu thêm</a>
                 </div>
             </div>
@@ -164,200 +165,62 @@
         </div>
     </div>
 </div>
+
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center">
         <h3>Danh sách sản phẩm</h3>
-        <button class="btn btn-secondary bi bi-list-task  btn-lg" type="submit"></button>
+        <a href="/products"><button class="btn btn-secondary bi bi-list-task btn-lg" type="submit"></button></a>
     </div>
     <hr>
-    <div id="product-container" class="row">
-        <div class="col-sm-3" th:each="product : ${products}">
-            <div class="card border-0">
-                <div class="card-body">
-                    <img class="card-img" th:src="@{${product.image}}" th:alt="${product.name}">
-                    <button type="button" class="btn btn-primary view-detail-btn"
-                            data-bs-toggle="modal"
-                            data-bs-target="#productDetailModal"
-                            th:attr="data-product-id=${product.id}">
-                        Xem chi tiết
-                    </button>
-                    <p class="card-title" th:text="${product.name}"></p>
-                    <p class="card-text">Giá tiền: <span th:text="${product.price}"></span> VND</p>
+    <!-- Carousel -->
+    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+            <!-- Bắt đầu nhóm sản phẩm -->
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-sm-3" th:each="product, iterStat : ${products}"
+                         th:if="${iterStat.index % 4 == 0}" th:classappend="${iterStat.index == 0} ? 'active' : ''">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <a href="/products"><img class="card-img" th:src="@{${product.image}}" th:alt="${product.name}"></a>
+                                <p class="card-title" th:text="${product.name}"></p>
+                                <p class="card-text">Giá tiền:<strong> <span th:text="${product.price}"></span> VND</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Lặp lại nhóm sản phẩm -->
+            <div class="carousel-item" th:each="product, iterStat : ${products}" th:if="${iterStat.index % 4 == 0}">
+                <div class="row">
+                    <div class="col-sm-3" th:each="subProduct, subStat : ${products}"
+                         th:if="${subStat.index >= iterStat.index && subStat.index < iterStat.index + 4}">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <a href="/products"><img class="card-img" th:src="@{${subProduct.image}}" th:alt="${subProduct.name}"></a>
+                                <p class="card-title" th:text="${subProduct.name}"></p>
+                                <p class="card-text">Giá tiền:<strong> <span th:text="${subProduct.price}"></span> VND</strong></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Điều hướng carousel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </div>
+
 <div th:replace="fragments/footer :: footer"></div>
 
-<!--Modal Log In-->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center border-0">
-                <h5 class="modal-title fw-bold" id="signInModalLabel">Sign In</h5>
-            </div>
-            <div class="modal-body">
-                <form id="signInForm">
-                    <!-- Username -->
-                    <div class="mb-3">
-                        <label for="signInEmail" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="signInEmail" placeholder="Enter your username" required>
-                    </div>
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="signInPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="signInPassword" placeholder="Enter your password" required>
-                    </div>
-                    <!-- Forgot Password -->
-                    <div class="mb-3 d-flex justify-content-end">
-                        <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#forgotModal" data-bs-whatever="@mdo">Forgot Password?</a>
-                    </div>
-                    <!-- Sign In Button -->
-                    <button type="submit" class="btn btn-primary w-100 py-2">Sign In</button>
-                    <!-- Divider -->
-                    <div class="my-3 text-center text-muted">
-                        <span>or</span>
-                    </div>
-                    <!-- Sign Up Link -->
-                    <div class="text-center">
-                        <span>Don't have an account? <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#signUpModal" data-bs-whatever="@mdo">Sign Up</a></span>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Sign Up Model-->
-<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header justify-content-center border-0">
-                <h5 class="modal-title fw-bold" id="signUpModalLabel">Create Your Account</h5>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form id="signUpForm">
-                    <!-- Username -->
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Choose a username" required>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                    </div>
-
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Create a strong password" required>
-                        <div id="passwordHelp" class="form-text">
-                        </div>
-                    </div>
-
-                    <!-- Confirm Password -->
-                    <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter your password" required>
-                        <div id="confirmPasswordHelp" class="form-text">
-                        </div>
-                    </div>
-
-                    <!-- Terms and Conditions -->
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="terms" required>
-                        <label class="form-check-label" for="terms">
-                            I agree to the <a href="#" class="text-primary text-decoration-none">Terms of Service</a>.
-                        </label>
-                    </div>
-
-                    <!-- Sign Up Button -->
-                    <button type="submit" class="btn btn-primary w-100 py-2">Sign Up</button>
-                </form>
-
-                <!-- Footer Section -->
-                <div class="text-center mt-3">
-                    <span class="text-muted">Already have an account? <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo">Sign In</a></span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--ForgotPassword-->
-<div class="modal fade" id="forgotModal" tabindex="-1" aria-labelledby="forgotModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center border-0">
-                <h5 class="modal-title fw-bold" id="signInModalLabel">Forgot Password</h5>
-            </div>
-            <div class="modal-body">
-                <form id="signInForm">
-                    <!-- Forgot Password -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Enter Your Email</label>
-                        <input type="text" class="form-control" id="email" placeholder="Choose a email" required>
-                    </div>
-                    <!-- Sign In Button -->
-                    <button type="submit" class="btn btn-primary w-100 py-2" data-bs-toggle="modal" data-bs-target="#otpModal" data-bs-whatever="@mdo">Enter</button>
-                    <!-- Divider -->
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--OPTpassword-->
-<div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center border-0">
-                <h5 class="modal-title fw-bold" id="otpModalLabel">OTP</h5>
-            </div>
-            <div class="modal-body">
-                <form id="signInForm">
-                    <!-- Forgot Password -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Enter OPT</label>
-                        <input type="number" class="form-control" id="email" placeholder="Enter OTP" required>
-                    </div>
-                    <!-- Sign In Button -->
-                    <button type="submit" class="btn btn-primary w-100 py-2" data-bs-toggle="modal" data-bs-target="#confirmModal" data-bs-whatever="@mdo">Enter</button>
-                    <!-- Divider -->
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--ConfirmPassword-->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center border-0">
-                <h5 class="modal-title fw-bold" id="confirmModalLabel">OTP</h5>
-            </div>
-            <div class="modal-body">
-                <form id="signInForm">
-                    <!-- Forgot Password -->
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Enter Password</label>
-                        <input type="password" class="form-control" id="email" placeholder="Enter Password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Confirm password</label>
-                        <input type="password" class="form-control" id="email" placeholder="Confirm Password" required>
-                    </div>
-                    <!-- Sign In Button -->
-                    <button type="submit" class="btn btn-primary w-100 py-2">Enter</button>
-                    <!-- Divider -->
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

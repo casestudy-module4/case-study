@@ -24,7 +24,7 @@ public class ProductController {
     private CategoryService categoryService;
 
     @GetMapping
-    public String getProducts(@RequestParam(name = "categoryId", required = false) Long categoryId,
+    public String getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
                               @RequestParam(name = "searchQuery", required = false, defaultValue = "") String searchQuery,
                               @RequestParam(defaultValue = "0") int page,
                               Model model) {
@@ -55,12 +55,12 @@ public class ProductController {
 
     @GetMapping("/details")
     @ResponseBody
-    public Product getProductDetails(@RequestParam Long productId) {
+    public Product getProductDetails(@RequestParam Integer productId) {
         return productService.getProductById(productId);
     }
 
     @PostMapping("/add")
-    public String addToCart(@RequestParam Long productId, @RequestParam int quantity, @SessionAttribute("cart") List<Product> cart) {
+    public String addToCart(@RequestParam Integer productId, @RequestParam int quantity, @SessionAttribute("cart") List<Product> cart) {
         Product product = productService.getProductById(productId);
 
         for (int i = 0; i < quantity; i++) {

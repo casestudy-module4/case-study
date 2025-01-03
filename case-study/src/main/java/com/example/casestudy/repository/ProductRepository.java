@@ -8,13 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
-    Page<Product> findByCategoryId(Long categoryId, Pageable pageable);
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+    Page<Product> findByCategoryId(Integer categoryId, Pageable pageable);
 
     Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
-    Optional<Product> findById(Long id);
-
-    List<Product> findTop4ByOrderByIdAsc();
+    Optional<Product> findById(Integer id);
 }
 
