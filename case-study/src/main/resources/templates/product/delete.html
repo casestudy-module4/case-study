@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete this category <span id="categoryNameToDelete"></span> with ID <span id="categoryIdToDelete"></span>?
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="deleteButton" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
