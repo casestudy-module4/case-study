@@ -24,7 +24,7 @@ public class Account {
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
     private Customer customer;
     public enum Role {
-        ADMIN,
-        CUSTOMER
+        ROLE_ADMIN,
+        ROLE_CUSTOMER
     }
 }

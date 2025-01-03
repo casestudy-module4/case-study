@@ -22,60 +22,59 @@ import java.util.List;
 @RequestMapping("/checkout")
 public class CheckoutController {
     @GetMapping
-    public String checkoutPage(HttpSession session, Model model) {
+//    public String checkoutPage(HttpSession session, Model model) {
         // Lấy danh sách sản phẩm từ session
-        List<Product> selectedProducts = (List<Product>) session.getAttribute("selectedProducts");
-        if (selectedProducts == null) {
-            selectedProducts = new ArrayList<>();
-        }
+//        List<Product> selectedProducts = (List<Product>) session.getAttribute("selectedProducts");
+//        if (selectedProducts == null) {
+//            selectedProducts = new ArrayList<>();
+//        }
 
         // Tính tổng giá tiền
-        double totalPrice = selectedProducts.stream()
-                .mapToDouble(product -> product.getDiscountedPrice())
-                .sum();
+//        double totalPrice = selectedProducts.stream()
+//                .mapToDouble(product -> product.getDiscountedPrice())
+//                .sum();
 
-        model.addAttribute("products", selectedProducts);
-        model.addAttribute("totalPrice", totalPrice);
-        return "user/checkout";
-    }
+//
+
+//    }
 
     // Xử lý thanh toán
-    @PostMapping
-    public String processCheckout(@RequestParam String address, HttpSession session, Model model) {
-        // Lấy danh sách sản phẩm từ session
-        List<Product> selectedProducts = (List<Product>) session.getAttribute("selectedProducts");
-        if (selectedProducts == null || selectedProducts.isEmpty()) {
-            model.addAttribute("message", "Không có sản phẩm nào để thanh toán.");
-            return "checkout/checkout";
-        }
-
-        // Tạo một đơn hàng mới
-        Order order = new Order();
-        order.setTimeOrder(LocalDateTime.now());
-        order.setAddress(address);
-        order.setStatusOrder(1); // 1: Đang xử lý (Processing)
-        order.setTotalPrice(selectedProducts.stream()
-                .mapToDouble(Product::getDiscountedPrice)
-                .sum());
-
-        // Tạo các chi tiết đơn hàng
-        List<OrderDetails> orderDetailsList = new ArrayList<>();
-        for (Product product : selectedProducts) {
-            OrderDetails orderDetails = new OrderDetails();
-            orderDetails.setProduct(product);
-            orderDetails.setQuantity(1); // Số lượng mặc định là 1
-            orderDetails.setPriceDetailOrder(product.getDiscountedPrice());
-            orderDetailsList.add(orderDetails);
-        }
-
-        // Xóa giỏ hàng trong session sau khi thanh toán
-        session.removeAttribute("selectedProducts");
-
-        // Chuyển hướng đến trang xác nhận thanh toán thành công
-        model.addAttribute("order", order);
-        model.addAttribute("orderDetails", orderDetailsList);
-        return "user/success";
-    }
+//    @PostMapping
+//    public String processCheckout(@RequestParam String address, HttpSession session, Model model) {
+//        // Lấy danh sách sản phẩm từ session
+//        List<Product> selectedProducts = (List<Product>) session.getAttribute("selectedProducts");
+//        if (selectedProducts == null || selectedProducts.isEmpty()) {
+//            model.addAttribute("message", "Không có sản phẩm nào để thanh toán.");
+//            return "checkout/checkout";
+//        }
+//
+//        // Tạo một đơn hàng mới
+//        Order order = new Order();
+//        order.setTimeOrder(LocalDateTime.now());
+//        order.setAddress(address);
+//        order.setStatusOrder(1); // 1: Đang xử lý (Processing)
+//        order.setTotalPrice(selectedProducts.stream()
+//                .mapToDouble(Product::getDiscountedPrice)
+//                .sum());
+//
+//        // Tạo các chi tiết đơn hàng
+//        List<OrderDetails> orderDetailsList = new ArrayList<>();
+//        for (Product product : selectedProducts) {
+//            OrderDetails orderDetails = new OrderDetails();
+//            orderDetails.setProduct(product);
+//            orderDetails.setQuantity(1); // Số lượng mặc định là 1
+//            orderDetails.setPriceDetailOrder(product.getDiscountedPrice());
+//            orderDetailsList.add(orderDetails);
+//        }
+//
+//        // Xóa giỏ hàng trong session sau khi thanh toán
+//        session.removeAttribute("selectedProducts");
+//
+//        // Chuyển hướng đến trang xác nhận thanh toán thành công
+//        model.addAttribute("order", order);
+//        model.addAttribute("orderDetails", orderDetailsList);
+//        return "user/success";
+//    }
 
     // Xử lý chuyển sản phẩm từ giỏ hàng sang danh sách thanh toán
     @PostMapping("/add-to-checkout")

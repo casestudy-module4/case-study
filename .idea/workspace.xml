@@ -5,11 +5,134 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43b5cc26-51af-4925-9a8c-f224dc3c8249" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/an-tuong/mau-hop-dung-qua-tet-2021-4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/an-tuong/mau-hop-dung-qua-tet-2023-19.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/an-tuong/mau-hop-dung-qua-tet-2023-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/an-tuong/mau-hop-dung-qua-tet-2023-26.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/an-tuong/mau-hop-dung-qua-tet-2023-5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/an-tuong/mau-hop-qua-tet-HQT20245.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/an-tuong/mau-hop-qua-tet-HQT20248.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/an-tuong/mau-hop-qua-tet-HQT2025-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/an-tuong/mau-hop-qua-tet-hoa-sen-tim.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/chibi/hop-dung-qua-tet-co-san-2023-mau-do-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/chibi/mau-hop-dung-qua-tet-2022-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/chibi/mau-hop-dung-qua-tet-2023-22.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/chibi/mau-hop-dung-qua-tet-co-san-2023-mau-vang.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/chibi/mau-hop-qua-tet-HQT20243.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/chibi/mau-hop-qua-tet-HQT202450.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/chibi/mau-hop-qua-tet-HQT202451.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/chibi/mau-hop-qua-tet-HQT2025-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/hien-dai/hop-dung-qua-tet-co-san-2023-mau-xanh-luc-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/hien-dai/mau-hop-dung-qua-tet-2023-10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/hien-dai/mau-hop-qua-tet-2021-10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/hien-dai/mau-hop-qua-tet-2021-11.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/hien-dai/mau-hop-qua-tet-HQT2025-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/hop-long-phung-do-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/hop-qua-tet-vang-chuc-mung-nam-moi.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-dung-qua-tet-2021-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-dung-qua-tet-2022-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-dung-qua-tet-2022-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-dung-qua-tet-2023-18.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-dung-qua-tet-2023-20.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-dung-qua-tet-2023-27-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-dung-qua-tet-2023-28.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-dung-qua-tet-2023-31.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-dung-qua-tet-co-san-song-hac-do.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-qua-tet-HQT20241.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-qua-tet-HQT202412.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-qua-tet-HQT20242.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-qua-tet-HQT20244.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-qua-tet-HQT20246.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/linh-vat/mau-hop-qua-tet-HQT20247.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/product-details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-dung-qua-tet-2021-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-dung-qua-tet-2021-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-dung-qua-tet-2022-4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-dung-qua-tet-2023-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-dung-qua-tet-2023-14.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-dung-qua-tet-2023-29-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-dung-qua-tet-2023-30.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-dung-qua-tet-2023-4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-dung-qua-tet-co-san-hoa-mua-xuan.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-qua-tet-HQT202410.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-qua-tet-HQT202411.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-qua-tet-HQT202452.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-qua-tet-HQT202454.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Giao_dien/user/truyen-thong/mau-hop-qua-tet-HQT20249-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/CartController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/HomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/ImageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/ProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/repository/CategoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/CategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/ProductService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/an-tuong/mau-hop-dung-qua-tet-2021-4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/an-tuong/mau-hop-dung-qua-tet-2023-19.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/an-tuong/mau-hop-dung-qua-tet-2023-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/an-tuong/mau-hop-dung-qua-tet-2023-26.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/an-tuong/mau-hop-dung-qua-tet-2023-5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/an-tuong/mau-hop-qua-tet-HQT20245.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/an-tuong/mau-hop-qua-tet-HQT20248.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/an-tuong/mau-hop-qua-tet-HQT2025-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/an-tuong/mau-hop-qua-tet-hoa-sen-tim.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/banner/slider_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/chibi/hop-dung-qua-tet-co-san-2023-mau-do-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/chibi/mau-hop-dung-qua-tet-2022-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/chibi/mau-hop-dung-qua-tet-2023-22.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/chibi/mau-hop-dung-qua-tet-co-san-2023-mau-vang.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/chibi/mau-hop-qua-tet-HQT20243.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/chibi/mau-hop-qua-tet-HQT202450.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/chibi/mau-hop-qua-tet-HQT202451.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/chibi/mau-hop-qua-tet-HQT2025-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/hien-dai/hop-dung-qua-tet-co-san-2023-mau-xanh-luc-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/hien-dai/mau-hop-dung-qua-tet-2023-10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/hien-dai/mau-hop-qua-tet-2021-10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/hien-dai/mau-hop-qua-tet-2021-11.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/hien-dai/mau-hop-qua-tet-HQT2025-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/hop-long-phung-do-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/hop-qua-tet-vang-chuc-mung-nam-moi.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-dung-qua-tet-2021-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-dung-qua-tet-2022-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-dung-qua-tet-2022-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-dung-qua-tet-2023-18.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-dung-qua-tet-2023-20.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-dung-qua-tet-2023-27-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-dung-qua-tet-2023-28.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-dung-qua-tet-2023-31.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-dung-qua-tet-co-san-song-hac-do.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-qua-tet-HQT20241.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-qua-tet-HQT202412.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-qua-tet-HQT20242.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-qua-tet-HQT20244.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-qua-tet-HQT20246.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/linh-vat/mau-hop-qua-tet-HQT20247.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/hop-qua-tet-do-sang-trong-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-dung-qua-tet-2021-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-dung-qua-tet-2021-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-dung-qua-tet-2022-4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-dung-qua-tet-2023-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-dung-qua-tet-2023-14.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-dung-qua-tet-2023-29-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-dung-qua-tet-2023-30.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-dung-qua-tet-2023-4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-dung-qua-tet-co-san-hoa-mua-xuan.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-qua-tet-HQT202410.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-qua-tet-HQT202411.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-qua-tet-HQT202452.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-qua-tet-HQT202454.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/truyen-thong/mau-hop-qua-tet-HQT20249-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/cart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/checkout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/fragments/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/fragments/header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Giao_dien/user/471811539_18308411686206806_1113250610713675105_n.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Giao_dien/user/details.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Giao_dien/user/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Giao_dien/user/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Giao_dien/user/user_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/Giao_dien/user/user_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/CheckoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/CheckoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/impl/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/impl/PaymentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +186,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.CaseStudyApplication.executor": "Run",
-    "git-widget-placeholder": "phuong",
+    "git-widget-placeholder": "Merging phuong",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/JAVA FULL STACK/Module4/case_study/case-study",
     "node.js.detected.package.eslint": "true",
@@ -89,7 +212,7 @@
     </configuration>
     <configuration name="CaseStudyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <module name="case-study.case-study.main~2" />
+      <module name="case-study.case-study.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.casestudy.CaseStudyApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -118,6 +241,7 @@
       <updated>1735473836764</updated>
       <workItem from="1735473837815" duration="136000" />
       <workItem from="1735790395868" duration="8649000" />
+      <workItem from="1735897843146" duration="33000" />
     </task>
     <servers />
   </component>

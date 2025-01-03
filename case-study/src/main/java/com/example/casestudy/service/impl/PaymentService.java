@@ -29,10 +29,10 @@ public class PaymentService {
     public Payment updatePaymentStatus(Payment payment, Payment.PaymentStatus status) {
         payment.setStatus(status);
 
-        if (status == Payment.PaymentStatus.SUCCESS) {
-            // Tạo đơn hàng khi thanh toán thành công
-            createOrderAfterPaymentSuccess(payment);
-        }
+//        if (status == Payment.PaymentStatus.SUCCESS) {
+//            // Tạo đơn hàng khi thanh toán thành công
+//            createOrderAfterPaymentSuccess(payment);
+//        }
 
         return paymentRepository.save(payment);
     }
