@@ -29,4 +29,24 @@ public class AccountService implements UserDetailsService {
         UserInfoUserDetails infoUserDetails = new UserInfoUserDetails(appUser);
         return infoUserDetails;
     }
+
+    // Tìm account theo username
+    public Account findByUsername(String username) {
+        return iAccountRepository.findByResName(username);
+    }
+
+    // Đặt lại mật khẩu
+    public boolean resetPassword(String username, String newPassword) {
+        Account account = findByUsername(username);
+        if (account == null) {
+            return false;
+        }
+        if (!newPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\\$%\\^&\\*])(?=\\S+$).{8,20}$")) {
+            throw new IllegalArgumentException("Password must be between 8-20 characters, include uppercase, lowercase, number, and special character.");
+        }
+        // Cập nhật mật khẩu mới (mã hóa)
+        account.setResPassword(passwordEncoder.encode(newPassword));
+        iAccountRepository.save(account);
+        return true;
+    }
 }

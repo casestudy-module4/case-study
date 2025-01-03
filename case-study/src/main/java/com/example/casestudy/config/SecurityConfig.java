@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -41,6 +40,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admins/forgot-password", "/admins/reset-password").permitAll()
                         .requestMatchers("/admins/login", "/logoutSuccessful", "/403", "/style/**", "/img/**").permitAll()
                         .requestMatchers("/admins/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
@@ -55,10 +55,18 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/logoutSuccessful")
-                        .deleteCookies("JSESSIONID")
-                        .invalidateHttpSession(true)
+                        .logoutUrl("/logout") // URL để logout
+                        .logoutSuccessUrl("/admins/login?logout=true") // URL sau khi logout thành công
+                        .addLogoutHandler((request, response, authentication) -> {
+                            // Thêm xử lý bổ sung nếu cần, ví dụ ghi log
+                            System.out.println("User logged out: " + (authentication != null ? authentication.getName() : "Anonymous"));
+                        })
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            // Xử lý sau khi logout thành công (nếu cần logic tùy chỉnh)
+                            response.sendRedirect("/admins/login?logout=true");
+                        })
+                        .deleteCookies("JSESSIONID") // Xóa cookie phiên làm việc
+                        .invalidateHttpSession(true) // Vô hiệu hóa session hiện tại
                         .permitAll()
                 )
                 .exceptionHandling(exception -> exception

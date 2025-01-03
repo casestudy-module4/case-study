@@ -107,6 +107,7 @@
             </div>
         </div>
         <div th:replace="toast.html :: toast"></div>
+        <div th:insert="logout.html :: logout-modal"></div>
     </div>
 </div>
 </body>
@@ -120,7 +121,9 @@
         let updateLink = "/admins/customers?fullName=" + title + "&page=0";
         window.location.href = updateLink;
     }
-
+    document.getElementById("confirmLogout").addEventListener("click", function() {
+        window.location.href = "/admins/login";
+    });
     function openModal(customerId) {
         fetch(`/admins/customers/${customerId}`)
             .then(response => {
