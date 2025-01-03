@@ -33,4 +33,11 @@ public class CustomerService implements ICustomerService {
     public Customer findById(int id) {
         return customerRepository.findById(id).orElse(null);
     }
+    public List<Object[]> countCustomersByAddress() {
+        return customerRepository.countCustomersByAddress();
+    }
+
+    public List<Object[]> calculateAverageAgeByGender() {
+        return customerRepository.calculateAverageAgeByGender();
+    }
 }
