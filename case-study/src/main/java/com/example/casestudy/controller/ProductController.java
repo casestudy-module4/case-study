@@ -9,9 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class ProductController {
         Page<Product> productPage;
 
         if (searchQuery != null && !searchQuery.isEmpty()) {
-                productPage = productService.searchProductsByName(searchQuery, PageRequest.of(page, 8));
+            productPage = productService.searchProductsByName(searchQuery, PageRequest.of(page, 8));
         } else {
             if (categoryId != null) {
                 productPage = productService.getProductsByCategory(categoryId, PageRequest.of(page, 8));
@@ -53,5 +51,22 @@ public class ProductController {
         model.addAttribute("searchQuery", searchQuery);
 
         return "products";
+    }
+
+    @GetMapping("/details")
+    @ResponseBody
+    public Product getProductDetails(@RequestParam Long productId) {
+        return productService.getProductById(productId);
+    }
+
+    @PostMapping("/add")
+    public String addToCart(@RequestParam Long productId, @RequestParam int quantity, @SessionAttribute("cart") List<Product> cart) {
+        Product product = productService.getProductById(productId);
+
+        for (int i = 0; i < quantity; i++) {
+            cart.add(product);
+        }
+
+        return "redirect:/cart";
     }
 }
