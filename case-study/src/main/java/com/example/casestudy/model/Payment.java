@@ -1,5 +1,6 @@
 package com.example.casestudy.model;
 
+import com.paypal.api.payments.Links;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,6 +33,8 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'pending'")
     private PaymentStatus status;
+
+
     public enum PaymentMethod {
         CREDIT_CARD, PAYPAL, BANK_TRANSFER, CASH
     }
