@@ -1,4 +1,4 @@
-package com.example.casestudy.service.pay.impl;
+package com.example.casestudy.service.impl;
 
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
@@ -38,6 +38,8 @@ public class PayPalService {
 
         Payer payer = new Payer();
         payer.setPaymentMethod(method);
+
+
 
         Payment payment = new Payment();
         payment.setIntent(intent.toUpperCase());

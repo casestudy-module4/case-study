@@ -95,9 +95,38 @@
         <div class="mb-3">
             <label for="deliveryMethod" class="form-label">Phương thức nhận hàng</label>
             <select class="form-select" id="deliveryMethod" name="deliveryMethod" required>
+                <option value="">-- Chọn phương thức nhận hàng --</option>
                 <option value="Giao Hàng Tận Nơi">Giao Hàng Tận Nơi (Có Phí Giao Hàng)</option>
                 <option value="Nhận Tại Cửa Hàng">Nhận Tại Cửa Hàng</option>
             </select>
+        </div>
+
+        <div id="storeAddress" style="display: none; margin-top: 20px;">
+            <h5>Địa chỉ cửa hàng:</h5>
+            <p>123 Đường ABC, Phường XYZ, Quận 3, Đà Nẵng</p>
+        </div>
+
+        <div id="deliveryForm" style="display: none; margin-top: 20px;">
+            <div class="mb-3">
+                <label for="province" class="form-label">Tỉnh/Thành phố</label>
+                <select class="form-select" id="province" required>
+                    <option value="">-- Chọn Tỉnh/Thành phố --</option>
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+                    <option value="Đà Nẵng">Đà Nẵng</option>
+                    <!-- Thêm các tỉnh khác -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="district" class="form-label">Quận/Huyện</label>
+                <select class="form-select" id="district" required disabled>
+                    <option value="">-- Chọn Quận/Huyện --</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Địa chỉ chi tiết</label>
+                <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ chi tiết" required>
+            </div>
         </div>
 
         <h3>Chọn hình thức thanh toán</h3>
@@ -135,6 +164,52 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    const deliveryMethod = document.getElementById("deliveryMethod");
+    const storeAddress = document.getElementById("storeAddress");
+    const deliveryForm = document.getElementById("deliveryForm");
+    const province = document.getElementById("province");
+    const district = document.getElementById("district");
+
+    // Huyện theo tỉnh
+    const districtsByProvince = {
+        "Hà Nội": ["Ba Đình", "Hoàn Kiếm", "Tây Hồ", "Cầu Giấy", "Đống Đa"],
+        "TP Hồ Chí Minh": ["Quận 1", "Quận 3", "Quận 5", "Quận 7", "Quận 10"],
+        "Đà Nẵng": ["Hải Châu", "Thanh Khê", "Ngũ Hành Sơn", "Cẩm Lệ", "Liên Chiểu"]
+    };
+
+    // Xử lý khi thay đổi phương thức nhận hàng
+    deliveryMethod.addEventListener("change", () => {
+        const selectedMethod = deliveryMethod.value;
+        if (selectedMethod === "Nhận Tại Cửa Hàng") {
+            storeAddress.style.display = "block";
+            deliveryForm.style.display = "none";
+        } else if (selectedMethod === "Giao Hàng Tận Nơi") {
+            storeAddress.style.display = "none";
+            deliveryForm.style.display = "block";
+        } else {
+            storeAddress.style.display = "none";
+            deliveryForm.style.display = "none";
+        }
+    });
+
+    // Xử lý khi chọn tỉnh/thành phố
+    province.addEventListener("change", () => {
+        const selectedProvince = province.value;
+        district.innerHTML = "<option value=''>-- Chọn Quận/Huyện --</option>"; // Reset options
+        if (selectedProvince && districtsByProvince[selectedProvince]) {
+            districtsByProvince[selectedProvince].forEach(d => {
+                const option = document.createElement("option");
+                option.value = d;
+                option.textContent = d;
+                district.appendChild(option);
+            });
+            district.disabled = false;
+        } else {
+            district.disabled = true;
+        }
+    });
+
+
     document.getElementById('paymentMethod').addEventListener('change', function () {
         const selectedMethod = this.value; // Lấy giá trị đã chọn
         const bankInfo = document.getElementById('bankInfo');

@@ -1,4 +1,4 @@
-package com.example.casestudy.service.pay.impl;
+package com.example.casestudy.service.impl;
 
 import com.example.casestudy.model.Order;
 import com.example.casestudy.repository.OrderPayRepository;

@@ -2,9 +2,9 @@ package com.example.casestudy.controller;
 
 import com.example.casestudy.model.Order;
 import com.paypal.api.payments.Payment;
-import com.example.casestudy.service.pay.impl.OrderServiceImpl;
-import com.example.casestudy.service.pay.impl.PayPalService;
-import com.example.casestudy.service.pay.impl.PaymentService;
+import com.example.casestudy.service.impl.OrderServiceImpl;
+import com.example.casestudy.service.impl.PayPalService;
+import com.example.casestudy.service.impl.PaymentService;
 import com.paypal.api.payments.Links;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +62,10 @@ public class PaymentController {
                              @RequestParam("PayerID") String payerId, Model model) {
         try {
             Payment payment = payPalService.executePayment(paymentId, payerId);
-            model.addAttribute("payment", payment);
+            if (payment.getState().equals("approved")) {
+                model.addAttribute("payment", payment);
                 return "payment-success";
+            }
         } catch (PayPalRESTException e) {
             e.printStackTrace();
         }
