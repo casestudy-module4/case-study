@@ -5,6 +5,9 @@ import com.example.casestudy.model.Customer;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.ICategoryService;
 import com.example.casestudy.service.ICustomerService;
+import com.example.casestudy.service.IOrderService;
+import com.example.casestudy.service.IProductService;
+import com.example.casestudy.service.implement.AccountService;
 import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -29,6 +32,14 @@ public class AdminController {
 
     @Autowired
     private ICustomerService customerService;
+    @Autowired
+    private IOrderService orderService;
+
+    @Autowired
+    private IProductService productService;
+
+    @Autowired
+    private AccountService accountService;
     @Autowired
     private IProductService productService;
     @Autowired
@@ -202,6 +213,8 @@ public class AdminController {
         model.addAttribute("fullName", fullName);
         return new ModelAndView("customer", "customer", customerService.findByTitle(fullName, page));
     }
+
+    // Chỉ ADMIN có thể truy cập
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/customers/{id}")
     public String viewCustomer(@PathVariable int id, Model model) {
@@ -210,7 +223,7 @@ public class AdminController {
             throw new IllegalArgumentException("Customer not found with ID: " + id);
         }
         model.addAttribute("selectedCustomer", customer);
-        return "modalContent :: modalContent";
+        return "modalContent :: customer-details";
     }
 
     // Chỉ ADMIN có thể thực hiện xóa
@@ -227,5 +240,16 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("type", "success");
         }
         return "redirect:/admins/customers";
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/statistics")
+    public String getAdvancedCustomerStatistics(Model model) {
+        model.addAttribute("mostOrders", orderService.getCustomerWithMostOrders());
+        model.addAttribute("highestSpender", orderService.getCustomerWithHighestSpending());
+        model.addAttribute("popularProduct", productService.getMostPurchasedProduct());
+        model.addAttribute("salesData", productService.getSalesByMonth());
+        model.addAttribute("accountRegistrationData", accountService.getAccountRegistrationsByMonth());
+        return "statistic";
     }
 }
