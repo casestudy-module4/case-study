@@ -7,13 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
+    @Query("SELECT c.fullName, COUNT(o.id) FROM orders o JOIN o.customer c GROUP BY c.id, c.fullName ORDER BY COUNT(o.id) DESC")
+    List<Object[]> findCustomerWithMostOrders();
 
-
-    @Query("SELECT c.fullName, COUNT(o.id) AS orderCount, SUM(o.totalPrice) AS totalSpent " +
-            "FROM customers c JOIN oders o ON c.id = o.customer.id " +
-            "GROUP BY c.id")
-    List<Object[]> findCustomerOrderStatistics();
-
-    @Query("SELECT COUNT(DISTINCT o.customer.id) FROM oders o")
-    long countDistinctCustomersWithOrders();
+    @Query("SELECT c.fullName, SUM(o.totalPrice) FROM orders o JOIN o.customer c GROUP BY c.id, c.fullName ORDER BY SUM(o.totalPrice) DESC")
+    List<Object[]> findCustomerWithHighestSpending();
 }

@@ -3,6 +3,8 @@ package com.example.casestudy.controller;
 import com.example.casestudy.model.Customer;
 import com.example.casestudy.service.ICustomerService;
 import com.example.casestudy.service.IOrderService;
+import com.example.casestudy.service.IProductService;
+import com.example.casestudy.service.implement.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -10,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/admins")
@@ -21,6 +21,12 @@ public class AdminController {
     private ICustomerService customerService;
     @Autowired
     private IOrderService orderService;
+
+    @Autowired
+    private IProductService productService;
+
+    @Autowired
+    private AccountService accountService;
 
     // Chỉ ADMIN có thể truy cập
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -64,16 +70,13 @@ public class AdminController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/customers/advanced-statistics")
+    @GetMapping("/statistics")
     public String getAdvancedCustomerStatistics(Model model) {
-        List<Object[]> customerOrderStats = orderService.getCustomerOrderStatistics();
-        List<Object[]> customerByAddress = customerService.countCustomersByAddress();
-        List<Object[]> averageAgeByGender = customerService.calculateAverageAgeByGender();
-
-        model.addAttribute("customerOrderStats", customerOrderStats);
-        model.addAttribute("customerByAddress", customerByAddress);
-        model.addAttribute("averageAgeByGender", averageAgeByGender);
-
-        return "advancedCustomerStatistics";
+        model.addAttribute("mostOrders", orderService.getCustomerWithMostOrders());
+        model.addAttribute("highestSpender", orderService.getCustomerWithHighestSpending());
+        model.addAttribute("popularProduct", productService.getMostPurchasedProduct());
+        model.addAttribute("salesData", productService.getSalesByMonth());
+        model.addAttribute("accountRegistrationData", accountService.getAccountRegistrationsByMonth());
+        return "statistic";
     }
 }

@@ -35,7 +35,7 @@ public class Account {
     @Column(name = "role_user", nullable = false)
     private String role;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = true)
     private Customer customer;
 
@@ -43,6 +43,13 @@ public class Account {
 
     private LocalDateTime otpExpiry;
 
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createDate = LocalDateTime.now();
+    }
     // Getter cho email từ bảng Customer
     public String getEmail() {
         return customer != null ? customer.getEmail() : null;
