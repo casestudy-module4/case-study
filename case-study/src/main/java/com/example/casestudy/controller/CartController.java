@@ -22,20 +22,21 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public String addToCart(@RequestParam Long productId) {
+    public String addToCart(@RequestParam Integer productId) {
         cartService.addToCart(productId);
         return "redirect:/cart";
     }
 
     @PostMapping("/update")
-    public String updateCart(@RequestParam Long orderDetailId, @RequestParam int quantity) {
+    public String updateCart(@RequestParam Integer orderDetailId, @RequestParam int quantity) {
         cartService.updateCart(orderDetailId, quantity);
         return "redirect:/cart";
     }
 
     @PostMapping("/remove")
-    public String removeFromCart(@RequestParam Long orderDetailId) {
+    public String removeFromCart(@RequestParam Integer orderDetailId) {
         cartService.removeFromCart(orderDetailId);
         return "redirect:/cart";
     }
+
 }

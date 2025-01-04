@@ -4,6 +4,7 @@ import com.example.casestudy.model.Product;
 import com.example.casestudy.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class ProductService {
         return productRepository.findAll(pageable);
     }
 
-    public Page<Product> getProductsByCategory(Long categoryId, Pageable pageable) {
+    public Page<Product> getProductsByCategory(Integer categoryId, Pageable pageable) {
         return productRepository.findByCategoryId(categoryId, pageable);
     }
 
@@ -28,13 +29,8 @@ public class ProductService {
         return productRepository.findByNameContainingIgnoreCase(searchQuery, pageable);
     }
 
-    public Product getProductById(Long productId) {
+    public Product getProductById(Integer productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
     }
-
-    public List<Product> getTop4Products() {
-        return productRepository.findTop4ByOrderByIdAsc();
-    }
-
 }

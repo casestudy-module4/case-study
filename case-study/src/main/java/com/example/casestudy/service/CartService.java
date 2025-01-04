@@ -29,7 +29,7 @@ public class CartService {
                 .sum();
     }
 
-    public void addToCart(Long productId) {
+    public void addToCart(Integer productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Sản phẩm không tồn tại"));
 
@@ -47,14 +47,14 @@ public class CartService {
         }
     }
 
-    public void updateCart(Long orderDetailId, int quantity) {
+    public void updateCart(Integer orderDetailId, int quantity) {
         OrderDetails orderDetails = orderDetailsRepository.findById(orderDetailId)
                 .orElseThrow(() -> new RuntimeException("Chi tiết đơn hàng không tồn tại"));
         orderDetails.setQuantity(quantity);
         orderDetailsRepository.save(orderDetails);
     }
 
-    public void removeFromCart(Long orderDetailId) {
+    public void removeFromCart(Integer orderDetailId) {
         orderDetailsRepository.deleteById(orderDetailId);
     }
 }
