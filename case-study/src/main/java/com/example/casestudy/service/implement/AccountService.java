@@ -11,6 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class AccountService implements UserDetailsService {
@@ -86,5 +89,14 @@ public class AccountService implements UserDetailsService {
         }
         account.setResPassword(passwordEncoder.encode(newPassword));
         iAccountRepository.save(account);
+    }
+
+    public Map<Integer, Integer> getAccountRegistrationsByMonth() {
+        List<Object[]> results = iAccountRepository.findAccountRegistrationsByMonth();
+        Map<Integer, Integer> registrationData = new HashMap<>();
+        for (Object[] result : results) {
+            registrationData.put((Integer) result[0], ((Number) result[1]).intValue());
+        }
+        return registrationData;
     }
 }
