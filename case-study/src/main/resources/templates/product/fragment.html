@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<div th:fragment="modal-delete">
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to delete this product " <span id="productNameToDelete"></span> " with ID = <span id="productIdToDelete"></span>?
+                </div>
+                <div class="modal-footer">
+                    <a id="deleteButton" href="/admins/home/id/delete" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="modal-confirm-update">
+    <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="examplesModalLabel">Confirm Update</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to update this product "<span id="productNameToUpdate"></span>" with ID = <span id="productIdToUpdate"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a id="updateButton" href="" class="btn btn-danger">Update</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="modal-update">
+    <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="updateProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateProductModalLabel">Update Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/admins/home/id/update" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productPrice" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="productPrice" name="price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="productDescription" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productPackagingDate" class="form-label">Packaging Date</label>
+                            <input type="date" class="form-control" id="productPackagingDate" name="productPackagingDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="totalProductQuantity" class="form-label">Total Quantity</label>
+                            <input type="number" class="form-control" id="totalProductQuantity" name="totalProductQuantity" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="images" class="form-label"></label>
+                            <input type="file" class="form-control" id="images" name="images" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <select id="category" name="category.id" class="form-control" >
+                                <option value="">Select Category</option>
+                                <th:block th:each="category : ${categories}">
+                                    <option th:value="${category.id}" th:text="${category.nameCategory}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="modal-create">
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/admins/home/create" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="productsName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productsName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productsPrice" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="productsPrice" name="price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productsDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="productsDescription" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productsPackagingDate" class="form-label">Packaging Date</label>
+                            <input type="date" class="form-control" id="productsPackagingDate" name="productPackagingDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="totalProductsQuantity" class="form-label">Total Quantity</label>
+                            <input type="number" class="form-control" id="totalProductsQuantity" name="totalProductQuantity" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image1" class="form-label"></label>
+                            <input type="file" class="form-control-file" id="image1" name="image1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <select id="category" name="category.id" class="form-control" >
+                                <option value="">Select Category</option>
+                                <th:block th:each="category : ${categories}">
+                                    <option th:value="${category.id}" th:text="${category.nameCategory}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add New Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="modal-detail">
+<div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productDetailModalLabel">Product Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="productImage" src="" alt="Product Image" class="img-fluid" style="max-height: 300px;">
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>ID:</strong> <span id="productId"></span></p>
+                        <p><strong>Name:</strong> <span id="productNames"></span></p>
+                        <p><strong>Price:</strong> <span id="productPrices"></span></p>
+                        <p><strong>Description:</strong> <span id="productDescriptions" style="word-wrap: break-word; word-break: break-all; white-space: normal;"></span></p>
+                        <p><strong>Packaging Date:</strong> <span id="productPackagingDates"></span></p>
+                        <p><strong>Total Quantity:</strong> <span id="totalsProductQuantity"></span></p>
+                        <p><strong>Remaining Quantity:</strong> <span id="remainProductQuantity"></span></p>
+                        <p><strong>Category:</strong> <span id="productCategory"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="modal-viewImage">
+<div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imagePreviewModalLabel">Image Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="previewImage" src="" alt="Event Image Preview" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+</body>
+</html>

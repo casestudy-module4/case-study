@@ -6,10 +6,11 @@ import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class ProductService implements IProductService {
@@ -45,10 +46,8 @@ public class ProductService implements IProductService {
         productRepository.deleteById(id);
         return true;
     }
-
     @Override
     public Product findById(int id) {
         return productRepository.findById(id).orElse(null);
     }
-
 }

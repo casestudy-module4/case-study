@@ -14,7 +14,7 @@
     <div th:replace="sidebar.html :: sidebar"></div>
     <div class="main p-4">
         <div class="d-flex justify-content-end mb-3">
-            <form class="d-flex" style="width: 20%;" role="search" method="get" action="/home/category">
+            <form class="d-flex" style="width: 20%;" role="search" method="get" action="/admins/category">
                 <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success bi bi-search" type="submit"></button>
             </form>
@@ -22,8 +22,8 @@
         <div class="text-center mb-4">
             <h1>Category Management</h1>
         </div>
-        <a href="/home/category/show-add" class="mb-3 btn btn-success btn-sm bi bi-plus-lg"> Add Category</a>
-        <table class="table table-hover align-middle">
+        <button class="btn btn-success mb-3 btn-sm bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</button>
+        <table class="table table-hover align-middle table-sm">
             <thead class="table-light">
             <tr>
                 <th scope="col">#</th>
@@ -37,13 +37,18 @@
                 <td th:text="${category.nameCategory}"></td>
                 <td>
                     <a href="#"
-                       class="btn btn-danger bi bi-trash3"
+                       class="btn btn-danger btn-sm bi bi-trash3"
                        th:data-id="${category.id}"
                        th:data-name="${category.nameCategory}"
                        th:onclick="deleteModal(this.getAttribute('data-id'), this.getAttribute('data-name'))">
-                        Delete
                     </a>
-                    <a th:href="@{/home/category/{id}/edit(id=${category.id})}" class="btn btn-sm btn-info"> Edit</a>
+                    <a href="#"
+                       class="btn btn-sm btn-primary"
+                       th:data-id="${category.id}"
+                       th:data-name="${category.nameCategory}"
+                       th:onclick="updateModal(this.getAttribute('data-id'), this.getAttribute('data-name'))">
+                        <i class="bi bi-pencil"></i>
+                    </a>
                 </td>
             </tr>
             <tr th:if="${categories.isEmpty()}">
@@ -53,15 +58,30 @@
         </table>
     </div>
 </div>
+<div th:replace="category/fragment :: modal-delete"></div>
+<div th:replace="category/fragment :: modal-confirm-update"></div>
+<div th:replace="category/fragment :: modal-update"></div>
+<div th:replace="category/fragment :: modal-create"></div>
 <script th:inline="javascript">
     function deleteModal(categoryId, categoryName){
-    console.log("Category ID: ", categoryId);
-    console.log("Category Name: ", categoryName);
         document.getElementById("categoryIdToDelete").innerText = categoryId;
         document.getElementById("categoryNameToDelete").innerText = categoryName;
-        let deleteLink = "/home/category/" + categoryId + "/delete";
+        let deleteLink = "/admins/category/" + categoryId + "/delete";
         document.getElementById("deleteButton").setAttribute("href", deleteLink);
         let myModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+        myModal.show();
+    }
+</script>
+<script th:inline="javascript">
+    function updateModal(categoryId, categoryName){
+        document.getElementById("categoryIdToUpdate").inertText = categoryId;
+        document.getElementById("categoryNameToUpdate").innerText = categoryName;
+        document.getElementById("updateCategoryModalLabel").innerText = "Update category "+ categoryName + " with - ID: " + categoryId;
+        let updateLink = "/admins/category/" + categoryId + "/update" ;
+        let form = document.querySelector('#updateCategoryModal form');
+        form.setAttribute("action", updateLink);
+
+        let myModal = new bootstrap.Modal(document.getElementById('updateCategoryModal'));
         myModal.show();
     }
 </script>
