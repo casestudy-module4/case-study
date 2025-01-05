@@ -61,10 +61,6 @@ public class AdminController {
 
         model.addAttribute("categories", categoryService.getAll());
 
-        List<Category> categoryList = categoryService.getAll();
-        for(Category category: categoryList){
-            System.out.println("category.getId()category.getId()category.getId()" + category.getId());
-        }
         return "product/home";
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -98,8 +94,7 @@ public class AdminController {
             return "product/home";
         }
         if(product.getId()==null || productService.findById(product.getId()) == null) {
-            //tinh toán sl còn lại
-            product.setRemainProductQuantity(12);
+            product.setRemainProductQuantity(product.getTotalProductQuantity());
             productService.addNew(product);
         }else {
             throw new DuplicateKeyException("Product already exists");
@@ -138,8 +133,7 @@ public class AdminController {
         }
 
         if (product.getId() != null || productService.findById(product.getId()) != null) {
-            //tinh toán sl còn lại
-            product.setRemainProductQuantity(12);
+            product.setRemainProductQuantity(product.getTotalProductQuantity());
             productService.update(id, product);
         } else {
             throw new DuplicateKeyException("Product already exists");
@@ -162,7 +156,7 @@ public class AdminController {
     @GetMapping("/home/{id}")
     public String detailProduct(@PathVariable int id, Model model) {
         model.addAttribute("product", productService.findById(id));
-//        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("remainQuantity", productService.remainProductCount(id));
         return "product/fragment";
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -267,26 +261,8 @@ public class AdminController {
         boolean isPaymentSuccessful = paymentService.processPayment(paymentRequest);
 
         if (isPaymentSuccessful) {
-            try {
-                int customerId = paymentRequest.getCustomerId();
-                Customer customer = customerService.findById(customerId);
-
-                if (customer == null) {
-                    model.addAttribute("error", "Customer not found.");
-                    return "error-page";
-                }
-                String customerName = customer.getFullName();
-                String email = customer.getEmail();
-                String orderId = paymentRequest.getOrderId().toString();
-                String amount = paymentRequest.getAmount().toString();
-                emailService.sendPaymentSuccessEmail(email, customerName, orderId, amount);
-                model.addAttribute("message", "Payment successful! Email sent to " + email);
-                return "success-page";
-
-            } catch (Exception e) {
-                model.addAttribute("error", "Payment successful, but failed to send email.");
-                return "error-page";
-            }
+            model.addAttribute("message", "Payment successful! Email sent to customer.");
+            return "success-page";
         } else {
             model.addAttribute("error", "Payment failed.");
             return "error-page";
