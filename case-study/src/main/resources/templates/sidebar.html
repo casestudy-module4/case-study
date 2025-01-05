@@ -9,9 +9,15 @@
     </div>
     <ul class="sidebar-nav">
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a th:href="@{/admins/home}" class="sidebar-link">
                 <i class="bi bi-list"></i>
-                <span>Danh sách sản phẩm</span>
+                <span>Product List</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a th:href="@{/admins/category}" class="sidebar-link">
+                <i class="bi bi-tags"></i>
+                <span>Category List</span>
             </a>
         </li>
         <li class="sidebar-item">
@@ -23,14 +29,14 @@
         <li class="sidebar-item">
             <a href="/admins/statistics" class="sidebar-link">
                 <i class="bi bi-bar-chart-fill"></i>
-                <span>Thống kê</span>
+                <span>Statistic</span>
             </a>
         </li>
         <li class="sidebar-item">
             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="bi bi-gear"></i>
-                <span>Cài đặt</span>
+                <span>Setting</span>
             </a>
             <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
@@ -45,7 +51,7 @@
     <div class="sidebar-footer">
         <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#logoutModal">
             <i class="lni lni-exit"></i>
-            <span>Đăng xuất</span>
+            <span>Logout</span>
         </a>
     </div>
 </aside>
