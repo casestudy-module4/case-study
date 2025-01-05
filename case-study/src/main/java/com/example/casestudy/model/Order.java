@@ -4,6 +4,7 @@ import com.example.casestudy.model.Customer;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -31,4 +32,5 @@ public class Order {
 
     @Column(nullable = false)
     private Double totalPrice;
+
 }

@@ -1,4 +1,4 @@
-package com.example.casestudy.service.imple;
+package com.example.casestudy.service.implement;
 
 import com.example.casestudy.model.Category;
 import com.example.casestudy.model.Product;

@@ -79,14 +79,28 @@
                 </tr>
                 </tbody>
             </table>
+            <div th:if="${products != null}">
+                <div class="pagination">
+                    <button th:if="${products.hasPrevious()}" class="btn btn-outline-primary"
+                            th:attr="onclick='location.href=\'/admins/home?page=' + ${products.number - 1} + '\''" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </button>
+                    <button th:if="${products.hasNext()}" class="btn btn-outline-primary"
+                            th:attr="onclick='location.href=\'/admins/home?page=' + ${products.number + 1} + '\''" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </button>
+                </div>
+            </div>
+            <div th:if="${message != null}" id="message-container">
+                <strong><p style="color:green;" th:text="${message}"></p></strong>
+            </div>
+            <div th:if="${error != null}">
+                <strong><p style="color:red;" th:text="${error}"></p></strong>
+            </div>
         </div>
     </div>
-    <div th:if="${message != null}">
-        <strong><p style="color:green;" th:text="${message}"></p></strong>
-    </div>
-    <div th:if="${error != null}">
-        <strong><p style="color:red;" th:text="${error}"></p></strong>
-    </div>
+
+
     <div th:replace="product/fragment :: modal-delete"></div>
     <div th:replace="product/fragment :: modal-confirm-update"></div>
     <div th:replace="product/fragment :: modal-update"></div>
@@ -102,6 +116,15 @@
                 return new bootstrap.Tooltip(tooltipTriggerEl);
             });
         });
+    </script>
+    <script>
+
+        var messageContainer = document.getElementById('message-container');
+        if (messageContainer) {
+            setTimeout(function() {
+                messageContainer.style.display = 'none';
+            }, 3000);
+        }
     </script>
     <script th:inline="javascript">
         function updateModal(productId, productName){

@@ -1,5 +1,6 @@
 package com.example.casestudy.controller;
 
+import com.example.casestudy.dto.PaymentRequest;
 import com.example.casestudy.model.Category;
 import com.example.casestudy.model.Customer;
 import com.example.casestudy.model.Product;
@@ -9,9 +10,13 @@ import com.example.casestudy.service.IOrderService;
 import com.example.casestudy.service.IProductService;
 import com.example.casestudy.service.implement.AccountService;
 import com.example.casestudy.service.IProductService;
+import com.example.casestudy.service.implement.EmailService;
+import com.example.casestudy.service.implement.PaymentService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,20 +39,24 @@ public class AdminController {
     private ICustomerService customerService;
     @Autowired
     private IOrderService orderService;
-
+    @Autowired
+    private PaymentService paymentService;
     @Autowired
     private IProductService productService;
 
     @Autowired
     private AccountService accountService;
     @Autowired
-    private IProductService productService;
-    @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private EmailService emailService;
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/home")
-    public String showHomePage(@RequestParam(defaultValue = "") String name, Model model) {
-        Page<Product> products = productService.findAll(name, 0);
+    public String showHomePage(@RequestParam(defaultValue = "") String name, Model model, @RequestParam(defaultValue = "0") int page) {
+        if(page < 0){
+            page = 0;
+        }
+        Page<Product> products = productService.findAll(name, page);
         model.addAttribute("products", products);
 
         model.addAttribute("categories", categoryService.getAll());
@@ -251,5 +260,36 @@ public class AdminController {
         model.addAttribute("salesData", productService.getSalesByMonth());
         model.addAttribute("accountRegistrationData", accountService.getAccountRegistrationsByMonth());
         return "statistic";
+    }
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PostMapping("/process-payment")
+    public String processPayment(@RequestBody PaymentRequest paymentRequest, Model model) throws MessagingException {
+        boolean isPaymentSuccessful = paymentService.processPayment(paymentRequest);
+
+        if (isPaymentSuccessful) {
+            try {
+                int customerId = paymentRequest.getCustomerId();
+                Customer customer = customerService.findById(customerId);
+
+                if (customer == null) {
+                    model.addAttribute("error", "Customer not found.");
+                    return "error-page";
+                }
+                String customerName = customer.getFullName();
+                String email = customer.getEmail();
+                String orderId = paymentRequest.getOrderId().toString();
+                String amount = paymentRequest.getAmount().toString();
+                emailService.sendPaymentSuccessEmail(email, customerName, orderId, amount);
+                model.addAttribute("message", "Payment successful! Email sent to " + email);
+                return "success-page";
+
+            } catch (Exception e) {
+                model.addAttribute("error", "Payment successful, but failed to send email.");
+                return "error-page";
+            }
+        } else {
+            model.addAttribute("error", "Payment failed.");
+            return "error-page";
+        }
     }
 }
