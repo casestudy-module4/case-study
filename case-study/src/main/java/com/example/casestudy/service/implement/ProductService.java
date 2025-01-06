@@ -20,6 +20,12 @@ public class ProductService implements IProductService {
     public Page<Product> findAll(String name, Integer pageable) {
         return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 10));
     }
+
+    @Override
+    public Integer remainProductCount(int idProduct) {
+        return productRepository.findRemainProductQuantity(idProduct);
+    }
+
     @Override
     public void addNew(Product product) {
         productRepository.save(product);

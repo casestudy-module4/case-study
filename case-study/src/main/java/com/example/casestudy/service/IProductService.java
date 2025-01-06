@@ -9,4 +9,5 @@ public interface IProductService extends IBaseService<Product>{
     Map<String, Object> getMostPurchasedProduct();
     Map<Integer, Integer> getSalesByMonth();
     Page<Product> findAll(String name, Integer pageable);
+    Integer remainProductCount(int idProduct);
 }
