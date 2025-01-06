@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .product-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-container img {
+      max-width: 100%;
+      height: auto;
+    }
+    .product-details {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <h3>Product Details</h3>
+  </div>
+  <hr>
+  <div id="product-detail">
+    <!-- Sẽ hiển thị thông tin chi tiết sản phẩm ở đây -->
+  </div>
+</div>
+
+<script>
+  // Hàm để lấy giá trị query parameter từ URL
+  function getQueryParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+  }
+
+  // Hàm lấy thông tin chi tiết sản phẩm theo ID
+  function getProductDetails(id) {
+    // Thông tin sản phẩm (dữ liệu mẫu, bạn có thể thay bằng API hoặc cơ sở dữ liệu thực tế)
+    const products = [
+      { id: 1, name: 'Product 1', description: 'Detailed description of Product 1', image: 'cong_chuc_hoa_-_note_ecff0155b58241ae8c68adba5defaaf2_large.webp' },
+      { id: 2, name: 'Product 2', description: 'Detailed description of Product 2', image: 'cong_chuc_hoa_-_note_ecff0155b58241ae8c68adba5defaaf2_large.webp' },
+      { id: 3, name: 'Product 3', description: 'Detailed description of Product 3', image: 'cong_chuc_hoa_-_note_ecff0155b58241ae8c68adba5defaaf2_large.webp' }
+    ];
+
+    // Tìm sản phẩm theo ID
+    return products.find(product => product.id == id);
+  }
+
+  // Lấy id sản phẩm từ query parameter trong URL
+  const productId = getQueryParam('id');
+
+  // Lấy thông tin chi tiết sản phẩm dựa trên id
+  const product = getProductDetails(productId);
+
+  // Nếu tìm thấy sản phẩm, hiển thị thông tin chi tiết
+  if (product) {
+    document.getElementById('product-detail').innerHTML = `
+                <div class="row product-container">
+                    <div class="col-md-6">
+                        <img class="img-fluid" src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="col-md-6 product-details">
+                        <h4 class="card-title">${product.name}</h4>
+                        <p class="card-text">${product.description}</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+  } else {
+    document.getElementById('product-detail').innerHTML = '<p>Product not found</p>';
+  }
+</script>
+</body>
+</html>

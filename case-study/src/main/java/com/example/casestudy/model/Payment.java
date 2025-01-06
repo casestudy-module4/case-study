@@ -1,41 +1,41 @@
-package com.example.casestudy.model;
+    package com.example.casestudy.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+    import jakarta.persistence.*;
+    import lombok.*;
 
-import java.time.LocalDateTime;
+    import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "payments")
-public class Payment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Entity(name = "payments")
+    public class Payment {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_order", nullable = false)
-    private Order order;
+        @ManyToOne
+        @JoinColumn(name = "id_order", nullable = false)
+        private Order order;
 
-    @Column(nullable = false)
-    private LocalDateTime paymentDate;
+        @Column(nullable = false)
+        private LocalDateTime paymentDate;
 
-    @Column(nullable = false)
-    private Double amount;
+        @Column(nullable = false)
+        private Double amount;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private PaymentMethod paymentMethod;
+        @Enumerated(EnumType.STRING)
+        @Column(nullable = false)
+        private PaymentMethod paymentMethod;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'pending'")
-    private PaymentStatus status;
-    public enum PaymentMethod {
-        CREDIT_CARD, PAYPAL, BANK_TRANSFER, CASH
+        @Enumerated(EnumType.STRING)
+        @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'pending'")
+        private PaymentStatus status;
+        public enum PaymentMethod {
+            CREDIT_CARD, PAYPAL, BANK_TRANSFER, CASH
+        }
+        public enum PaymentStatus {
+            PENDING, COMPLETED, FAILED
+        }
     }
-    public enum PaymentStatus {
-        PENDING, COMPLETED, FAILED
-    }
-}

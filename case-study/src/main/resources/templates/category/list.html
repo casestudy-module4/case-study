@@ -67,6 +67,7 @@
 <div th:replace="category/fragment :: modal-update"></div>
 <div th:replace="category/fragment :: modal-create"></div>
 <div th:insert="fragment/logout.html :: logout-modal"></div>
+<div th:insert="fragment/toast.html :: toast"></div>
 <div th:replace="fragment/changePasswordModal.html :: change-password-modal"></div>
 <script th:inline="javascript">
     function deleteModal(categoryId, categoryName){
@@ -86,7 +87,7 @@
         let updateLink = "/admins/category/" + categoryId + "/update";
         let form = document.querySelector('#updateCategoryModal form');
         form.setAttribute("action", updateLink);
-
+        document.getElementById('categoryName').value = categoryName;
         let myModal = new bootstrap.Modal(document.getElementById('updateCategoryModal'));
         myModal.show();
     }

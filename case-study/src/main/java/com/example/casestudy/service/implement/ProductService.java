@@ -1,11 +1,14 @@
 package com.example.casestudy.service.implement;
 
+import com.example.casestudy.dto.ProductSalesDTO;
 import com.example.casestudy.model.Product;
+import com.example.casestudy.repository.OrderDetailRepository;
 import com.example.casestudy.repository.ProductRepository;
 import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,14 +19,34 @@ import java.util.Map;
 public class ProductService implements IProductService {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+    public Integer soldQuantityProduct(int idProduct){
+        return orderDetailRepository.calculateTotalSoldByProductWithCompletedPayments(idProduct);
+    }
     @Override
     public Page<Product> findAll(String name, Integer pageable) {
-        return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 10));
+        return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 5));
     }
 
     @Override
     public Integer remainProductCount(int idProduct) {
         return productRepository.findRemainProductQuantity(idProduct);
+    }
+
+    @Override
+    public Page<Product> findByName(String name, Integer page) {
+        return productRepository.findByNameContainingIgnoreCase(name, PageRequest.of(page, 5));
+    }
+
+    @Override
+    public Page<Product> getProductsByCategory(Integer id, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<Product> searchProductsByName(String searchName, Pageable pageable) {
+        return null;
     }
 
     @Override

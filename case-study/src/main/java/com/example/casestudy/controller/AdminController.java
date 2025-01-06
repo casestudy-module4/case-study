@@ -12,6 +12,7 @@ import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +25,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.List;
-
+import java.util.Locale;
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @Controller
 @RequestMapping("/admins")
 public class AdminController {
@@ -53,7 +56,7 @@ public class AdminController {
         if(page < 0){
             page = 0;
         }
-        Page<Product> products = productService.findAll(name, page);
+        Page<Product> products = productService.findByName(name, page);
         model.addAttribute("products", products);
 
         model.addAttribute("categories", categoryService.getAll());
@@ -158,8 +161,11 @@ public class AdminController {
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/category")
-    public String category(@RequestParam(defaultValue = "") String name, Model model) {
-        List<Category> categories = categoryService.getAll();
+    public String category(@RequestParam(defaultValue = "") String name, Model model, @RequestParam(defaultValue = "0") int page) {
+        if(page < 0){
+            page = 0;
+        }
+        Page<Category> categories = categoryService.findByName(name, page);
         model.addAttribute("categories", categories);
         return "category/list";
     }
@@ -186,8 +192,9 @@ public class AdminController {
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/category/{id}/update")
-    public String updateProduct(@PathVariable int id, @ModelAttribute Category category) {
+    public String updateProduct(@PathVariable int id, @ModelAttribute Category category, RedirectAttributes redirectAttributes) {
         categoryService.update(id, category);
+        redirectAttributes.addFlashAttribute("message", "Updated category successfully");
         return "redirect:/admins/category";
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -201,6 +208,7 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("message", "Delete category successfully");
         return "redirect:/admins/category";
     }
+
     // Chỉ ADMIN có thể truy cập
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/customers")
