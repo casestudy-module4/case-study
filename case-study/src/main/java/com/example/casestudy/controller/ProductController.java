@@ -2,8 +2,8 @@ package com.example.casestudy.controller;
 
 import com.example.casestudy.model.Category;
 import com.example.casestudy.model.Product;
-import com.example.casestudy.service.CategoryService;
-import com.example.casestudy.service.ProductService;
+import com.example.casestudy.service.ICategoryService;
+import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,18 +18,19 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
+    private IProductService productService;
 
     @Autowired
-    private CategoryService categoryService;
+    private ICategoryService categoryService;
 
     @GetMapping
     public String getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
                               @RequestParam(name = "searchQuery", required = false, defaultValue = "") String searchQuery,
                               @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "") String name,
                               Model model) {
 
-        List<Category> categories = categoryService.getAllCategories();
+        List<Category> categories = categoryService.getAll();
         model.addAttribute("categories", categories);
 
         Page<Product> productPage;
@@ -40,12 +41,16 @@ public class ProductController {
             if (categoryId != null) {
                 productPage = productService.getProductsByCategory(categoryId, PageRequest.of(page, 8));
             } else {
-                productPage = productService.getAllProducts(PageRequest.of(page, 8));
+                if(page < 0){
+                    page = 0;
+                }
+                Page<Product> products = productService.findAll(name, page);
+                model.addAttribute("products", products);
+
+                model.addAttribute("categories", categoryService.getAll());
             }
         }
 
-        model.addAttribute("products", productPage.getContent());
-        model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("searchQuery", searchQuery);
@@ -56,12 +61,12 @@ public class ProductController {
     @GetMapping("/details")
     @ResponseBody
     public Product getProductDetails(@RequestParam Integer productId) {
-        return productService.getProductById(productId);
+        return productService.findById(productId);
     }
 
     @PostMapping("/add")
     public String addToCart(@RequestParam Integer productId, @RequestParam int quantity, @SessionAttribute("cart") List<Product> cart) {
-        Product product = productService.getProductById(productId);
+        Product product = productService.findById(productId);
 
         for (int i = 0; i < quantity; i++) {
             cart.add(product);

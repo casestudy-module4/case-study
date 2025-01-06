@@ -1,11 +1,9 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.dto.CartItem;
-import com.example.casestudy.model.Order;
-import com.example.casestudy.model.OrderDetails;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.CartService;
-import com.example.casestudy.service.ProductService;
+import com.example.casestudy.service.IProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,17 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/checkout")
 public class CheckoutController {
 
     @Autowired
-    private ProductService productService;
+    private IProductService productService;
 
     @Autowired
     private CartService cartService;
@@ -39,7 +35,7 @@ public class CheckoutController {
         if (productIds != null && !productIds.isEmpty() && quantities != null && quantities.size() == productIds.size()) {
             List<CartItem> selectedItems = new ArrayList<>();
             for (int i = 0; i < productIds.size(); i++) {
-                Product product = productService.getProductById(productIds.get(i));
+                Product product = productService.getById(productIds.get(i));
                 int quantity = quantities.get(i);
                 selectedItems.add(new CartItem(product, quantity));  // CartItem contains product and quantity
             }
@@ -97,7 +93,7 @@ public class CheckoutController {
         for (CartItem item : selectedItems) {
             Product product = item.getProduct();
             product.setRemainProductQuantity(product.getRemainProductQuantity() - item.getQuantity());
-            productService.updateProduct(product);
+            productService.update(0,product);
         }
 
         // Remove selected items from the cart

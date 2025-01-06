@@ -31,6 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "WHERE p.id = :productId AND pay.status = com.example.casestudy.model.Payment.PaymentStatus.COMPLETED " +
             "GROUP BY p.id")
     Integer findRemainProductQuantity(@Param("productId") Integer productId);
+
     Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
     Optional<Product> findById(Integer id);
