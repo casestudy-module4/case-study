@@ -14,8 +14,10 @@ public interface IProductService extends IBaseService<Product> {
     Page<Product> findAll(String name, Integer pageable);
 
     Integer remainProductCount(int idProduct);
+    Page<Product> findByName(String name, Integer page);
 
     Page<Product> getProductsByCategory(Integer id, Pageable pageable);
 
     Page<Product> searchProductsByName(String searchName,Pageable pageable);
+
 }
