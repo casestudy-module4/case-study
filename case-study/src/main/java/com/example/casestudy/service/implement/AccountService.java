@@ -3,6 +3,7 @@ package com.example.casestudy.service.implement;
 import com.example.casestudy.dto.UserInfoUserDetails;
 import com.example.casestudy.model.Account;
 import com.example.casestudy.repository.AccountRepository;
+import com.example.casestudy.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class AccountService implements UserDetailsService {
+public class AccountService implements UserDetailsService, IAccountService {
     @Autowired
     private AccountRepository iAccountRepository;
     @Autowired
@@ -98,5 +99,10 @@ public class AccountService implements UserDetailsService {
             registrationData.put((Integer) result[0], ((Number) result[1]).intValue());
         }
         return registrationData;
+    }
+
+    @Override
+    public List<Account> findAll() {
+        return iAccountRepository.findAll();
     }
 }

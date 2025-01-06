@@ -1,5 +1,6 @@
 package com.example.casestudy.service.implement;
 
+import com.example.casestudy.model.Order;
 import com.example.casestudy.repository.OrderRepository;
 import com.example.casestudy.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,10 @@ public class OderService implements IOrderService {
         defaultData.put("customerName", "N/A");
         defaultData.put("totalSpending", 0);
         return defaultData;
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll();
     }
 }
