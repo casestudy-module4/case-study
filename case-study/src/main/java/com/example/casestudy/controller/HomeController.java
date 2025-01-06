@@ -38,6 +38,6 @@ public class HomeController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
 
-        return "home-use/home";
+        return "home";
     }
 }
