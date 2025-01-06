@@ -10,4 +10,6 @@ import java.util.Map;
 public interface IProductService {
 
     List<Product> getBestSellingProducts();
+
+    Page<Product> getAllProducts(Pageable pageable);
 }

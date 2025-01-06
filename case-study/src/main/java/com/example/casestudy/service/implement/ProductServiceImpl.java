@@ -35,6 +35,11 @@ public class ProductServiceImpl implements IProductService {
         return productRepository.findTop4ByOrderByQuantitySoldDesc();
     }
 
+    @Override
+    public Page<Product> getAllProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
 //
 //    @Override
 //    public void addNew(Product product) {
