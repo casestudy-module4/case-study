@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="wrapper">
-    <div th:replace="sidebar.html :: sidebar"></div>
+    <div th:replace="fragment/sidebar.html :: sidebar"></div>
     <div class="main p-4">
         <h1 class="text-center mt-3">Thống kê</h1>
         <div class="row mt-4">
@@ -69,10 +69,10 @@
             </div>
         </div>
     </div>
-    <div th:insert="logout.html :: logout-modal"></div>
-    <div th:replace="changePasswordModal.html :: change-password-modal"></div>
+    <div th:insert="fragment/logout.html :: logout-modal"></div>
+    <div th:replace="fragment/changePasswordModal.html :: change-password-modal"></div>
 </div>
-<div th:replace="script.html"></div>
+<div th:replace="fragment/script.html"></div>
 <script th:inline="javascript">
     let salesData = /*[[${salesData}]]*/ {};
     let labels = Object.keys(salesData).map(month => `Tháng ${month}`);
