@@ -33,7 +33,7 @@ public class Product {
     @NotNull(message = "Please update image")
     private String image;
     @NotNull
-    private Integer remainProductQuantity = totalProductQuantity;
+    private Integer remainProductQuantity;
     @ManyToOne
     @JoinColumn(name = "category", referencedColumnName = "id", nullable = false)
     private Category category;

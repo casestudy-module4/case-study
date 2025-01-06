@@ -4,13 +4,14 @@ import com.example.casestudy.model.Customer;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +32,5 @@ public class Order {
 
     @Column(nullable = false)
     private Double totalPrice;
+
 }
