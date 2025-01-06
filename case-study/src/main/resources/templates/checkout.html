@@ -147,30 +147,35 @@
 <div class="container my-5">
   <h1 class="text-center mb-4">Thanh Toán</h1>
 
-  <table class="table table-bordered table-hover">
-    <thead class="table-secondary">
-    <tr>
-      <th>Sản phẩm</th>
-      <th>Giá</th>
-      <th>Số lượng</th>
-      <th>Tổng</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="entry : ${cart.items}">
-      <td th:text="${entry.key.name}"></td>
-      <td th:text="${entry.key.price}" class="text-end"></td>
-      <td th:text="${entry.value}" class="text-center"></td>
-      <td th:text="${entry.key.price * entry.value}" class="text-end"></td>
-    </tr>
-    </tbody>
-  </table>
-
-  <div class="text-end fs-5">
-    <strong>Tổng cộng:</strong> <span th:text="${totalPrice}"></span>
+  <div class="fs-5 mb-4">
+    <strong>Tổng cộng:</strong> <span th:text="${totalPrice}">0</span> VND
   </div>
 
-  <form action="/process-payment" method="post" class="mt-4">
+  <!--  <div th:if="${message}" class="alert alert-info" th:text="${message}"></div>-->
+  <!--  <table class="table table-bordered table-hover">-->
+  <!--    <thead class="table-secondary">-->
+  <!--    <tr>-->
+  <!--      <th>Sản phẩm</th>-->
+  <!--      <th>Giá</th>-->
+  <!--      <th>Số lượng</th>-->
+  <!--      <th>Tổng</th>-->
+  <!--    </tr>-->
+  <!--    </thead>-->
+  <!--    <tbody>-->
+  <!--    <tr th:each="item : ${cartItems}">-->
+  <!--      <td th:text="${item.product.name}"></td>-->
+  <!--      <td th:text="${item.product.price}" class="text-end"></td>-->
+  <!--      <td th:text="${item.quantity}" class="text-center"></td>-->
+  <!--      <td th:text="${item.product.price * item.quantity}" class="text-end"></td>-->
+  <!--    </tr>-->
+  <!--    </tbody>-->
+  <!--  </table>-->
+
+  <!--  <div class="text-end fs-5" th:if="${totalPrice}">-->
+  <!--    <strong>Tổng cộng:</strong> <span th:text="${totalPrice}"></span>-->
+  <!--  </div>-->
+
+  <form id="checkoutForm" th:action="@{/process-payment}" method="post" class="mt-4">
     <h3>Thông tin khách hàng</h3>
     <div class="mb-3">
       <label for="name" class="form-label">Họ và tên</label>
@@ -189,9 +194,38 @@
     <div class="mb-3">
       <label for="deliveryMethod" class="form-label">Phương thức nhận hàng</label>
       <select class="form-select" id="deliveryMethod" name="deliveryMethod" required>
+        <option value="">-- Chọn phương thức nhận hàng --</option>
         <option value="Giao Hàng Tận Nơi">Giao Hàng Tận Nơi (Có Phí Giao Hàng)</option>
         <option value="Nhận Tại Cửa Hàng">Nhận Tại Cửa Hàng</option>
       </select>
+    </div>
+
+    <div id="storeAddress" style="display: none; margin-top: 20px;">
+      <h5>Địa chỉ cửa hàng:</h5>
+      <p>123 Đường ABC, Phường XYZ, Quận 3, Đà Nẵng</p>
+    </div>
+
+    <div id="deliveryForm" style="display: none; margin-top: 20px;">
+      <div class="mb-3">
+        <label for="province" class="form-label">Tỉnh/Thành phố</label>
+        <select class="form-select" id="province" required>
+          <option value="">-- Chọn Tỉnh/Thành phố --</option>
+          <option value="Hà Nội">Hà Nội</option>
+          <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+          <option value="Đà Nẵng">Đà Nẵng</option>
+          <!-- Thêm các tỉnh khác -->
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="district" class="form-label">Quận/Huyện</label>
+        <select class="form-select" id="district" required disabled>
+          <option value="">-- Chọn Quận/Huyện --</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="address" class="form-label">Địa chỉ chi tiết</label>
+        <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ chi tiết" required>
+      </div>
     </div>
 
     <h3>Chọn hình thức thanh toán</h3>
@@ -201,8 +235,13 @@
         <option value="none">-- Chọn hình thức thanh toán --</option>
         <option value="bankTransfer">Chuyển khoản qua ngân hàng</option>
         <option value="cash">Thanh toán khi nhận hàng</option>
-        <option value="paypal">Paypal</option>
+        <option value="PayPal">Paypal</option>
       </select>
+    </div>
+
+    <div id="paypalInfo" style="display: none;">
+      <p>Bạn đã chọn thanh toán qua PayPal. Nhấn vào nút dưới đây để tiếp tục.</p>
+      <button id="proceedToPayPal" class="btn btn-primary">Thanh toán với PayPal</button>
     </div>
 
     <div id="bankInfo" style="display: none; margin-top: 20px;">
@@ -212,6 +251,8 @@
         <li>Sacombank - CN Đà Nẵng: 0356559427</li>
         <li>Agribank - CN Đà Nẵng: 37499456688</li>
       </ul>
+      <p>Chủ tài khoản: Công ty ABC</p>
+      <p>Nội dung chuyển khoản: Thanh toán đơn hàng [Mã đơn hàng]</p>
       <p>Vui lòng nhấn nút "Đặt hàng" để hoàn tất. Hoặc liên hệ Hotline: <strong>0397.765.888</strong> để được tư vấn.</p>
     </div>
 
@@ -227,8 +268,56 @@
 </div>
 
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AVYkW1aVTdi_mwkha_zDeQvfpP1wHKoQiKrb8g-CW-OQ6E3p2vfjAEQbI42SX7jMaAl8qKc53IuFjbVp;"></script>
 <script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const deliveryMethod = document.getElementById("deliveryMethod");
+  const storeAddress = document.getElementById("storeAddress");
+  const deliveryForm = document.getElementById("deliveryForm");
+  const province = document.getElementById("province");
+  const district = document.getElementById("district");
+
+  // Huyện theo tỉnh
+  const districtsByProvince = {
+    "Hà Nội": ["Ba Đình", "Hoàn Kiếm", "Tây Hồ", "Cầu Giấy", "Đống Đa"],
+    "TP Hồ Chí Minh": ["Quận 1", "Quận 3", "Quận 5", "Quận 7", "Quận 10"],
+    "Đà Nẵng": ["Hải Châu", "Thanh Khê", "Ngũ Hành Sơn", "Cẩm Lệ", "Liên Chiểu"]
+  };
+
+  // Xử lý khi thay đổi phương thức nhận hàng
+  deliveryMethod.addEventListener("change", () => {
+    const selectedMethod = deliveryMethod.value;
+    if (selectedMethod === "Nhận Tại Cửa Hàng") {
+      storeAddress.style.display = "block";
+      deliveryForm.style.display = "none";
+    } else if (selectedMethod === "Giao Hàng Tận Nơi") {
+      storeAddress.style.display = "none";
+      deliveryForm.style.display = "block";
+    } else {
+      storeAddress.style.display = "none";
+      deliveryForm.style.display = "none";
+    }
+  });
+
+  // Xử lý khi chọn tỉnh/thành phố
+  province.addEventListener("change", () => {
+    const selectedProvince = province.value;
+    district.innerHTML = "<option value=''>-- Chọn Quận/Huyện --</option>"; // Reset options
+    if (selectedProvince && districtsByProvince[selectedProvince]) {
+      districtsByProvince[selectedProvince].forEach(d => {
+        const option = document.createElement("option");
+        option.value = d;
+        option.textContent = d;
+        district.appendChild(option);
+      });
+      district.disabled = false;
+    } else {
+      district.disabled = true;
+    }
+  });
+
+
   document.getElementById('paymentMethod').addEventListener('change', function () {
     const selectedMethod = this.value; // Lấy giá trị đã chọn
     const bankInfo = document.getElementById('bankInfo');
@@ -244,6 +333,31 @@
     } else if (selectedMethod === 'cash') {
       paymentInfo.style.display = 'block'; // Hiển thị thông tin thanh toán khi nhận hàng
     }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const paymentMethodSelect = document.getElementById('paymentMethod');
+    const paypalInfo = document.getElementById('paypalInfo');
+    const proceedToPayPalButton = document.getElementById('proceedToPayPal');
+
+    // Lắng nghe sự kiện thay đổi giá trị của dropdown
+    paymentMethodSelect.addEventListener('change', (event) => {
+      const selectedValue = event.target.value;
+
+      if (selectedValue === 'PayPal') {
+        paypalInfo.style.display = 'block'; // Hiển thị thông tin PayPal
+      } else {
+        paypalInfo.style.display = 'none'; // Ẩn thông tin PayPal
+      }
+    });
+
+    // Xử lý khi người dùng nhấn nút "Thanh toán với PayPal"
+    proceedToPayPalButton.addEventListener('click', () => {
+      // Thực hiện các hành động cần thiết để chuyển sang thanh toán qua PayPal
+      alert('Chuyển hướng đến PayPal để thanh toán.');
+      // Ví dụ: Chuyển hướng người dùng tới trang thanh toán PayPal
+      window.location.href = 'https://www.paypal.com';
+    });
   });
 </script>
 </body>

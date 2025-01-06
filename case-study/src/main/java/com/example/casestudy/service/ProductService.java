@@ -33,4 +33,23 @@ public class ProductService {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
     }
+
+    public void updateProduct(Product product) {
+        // Kiểm tra xem sản phẩm có tồn tại trong cơ sở dữ liệu không
+        Product existingProduct = productRepository.findById(product.getId())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm để cập nhật"));
+
+        // Cập nhật các thuộc tính
+        existingProduct.setName(product.getName());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setProductPackagingDate(product.getProductPackagingDate());
+        existingProduct.setTotalProductQuantity(product.getTotalProductQuantity());
+        existingProduct.setRemainProductQuantity(product.getRemainProductQuantity());
+        existingProduct.setImage(product.getImage());
+        existingProduct.setCategory(product.getCategory());
+
+        // Lưu sản phẩm đã cập nhật
+        productRepository.save(existingProduct);
+    }
 }

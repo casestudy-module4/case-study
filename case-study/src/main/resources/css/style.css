@@ -1,0 +1,139 @@
+/* .bi{
+          color: black;
+        } */
+.navbar {
+    padding: 1rem;
+}
+
+.card-img {
+    object-fit: cover;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+}
+
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+}
+
+.content {
+    color: white;
+    text-align: center;
+    margin-top: 100px;
+}
+
+
+.bi {
+    color: #6c757d;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.cart-table th {
+    background-color: #dcd9d9;
+    color: #bb1806;
+}
+
+.cart-table td {
+    vertical-align: middle;
+}
+
+.cart-summary {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.quantity-controls {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 120px;
+}
+
+.quantity-controls button:hover {
+    background-color: #e2e6ea;
+}
+
+.quantity-controls button {
+    border: none;
+    background-color: #f8f9fa;
+    width: 30px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.quantity-controls input {
+    border: none;
+    text-align: center;
+    width: 60px;
+    height: 38px;
+}
+.quantity-controls input:focus {
+    outline: none;
+}
+
+#checkout-selected {
+    background-color: #bb1806;
+    border-color: #bb1806;
+    color: white;
+}
+
+#checkout-selected:hover {
+    background-color: #df2f07;
+    border-color: #032ccf;
+}
+
+.btn-soft-danger {
+    background-color: white;
+}
+
+.btn-soft-danger i {
+    color: #6c757d; /* Biểu tượng thùng rác màu đỏ */
+}
+
+.btn-soft-danger:hover {
+    background-color: #dc3545; /* Màu nền đỏ khi hover */
+    color: white; /* Màu chữ trắng khi hover */
+}
+
+.btn-soft-danger:hover i {
+    color: white; /* Biểu tượng thùng rác chuyển sang màu trắng khi hover */
+}
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
