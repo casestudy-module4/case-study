@@ -5,6 +5,7 @@ import com.example.casestudy.model.Order;
 import com.example.casestudy.model.OrderDetails;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.CartService;
+import com.example.casestudy.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,86 +18,99 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/checkout")
 public class CheckoutController {
-    @GetMapping
-//    public String checkoutPage(HttpSession session, Model model) {
-        // Lấy danh sách sản phẩm từ session
-//        List<Product> selectedProducts = (List<Product>) session.getAttribute("selectedProducts");
-//        if (selectedProducts == null) {
-//            selectedProducts = new ArrayList<>();
-//        }
 
-        // Tính tổng giá tiền
-//        double totalPrice = selectedProducts.stream()
-//                .mapToDouble(product -> product.getDiscountedPrice())
-//                .sum();
+    @Autowired
+    private ProductService productService;
 
-//
+    @Autowired
+    private CartService cartService;
 
-//    }
-
-    // Xử lý thanh toán
-//    @PostMapping
-//    public String processCheckout(@RequestParam String address, HttpSession session, Model model) {
-//        // Lấy danh sách sản phẩm từ session
-//        List<Product> selectedProducts = (List<Product>) session.getAttribute("selectedProducts");
-//        if (selectedProducts == null || selectedProducts.isEmpty()) {
-//            model.addAttribute("message", "Không có sản phẩm nào để thanh toán.");
-//            return "checkout/checkout";
-//        }
-//
-//        // Tạo một đơn hàng mới
-//        Order order = new Order();
-//        order.setTimeOrder(LocalDateTime.now());
-//        order.setAddress(address);
-//        order.setStatusOrder(1); // 1: Đang xử lý (Processing)
-//        order.setTotalPrice(selectedProducts.stream()
-//                .mapToDouble(Product::getDiscountedPrice)
-//                .sum());
-//
-//        // Tạo các chi tiết đơn hàng
-//        List<OrderDetails> orderDetailsList = new ArrayList<>();
-//        for (Product product : selectedProducts) {
-//            OrderDetails orderDetails = new OrderDetails();
-//            orderDetails.setProduct(product);
-//            orderDetails.setQuantity(1); // Số lượng mặc định là 1
-//            orderDetails.setPriceDetailOrder(product.getDiscountedPrice());
-//            orderDetailsList.add(orderDetails);
-//        }
-//
-//        // Xóa giỏ hàng trong session sau khi thanh toán
-//        session.removeAttribute("selectedProducts");
-//
-//        // Chuyển hướng đến trang xác nhận thanh toán thành công
-//        model.addAttribute("order", order);
-//        model.addAttribute("orderDetails", orderDetailsList);
-//        return "user/success";
-//    }
-
-    // Xử lý chuyển sản phẩm từ giỏ hàng sang danh sách thanh toán
+    // Add selected products to checkout
     @PostMapping("/add-to-checkout")
-    public String addToCheckout(@RequestParam("productId") int[] productIds, HttpSession session) {
-        // Giả định session "cart" chứa danh sách tất cả sản phẩm trong giỏ hàng
-        List<Product> cart = (List<Product>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new ArrayList<>();
+    public String addToCheckout(@RequestParam(value = "productIds", required = false) List<Integer> productIds,
+                                @RequestParam(value = "quantities", required = false) List<Integer> quantities,
+                                HttpSession session) {
+
+        if (productIds != null && !productIds.isEmpty() && quantities != null && quantities.size() == productIds.size()) {
+            List<CartItem> selectedItems = new ArrayList<>();
+            for (int i = 0; i < productIds.size(); i++) {
+                Product product = productService.getProductById(productIds.get(i));
+                int quantity = quantities.get(i);
+                selectedItems.add(new CartItem(product, quantity));  // CartItem contains product and quantity
+            }
+            session.setAttribute("selectedItems", selectedItems);
+        } else {
+            // If no product is selected, select all cart items
+            List<CartItem> allCartItems = cartService.getAllCartItems();
+            session.setAttribute("selectedItems", allCartItems);
         }
-
-        // Lấy danh sách sản phẩm được chọn
-        List<Product> selectedProducts = new ArrayList<>();
-        for (int productId : productIds) {
-            cart.stream()
-                    .filter(product -> product.getId() == productId)
-                    .findFirst()
-                    .ifPresent(selectedProducts::add);
-        }
-
-        // Lưu danh sách sản phẩm được chọn vào session
-        session.setAttribute("selectedProducts", selectedProducts);
-
         return "redirect:/checkout";
+    }
+
+    // Display the checkout page
+    @GetMapping
+    public String checkoutPage(HttpSession session, Model model) {
+        List<CartItem> selectedItems = (List<CartItem>) session.getAttribute("selectedItems");
+        if (selectedItems == null || selectedItems.isEmpty()) {
+            selectedItems = cartService.getAllCartItems();
+        }
+
+        if (selectedItems.isEmpty()) {
+            model.addAttribute("message", "Không có sản phẩm nào để thanh toán.");
+            return "checkout";
+        }
+
+        double totalPrice = selectedItems.stream()
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
+                .sum();
+
+        model.addAttribute("cartItems", selectedItems);
+        model.addAttribute("totalPrice", totalPrice);
+
+        return "checkout";
+    }
+
+    // Process the checkout (place order)
+    @PostMapping
+    public String processCheckout(HttpSession session, Model model) {
+        List<CartItem> selectedItems = (List<CartItem>) session.getAttribute("selectedItems");
+        if (selectedItems == null || selectedItems.isEmpty()) {
+            model.addAttribute("message", "Không có sản phẩm nào để thanh toán.");
+            return "checkout";
+        }
+
+        // Check product availability
+        for (CartItem item : selectedItems) {
+            Product product = item.getProduct();
+            if (product.getRemainProductQuantity() < item.getQuantity()) {
+                model.addAttribute("error", "Sản phẩm " + product.getName() + " không đủ số lượng.");
+                return "checkout";
+            }
+        }
+
+        // Process payment here (for now, assume success)
+        for (CartItem item : selectedItems) {
+            Product product = item.getProduct();
+            product.setRemainProductQuantity(product.getRemainProductQuantity() - item.getQuantity());
+            productService.updateProduct(product);
+        }
+
+        // Remove selected items from the cart
+        cartService.removeItems(selectedItems);
+
+        // Clear selected items from the session
+        session.removeAttribute("selectedItems");
+
+        return "redirect:/checkout/success";
+    }
+
+    @GetMapping("/success")
+    public String checkoutSuccess() {
+        return "checkout-success";
     }
 }
