@@ -33,7 +33,7 @@ public class HomeController {
         List<Banner> banners = bannerService.findAll();
         List<Product> bestSellers = productService.getBestSellingProducts();
         model.addAttribute("banners", banners);
-        model.addAttribute("bestSellers", bestSellers); // Dữ liệu bestSellers được truyền vào view
+        model.addAttribute("bestSellers", bestSellers);
         model.addAttribute("pagedProducts", productPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());

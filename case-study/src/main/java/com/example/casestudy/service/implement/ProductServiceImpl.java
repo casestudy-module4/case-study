@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Service
-public class ProductService implements IProductService {
+public class ProductServiceImpl implements IProductService {
     @Autowired
     private IProductRepository productRepository;
 
@@ -28,11 +28,7 @@ public class ProductService implements IProductService {
 //        return productRepository.findRemainProductQuantity(idProduct);
 //    }
 //
-    @Override
-    public Page<Product> getAllProducts(Pageable pageable) {
-        return productRepository.findAll(pageable);
 
-    }
 
     @Override
     public List<Product> getBestSellingProducts() {

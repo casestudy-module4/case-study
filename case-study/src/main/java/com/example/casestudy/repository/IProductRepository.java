@@ -31,8 +31,6 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
 //            "GROUP BY p.id")
 //    Integer findRemainProductQuantity(@Param("productId") Integer productId);
 
-    @Query("SELECT p FROM products p ORDER BY p.remainProductQuantity ASC")
-    List<Product> findTopBestSellingProducts();
-    
+
     List<Product> findTop4ByOrderByQuantitySoldDesc();
 }
