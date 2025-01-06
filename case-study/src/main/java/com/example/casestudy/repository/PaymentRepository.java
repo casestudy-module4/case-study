@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     @Query("SELECT p FROM payments p WHERE p.status = :status")
     List<Payment> findPaymentsByStatus(@Param("status") Payment.PaymentStatus status);
+    List<Payment> findByStatus(Payment.PaymentStatus status);
+    List<Payment> findByOrderId(Integer orderId);
 }
 

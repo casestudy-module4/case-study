@@ -9,11 +9,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p.name, SUM(o.quantity) FROM details_order o JOIN o.product p GROUP BY p.id, p.name ORDER BY SUM(o.quantity) DESC")
     List<Object[]> findMostPurchasedProducts();
+    Page<Product> findByCategoryId(Integer categoryId, Pageable pageable);
 
     @Query("SELECT MONTH(o.timeOrder) AS month, SUM(d.quantity) AS totalSold " +
             "FROM details_order d JOIN d.order o " +
@@ -31,4 +32,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "GROUP BY p.id")
     Integer findRemainProductQuantity(@Param("productId") Integer productId);
 
+    Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
+    Optional<Product> findById(Integer id);
 }

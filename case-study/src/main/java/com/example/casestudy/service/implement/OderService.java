@@ -51,4 +51,7 @@ public class OderService implements IOrderService {
     public List<Order> findAll() {
         return orderRepository.findAll();
     }
+    public Order createOrder(Order order) {
+        return orderRepository.save(order);
+    }
 }
