@@ -36,7 +36,7 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Product> getBestSellingProducts() {
-        return productRepository.findTop5ByOrderByQuantitySoldDesc();
+        return productRepository.findTop4ByOrderByQuantitySoldDesc();
     }
 
 //

@@ -33,6 +33,6 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
 
     @Query("SELECT p FROM products p ORDER BY p.remainProductQuantity ASC")
     List<Product> findTopBestSellingProducts();
-
-    List<Product> findTop5ByOrderByQuantitySoldDesc();
+    
+    List<Product> findTop4ByOrderByQuantitySoldDesc();
 }
