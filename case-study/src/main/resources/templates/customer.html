@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="wrapper">
-    <div th:replace="sidebar.html :: sidebar"></div>
+    <div th:replace="fragment/sidebar.html :: sidebar"></div>
     <div class="main p-4">
         <div class="d-flex justify-content-end mb-3">
             <form class="d-flex" style="width: 20%;" role="search">
@@ -81,11 +81,11 @@
             </div>
         </div>
         <div th:replace="deleteConfirmModal.html :: delete-confirm-modal"></div>
-        <div th:replace="toast.html :: toast"></div>
-        <div th:insert="logout.html :: logout-modal"></div>
-        <div th:replace="changePasswordModal.html :: change-password-modal"></div>
+        <div th:replace="fragment/toast.html :: toast"></div>
+        <div th:insert="fragment/logout.html :: logout-modal"></div>
+        <div th:replace="fragment/changePasswordModal.html :: change-password-modal"></div>
     </div>
-</div>
+</div>z
 </body>
-<div th:replace="script.html"></div>
+<div th:replace="fragment/script.html"></div>
 </html>
