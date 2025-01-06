@@ -40,9 +40,9 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home").permitAll()
+                        .requestMatchers("/home","/products","/checkout","/cart").permitAll()
                         .requestMatchers("/admins/forgot-password", "/admins/reset-password").permitAll()
-                        .requestMatchers("/admins/login", "/logoutSuccessful", "/403", "/style/**", "/img/**").permitAll()
+                        .requestMatchers("/admins/login", "/logoutSuccessful", "/403", "/style/**", "/img/**","/banner/**").permitAll()
                         .requestMatchers("/admins/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )

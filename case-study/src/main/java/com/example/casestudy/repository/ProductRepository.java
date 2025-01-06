@@ -34,5 +34,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
-    Optional<Product> findById(Integer id);
+
+    @Query("SELECT p FROM products p JOIN details_order d ON p.id = d.product.id " +
+            "GROUP BY p.id ORDER BY SUM(d.quantity) DESC")
+    List<Product> findTopSellingProducts();
+
+    List<Product> findTop4ByOrderByIdAsc();
 }

@@ -64,6 +64,7 @@ public class AdminController {
     @PostMapping("/home/create")
     public String createProduct( @ModelAttribute("products") Product product,
                                  @RequestParam("image1") MultipartFile image,
+                                 @RequestParam("imageCategory") String imageCategory,
                                  @RequestParam("category.id") Integer categoryId,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes, Model model) {
@@ -73,17 +74,22 @@ public class AdminController {
 
             return "product/home";
         }
-        String uploadDir = "D:\\JAVA FULL STACK\\Module4\\case_study\\case-study\\case-study\\src\\main\\resources\\static\\images";
+        String baseUploadDir = "D:\\JAVA FULL STACK\\Module4\\case_study\\case-study\\case-study\\src\\main\\resources\\static\\img";
+        // Đường dẫn thư mục con (vd: "hien-dai", "truyen-thong")
+        String uploadDir = baseUploadDir + "\\" + imageCategory;
+
         File uploadDirPath = new File(uploadDir);
         if (!uploadDirPath.exists()) {
             uploadDirPath.mkdirs();
         }
+
         String fileName = image.getOriginalFilename();
         File uploadFile = new File(uploadDirPath, fileName);
 
         try {
             image.transferTo(uploadFile);
-            product.setImage("/images/" + fileName);
+            // Lưu đường dẫn đầy đủ (relative path) cho ảnh
+            product.setImage("/img/" + imageCategory + "/" + fileName);
         } catch (IOException e) {
             e.printStackTrace();
             model.addAttribute("error", "Error while uploading image");

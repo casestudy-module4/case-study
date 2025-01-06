@@ -20,7 +20,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Page<Product> findAll(String name, Integer pageable) {
-        return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 10));
+        return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 5));
     }
 
     @Override
@@ -91,5 +91,15 @@ public class ProductService implements IProductService {
 
     public Page<Product> searchProductsByName(String searchQuery, Pageable pageable) {
         return productRepository.findByNameContainingIgnoreCase(searchQuery, pageable);
+    }
+
+    @Override
+    public List<Product> getTopSellingProducts() {
+        List<Product> topSellingProducts = productRepository.findTopSellingProducts();
+        if (topSellingProducts.isEmpty()) {
+            // Nếu không có sản phẩm bán chạy, trả về 4 sản phẩm đầu tiên
+            return productRepository.findTop4ByOrderByIdAsc();
+        }
+        return topSellingProducts;
     }
 }
