@@ -99,6 +99,7 @@ body {
     width: 60px;
     height: 38px;
 }
+
 .quantity-controls input:focus {
     outline: none;
 }
@@ -136,4 +137,48 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+#section_2047719723 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+#section_2047719723 .ux-shape-divider--top svg {
+    height: 150px;
+    --divider-top-width: 100%;
+}
+#section_2047719723 .ux-shape-divider--bottom svg {
+    height: 150px;
+    --divider-width: 100%;
+}
+
+#image_1 {
+    width: 50%;
+}
+
+#section_605282514 {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#section_605282514 .section-bg-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#section_605282514 .section-bg.bg-loaded {
+    background-image: url(https://tetviet.monamedia.net/wp-content/uploads/2023/12/banner_1-scaled.jpg);
+}
+
+#section_605282514 .section-bg {
+    background-position: 75% 0%;
+}
+
+#section_605282514 .ux-shape-divider--top svg {
+    height: 150px;
+    --divider-top-width: 100%;
+}
+
+#section_605282514 .ux-shape-divider--bottom svg {
+    height: 150px;
+    --divider-width: 100%;
 }
