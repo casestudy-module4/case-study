@@ -6,6 +6,5 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public interface IAccountService {
-   List<Account> getAdmin();
-    boolean logOut();
+    public List<Account> findAll();
 }
