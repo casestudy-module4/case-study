@@ -15,7 +15,7 @@
     <div class="main p-4">
         <div class="d-flex justify-content-end mb-3">
             <form class="d-flex" style="width: 20%;" role="search">
-                <input class="form-control me-2" type="search" placeholder="Tìm kiếm theo tên" aria-label="Search"
+                <input class="form-control me-2" type="search" placeholder="Tìm kiếm ..." aria-label="Search"
                        name="title" id="title2" th:value="${fullName}">
                 <button class="btn btn-outline-success bi bi-search" type="button" id="btn-search"
                         onclick="searchByTitle()"></button>
@@ -43,11 +43,19 @@
                 <td th:text="${row.gender==0 ? 'Nam' : 'Nữ'}"></td>
                 <td th:text="${row.calculateAge()}"></td>
                 <td>
-                    <button type="button" class="btn btn-info bi bi-eye"
-                            th:onclick="'openModal(' + ${row.id} + ')'">
-                    </button>
-                    <button type="button" class="btn btn-danger bi bi-trash"
-                            th:onclick="'confirmDelete(' + ${row.id} + ')'"></button>
+<!--                    <button type="button" class="btn btn-info bi bi-eye"-->
+<!--                            th:onclick="'openModal(' + ${row.id} + ')'">-->
+<!--                    </button>-->
+<!--                    <button type="button" class="btn btn-danger bi bi-trash"-->
+<!--                            th:onclick="'confirmDelete(' + ${row.id} + ')'"></button>-->
+                    <a href="#"
+                       class="btn btn-sm bi bi-trash3"
+                       th:onclick="'confirmDelete(' + ${row.id} + ')'">
+                    </a>
+                    <a href="#" class="btn btn-link" data-bs-toggle="tooltip" title="View Details"
+                       th:onclick="'openModal(' + ${row.id} + ')'">
+                        <i class="bi bi-info-circle"></i>
+                    </a>
                 </td>
             </tr>
             <tr th:if="${customer.content.isEmpty()}">
@@ -87,5 +95,5 @@
     </div>
 </div>
 </body>
-<div th:replace="script.html"></div>
+<div th:replace="fragment/script.html"></div>
 </html>
