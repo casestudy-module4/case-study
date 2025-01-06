@@ -109,7 +109,7 @@ a.btn:hover {
     background-color: #bb1806;
     color: white;
     font-weight: bold;
-    border-color: #bb1806;
+    border-color: #bb1806;  
 }
 a.btn:hover i {
     transform: scale(1.2);
