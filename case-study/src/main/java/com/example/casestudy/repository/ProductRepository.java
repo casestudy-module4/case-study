@@ -23,4 +23,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p FROM products p WHERE LOWER(p.category.nameCategory) LIKE LOWER(CONCAT('%', :nameCategory, '%'))")
     Page<Product> findAllByCategory_nameCategoryContainingIgnoreCase(@Param("nameCategory") String nameCategory, Pageable pageable);
     List<Product> findByCategory_Id(Integer category);
+    @Query("SELECT p.totalProductQuantity - COALESCE(SUM(od.quantity), 0) " +
+            "FROM products p " +
+            "LEFT JOIN details_order od ON p.id = od.product.id " +
+            "LEFT JOIN payments  pay ON od.order.id = pay.order.id " +
+            "WHERE p.id = :productId AND pay.status = com.example.casestudy.model.Payment.PaymentStatus.COMPLETED " +
+            "GROUP BY p.id")
+    Integer findRemainProductQuantity(@Param("productId") Integer productId);
+
 }

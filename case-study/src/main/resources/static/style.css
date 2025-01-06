@@ -5,6 +5,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    color: black;
 }
 
 a {
@@ -35,13 +36,12 @@ body {
     transition: all 0.35s ease-in-out;
     background-color: #fafbfe;
 }
-
 #sidebar {
     width: 70px;
     min-width: 70px;
     z-index: 1000;
     transition: all .25s ease-in-out;
-    background-color: #0e2238;
+    background-color: #f0f0f0;
     display: flex;
     flex-direction: column;
 }
@@ -68,7 +68,7 @@ body {
 }
 
 .sidebar-logo a {
-    color: #FFF;
+    color: black;
     font-size: 1.15rem;
     font-weight: 600;
 }
@@ -85,7 +85,7 @@ body {
 
 a.sidebar-link {
     padding: .625rem 1.625rem;
-    color: #FFF;
+    color: #000;
     display: block;
     font-size: 0.9rem;
     white-space: nowrap;
@@ -95,17 +95,42 @@ a.sidebar-link {
 .sidebar-link i {
     font-size: 1.1rem;
     margin-right: .75rem;
+    color: #000;
 }
-
 a.sidebar-link:hover {
-    background-color: rgba(255, 255, 255, .075);
-    border-left: 3px solid #3b7ddd;
+    background-color: #bb1806;
+    color: #000;
+    font-weight: bold;
 }
-
+a.btn {
+    text-align: center;
+}
+a.btn:hover {
+    background-color: #bb1806;
+    color: white;
+    font-weight: bold;
+    border-color: #bb1806;
+}
+a.btn:hover i {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+}
+a.sidebar-link:hover i {
+    color: #000;
+}
+button.btn:hover {
+    background-color: #bb1806;
+    color: white;
+    font-weight: bold;
+    border-color: #bb1806;
+}
+button.btn:hover i {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+}
 .sidebar-item {
     position: relative;
 }
-
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
     position: absolute;
     top: 0;
@@ -139,4 +164,15 @@ a.sidebar-link:hover {
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
     transform: rotate(45deg);
     transition: all .2s ease-out;
+}
+.pagination .btn-outline-primary {
+    color: #bb1806;
+    border-color: #bb1806;
+    background-color: white;
+}
+
+.pagination .btn-outline-primary:hover {
+    background-color: #bb1806;
+    border-color: #bb1806;
+    color: black;
 }
