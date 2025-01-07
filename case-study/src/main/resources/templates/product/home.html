@@ -115,6 +115,7 @@
 <div th:insert="fragment/logout.html :: logout-modal"></div>
 <div th:insert="fragment/toast.html :: toast"></div>
 <div th:replace="fragment/script.html"></div>
+
 <script th:src="@{/script.js}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -128,8 +129,8 @@
     function updateModal(productId, productName, productPrice, productDescription, productPackagingDate, totalProductQuantity, images, category){
         document.getElementById("productIdToUpdate").innerText = productId;
         document.getElementById("productNameToUpdate").innerText = productName;
-        document.getElementById("updateProductModalLabel").innerText = "Update Product "+ productName + " with - ID: " + productId;
-        let updateLink = "/admins/home/" + productId + "/update" ;
+        document.getElementById("updateProductModalLabel").innerText = "Update Product " + productName + " with - ID: " + productId;
+        let updateLink = "/admins/home/" + productId + "/update";
         let form = document.querySelector('#updateProductModal form');
         form.setAttribute("action", updateLink);
         document.getElementById('productName').value = productName;
@@ -137,27 +138,35 @@
         document.getElementById('productDescription').value = productDescription;
         document.getElementById('productPackagingDate').value = productPackagingDate;
         document.getElementById('totalProductQuantity').value = totalProductQuantity;
-        document.getElementById('images').src = images;
-        const productImage = document.getElementById("images");
-        if (images) {
-            productImage.src = images;
-            productImage.alt = `Image of ${name}`;
-        } else {
-            productImage.src = "https://via.placeholder.com/500";
-            productImage.alt = "No image available";
-        }
         document.getElementById('category').value = category;
 
-        let myModal = new bootstrap.Modal(document.getElementById('updateProductModal'));
+
+        const previewImage = document.getElementById("previewImage");
+        if (previewImage) {
+            if (images) {
+                previewImage.src = images;
+                previewImage.alt = `Image of ${productName}`;
+            } else {
+                previewImage.src = "https://via.placeholder.com/300";
+                previewImage.alt = "No image available";
+            }
+        }
+        const productImage = document.getElementById("productImage");
+        if (productImage) {
+            productImage.src = images ? images : "https://via.placeholder.com/500";
+            productImage.alt = `Image of ${productName}`;
+        }
+        const myModal = new bootstrap.Modal(document.getElementById('updateProductModal'));
         myModal.show();
     }
 </script>
+
 <script>
     function detailModal(id, name, price, description, packing, totalQuantity, remainQuantity, category, image) {
         document.getElementById("productId").innerText = id;
         document.getElementById("productNames").innerText = name;
         document.getElementById("productPrices").innerText = price;
-        document.getElementById("productDescriptions").innerText = description;
+        document.getElementById("productDescriptions").innerHTML =  `<div style="white-space: normal; word-wrap: break-word;">${description}</div>`;
         document.getElementById("productPackagingDates").innerText = packing;
         document.getElementById("totalsProductQuantity").innerText = totalQuantity;
         document.getElementById("remainProductQuantity").innerText = remainQuantity;
@@ -186,10 +195,14 @@
         myModal.show();
     }
 </script>
-<script>
+<script th:inline="javascript">
     function viewImage(imageSrc) {
-        document.getElementById("previewImage").src = imageSrc;
-        var imagePreviewModal = new bootstrap.Modal(document.getElementById("imagePreviewModal"));
+        const previewImage = document.getElementById("previewImage");
+        if (previewImage) {
+            previewImage.src = imageSrc;
+            previewImage.alt = "Xem trước hình ảnh";
+        }
+        const imagePreviewModal = new bootstrap.Modal(document.getElementById("imagePreviewModal"));
         imagePreviewModal.show();
     }
 </script>
