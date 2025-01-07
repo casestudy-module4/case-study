@@ -37,7 +37,4 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category", referencedColumnName = "id", nullable = false)
     private Category category;
-
-    @Column(name = "quantity_sold")
-    private int quantitySold;
 }
