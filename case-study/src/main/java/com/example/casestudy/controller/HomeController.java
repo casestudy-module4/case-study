@@ -1,7 +1,9 @@
 package com.example.casestudy.controller;
 
+import com.example.casestudy.dto.TopProductDTO;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.IProductService;
+import com.example.casestudy.service.IProductServicee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/home")
 public class HomeController {
+    @Autowired
+    private IProductServicee iproductService;
 
     @Autowired
     private IProductService productService;
@@ -27,13 +31,14 @@ public class HomeController {
 
         Page<Product> productPage = productService.findAll(name.trim(), page);
         List<Product> products = productPage.getContent();
+        List<TopProductDTO> bestSellers = iproductService.getTopSellingOrDefaultProducts();
 
         List<List<Product>> productGroups = new ArrayList<>();
         for (int i = 0; i < products.size(); i += 4) {
             int end = Math.min(i + 4, products.size());
             productGroups.add(products.subList(i, end));
         }
-
+        model.addAttribute("bestSellers", bestSellers);
         model.addAttribute("productGroups", productGroups);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());

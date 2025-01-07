@@ -11,7 +11,7 @@ import com.example.casestudy.service.IProductService;
 import com.example.casestudy.service.implement.AccountService;
 import com.example.casestudy.service.IProductService;
 import com.example.casestudy.service.implement.EmailService;
-import com.example.casestudy.service.implement.PaymentService;
+//import com.example.casestudy.service.implement.PaymentService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -42,8 +42,8 @@ public class AdminController {
     private ICustomerService customerService;
     @Autowired
     private IOrderService orderService;
-    @Autowired
-    private PaymentService paymentService;
+//    @Autowired
+//    private PaymentService paymentService;
     @Autowired
     private IProductService productService;
 
