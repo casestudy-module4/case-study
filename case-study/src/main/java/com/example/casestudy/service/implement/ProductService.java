@@ -3,7 +3,6 @@ package com.example.casestudy.service.implement;
 import com.example.casestudy.dto.ProductSalesDTO;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.repository.OrderDetailRepository;
-import com.example.casestudy.repository.OrderDetailsRepository;
 import com.example.casestudy.repository.ProductRepository;
 import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +20,10 @@ public class ProductService implements IProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private OrderDetailsRepository orderDetailsRepository;
-//    public Integer soldQuantityProduct(int idProduct){
-//        return orderDetailsRepository.calculateTotalSoldByProductWithCompletedPayments(idProduct);
-//    }
+    private OrderDetailRepository orderDetailRepository;
+    public Integer soldQuantityProduct(int idProduct){
+        return orderDetailRepository.calculateTotalSoldByProductWithCompletedPayments(idProduct);
+    }
     @Override
     public Page<Product> findAll(String name, Integer pageable) {
         return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 5));

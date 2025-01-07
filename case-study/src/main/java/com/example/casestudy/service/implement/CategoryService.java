@@ -7,6 +7,7 @@ import com.example.casestudy.repository.ProductRepository;
 import com.example.casestudy.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +21,6 @@ public class CategoryService implements ICategoryService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
-    @Override
-    public Page<Category> findAllByName(String name, Pageable pageable) {
-        return categoryRepository.findByNameCategory(name, pageable);
-    }
-
     @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
@@ -68,5 +64,10 @@ public class CategoryService implements ICategoryService {
     @Override
     public Category findById(int id) {
         return categoryRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Page<Category> findByName(String name, Integer page) {
+        return categoryRepository.findAllByNameCategoryContainingIgnoreCase(name, PageRequest.of(page, 5));
     }
 }
