@@ -3,7 +3,7 @@ package com.example.casestudy.service.implement;
 import com.example.casestudy.dto.TopProductDTO;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.repository.IProductRepository;
-import com.example.casestudy.service.IProductService;
+import com.example.casestudy.service.IProductServicee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServicee implements IProductService {
+public class ProductServicee implements IProductServicee {
 
     @Autowired
     private IProductRepository iproductRepository;

@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="vi" class="loading-site no-js">
 <head>
@@ -896,6 +897,31 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="container mt-5">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h3>Sản Phẩm Bán Chạy Nhất</h3>
+                                </div>
+                                <hr>
+                                <div class="row g-4">
+                                    <div th:if="${#lists.isEmpty(bestSellers)}" class="text-center">
+                                    </div>
+                                    <div class="col-sm-3" th:each="topProduct : ${bestSellers}">
+                                        <div class="card h-100 text-center">
+                                            <a th:href="@{/products/{id}(id=${topProduct.product.id})}">
+                                                <img class="card-img-top" th:src="${topProduct.img}" th:alt="${topProduct.product.name}"
+                                                     style="height: 200px;">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title" th:text="${topProduct.product.name}"></h5>
+                                                <p class="card-text">Giá: <span th:text="${topProduct.product.price}"></span> VND</p>
+                                                <a th:href="@{/products/{id}(id=${topProduct.product.id})}" class="btn btn-primary btn-sm">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-inner">
                                 <div class="row align-items-center">
                                     <div class="mona_title uppercase">
@@ -2030,7 +2056,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
             <li class="account-item has-icon menu-item">
                 <a href="https://tetviet.monamedia.net/tai-khoan/"
                    class="nav-top-link nav-top-not-logged-in">
-    <span class="header-account-title">Đăng nhập  </span>
+                    <span class="header-account-title">Đăng nhập  </span>
                 </a>
             </li>
         </ul>

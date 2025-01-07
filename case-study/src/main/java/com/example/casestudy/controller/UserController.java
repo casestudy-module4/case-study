@@ -4,6 +4,7 @@ import com.example.casestudy.dto.TopProductDTO;
 import com.example.casestudy.model.Banner;
 import com.example.casestudy.service.IBannerService;
 import com.example.casestudy.service.IProductService;
+import com.example.casestudy.service.IProductServicee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import java.util.List;
 public class  UserController {
 
     @Autowired
-    private IProductService productService;
+    private IProductServicee productService;
 
     @Autowired
     private IBannerService bannerService;

@@ -1,6 +1,9 @@
 package com.example.casestudy.service.implement;
 
+import com.example.casestudy.dto.ProductSalesDTO;
 import com.example.casestudy.model.Product;
+import com.example.casestudy.repository.OrderDetailRepository;
+import com.example.casestudy.repository.OrderDetailsRepository;
 import com.example.casestudy.repository.ProductRepository;
 import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +20,34 @@ import java.util.Map;
 public class ProductService implements IProductService {
     @Autowired
     private ProductRepository productRepository;
-
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
+//    public Integer soldQuantityProduct(int idProduct){
+//        return orderDetailsRepository.calculateTotalSoldByProductWithCompletedPayments(idProduct);
+//    }
     @Override
     public Page<Product> findAll(String name, Integer pageable) {
-        return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 10));
+        return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 5));
     }
 
     @Override
     public Integer remainProductCount(int idProduct) {
         return productRepository.findRemainProductQuantity(idProduct);
+    }
+
+    @Override
+    public Page<Product> findByName(String name, Integer page) {
+        return productRepository.findByNameContainingIgnoreCase(name, PageRequest.of(page, 5));
+    }
+
+    @Override
+    public Page<Product> getProductsByCategory(Integer id, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<Product> searchProductsByName(String searchName, Pageable pageable) {
+        return null;
     }
 
     @Override
@@ -54,12 +76,10 @@ public class ProductService implements IProductService {
         productRepository.deleteById(id);
         return true;
     }
-
     @Override
     public Product findById(int id) {
         return productRepository.findById(id).orElse(null);
     }
-
     public Map<String, Object> getMostPurchasedProduct() {
         List<Object[]> results = productRepository.findMostPurchasedProducts();
         if (!results.isEmpty()) {
@@ -74,7 +94,6 @@ public class ProductService implements IProductService {
         defaultData.put("quantitySold", 0);
         return defaultData;
     }
-
     public Map<Integer, Integer> getSalesByMonth() {
         List<Object[]> results = productRepository.findSalesByMonth();
         Map<Integer, Integer> salesData = new HashMap<>();
@@ -82,14 +101,5 @@ public class ProductService implements IProductService {
             salesData.put((Integer) result[0], ((Number) result[1]).intValue());
         }
         return salesData;
-    }
-
-    //
-    public Page<Product> getProductsByCategory(Integer categoryId, Pageable pageable) {
-        return productRepository.findByCategoryId(categoryId, pageable);
-    }
-
-    public Page<Product> searchProductsByName(String searchQuery, Pageable pageable) {
-        return productRepository.findByNameContainingIgnoreCase(searchQuery, pageable);
     }
 }
