@@ -15,15 +15,15 @@ import java.util.stream.Collectors;
 public class ProductService implements IProductService {
 
     @Autowired
-    private IProductRepository productRepository;
+    private IProductRepository iproductRepository;
 
     @Override
     public List<TopProductDTO> getTopSellingOrDefaultProducts() {
-        List<TopProductDTO> topSellingProducts = productRepository
+        List<TopProductDTO> topSellingProducts = iproductRepository
                 .findTopSellingProducts(PageRequest.of(0, 4))
                 .getContent();
         if (topSellingProducts.isEmpty()) {
-            List<Product> defaultProducts = productRepository
+            List<Product> defaultProducts = iproductRepository
                     .findAll(PageRequest.of(0, 4))
                     .getContent();
 
