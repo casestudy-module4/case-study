@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CartService {
@@ -61,14 +60,19 @@ public class CartService {
         orderDetailsRepository.deleteById(orderDetailId);
     }
 
-    public List<CartItem> getSelectedItems(List<Integer> productIds) {
-        if (productIds == null || productIds.isEmpty()) {
-            return getAllCartItems();
+    public List<CartItem> getSelectedItems(List<Integer> productIds, List<Integer> quantities) {
+        List<CartItem> selectedItems = new ArrayList<>();
+        if (productIds != null && quantities != null && productIds.size() == quantities.size()) {
+            for (int i = 0; i < productIds.size(); i++) {
+//                Product product = productService.getById(productIds.get(i));
+                Product product = productRepository.getById(productIds.get(i));
+                int quantity = quantities.get(i);
+                selectedItems.add(new CartItem(product, quantity));
+            }
+        } else {
+            selectedItems = getAllCartItems();
         }
-
-        return getAllCartItems().stream()
-                .filter(cartItem -> productIds.contains(cartItem.getProduct().getId()))
-                .collect(Collectors.toList());
+        return selectedItems;
     }
 
     public List<CartItem> getAllCartItems() {
@@ -91,4 +95,5 @@ public class CartService {
             orderDetailsOptional.ifPresent(orderDetails -> orderDetailsRepository.delete(orderDetails));
         }
     }
+
 }

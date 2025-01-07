@@ -1,364 +1,368 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thanh Toán</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background-color: #f8f9fa; /* Màu nền nhẹ */
-    }
-    .container {
-      max-width: 800px; /* Giới hạn chiều rộng tối đa */
-      margin: auto; /* Căn giữa */
-    }
-    h3 {
-      margin-top: 30px; /* Khoảng cách trên cho tiêu đề */
-    }
-    .form-label {
-      font-weight: bold; /* Làm nổi bật nhãn */
-    }
-    .form-control {
-      width: 100%; /* Chiếm toàn bộ chiều rộng */
-    }
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Thanh Toán</title>-->
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">-->
+<!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">-->
+<!--  <link rel="stylesheet" href="style.css">-->
+<!--  <style>-->
+<!--    body {-->
+<!--      background-color: #f8f9fa; /* Màu nền nhẹ */-->
+<!--    }-->
+<!--    .container {-->
+<!--      max-width: 800px; /* Giới hạn chiều rộng tối đa */-->
+<!--      margin: auto; /* Căn giữa */-->
+<!--    }-->
+<!--    h3 {-->
+<!--      margin-top: 30px; /* Khoảng cách trên cho tiêu đề */-->
+<!--    }-->
+<!--    .form-label {-->
+<!--      font-weight: bold; /* Làm nổi bật nhãn */-->
+<!--    }-->
+<!--    .form-control {-->
+<!--      width: 100%; /* Chiếm toàn bộ chiều rộng */-->
+<!--    }-->
 
-    .bi {
-      color: #6c757d;
-    }
+<!--    .bi {-->
+<!--      color: #6c757d;-->
+<!--    }-->
 
-    body {
-      background-color: #f8f9fa;
-      font-family: Arial, sans-serif;
-    }
+<!--    body {-->
+<!--      background-color: #f8f9fa;-->
+<!--      font-family: Arial, sans-serif;-->
+<!--    }-->
 
-    .cart-table th {
-      background-color: #dcd9d9;
-      color: #bb1806;
-    }
+<!--    .cart-table th {-->
+<!--      background-color: #dcd9d9;-->
+<!--      color: #bb1806;-->
+<!--    }-->
 
-    .cart-table td {
-      vertical-align: middle;
-    }
+<!--    .cart-table td {-->
+<!--      vertical-align: middle;-->
+<!--    }-->
 
-    .cart-summary {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #2c3e50;
-    }
+<!--    .cart-summary {-->
+<!--      font-size: 1.25rem;-->
+<!--      font-weight: bold;-->
+<!--      color: #2c3e50;-->
+<!--    }-->
 
-    .quantity-controls {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      overflow: hidden;
-      width: 120px;
-    }
+<!--    .quantity-controls {-->
+<!--      display: inline-flex;-->
+<!--      align-items: center;-->
+<!--      border: 1px solid #ccc;-->
+<!--      border-radius: 5px;-->
+<!--      overflow: hidden;-->
+<!--      width: 120px;-->
+<!--    }-->
 
-    .quantity-controls button:hover {
-      background-color: #e2e6ea;
-    }
+<!--    .quantity-controls button:hover {-->
+<!--      background-color: #e2e6ea;-->
+<!--    }-->
 
-    .quantity-controls button {
-      border: none;
-      background-color: #f8f9fa;
-      width: 30px;
-      height: 38px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      cursor: pointer;
-    }
+<!--    .quantity-controls button {-->
+<!--      border: none;-->
+<!--      background-color: #f8f9fa;-->
+<!--      width: 30px;-->
+<!--      height: 38px;-->
+<!--      display: flex;-->
+<!--      justify-content: center;-->
+<!--      align-items: center;-->
+<!--      font-size: 18px;-->
+<!--      cursor: pointer;-->
+<!--    }-->
 
-    .quantity-controls input {
-      border: none;
-      text-align: center;
-      width: 60px;
-      height: 38px;
-    }
-    .quantity-controls input:focus {
-      outline: none;
-    }
+<!--    .quantity-controls input {-->
+<!--      border: none;-->
+<!--      text-align: center;-->
+<!--      width: 60px;-->
+<!--      height: 38px;-->
+<!--    }-->
+<!--    .quantity-controls input:focus {-->
+<!--      outline: none;-->
+<!--    }-->
 
-    #checkout-selected {
-      background-color: #bb1806;
-      border-color: #bb1806;
-      color: white;
-    }
+<!--    #checkout-selected {-->
+<!--      background-color: #bb1806;-->
+<!--      border-color: #bb1806;-->
+<!--      color: white;-->
+<!--    }-->
 
-    #checkout-selected:hover {
-      background-color: #df2f07;
-      border-color: #032ccf;
-    }
+<!--    #checkout-selected:hover {-->
+<!--      background-color: #df2f07;-->
+<!--      border-color: #032ccf;-->
+<!--    }-->
 
-    .btn-soft-danger {
-      background-color: white;
-    }
+<!--    .btn-soft-danger {-->
+<!--      background-color: white;-->
+<!--    }-->
 
-    .btn-soft-danger i {
-      color: #6c757d; /* Biểu tượng thùng rác màu đỏ */
-    }
+<!--    .btn-soft-danger i {-->
+<!--      color: #6c757d; /* Biểu tượng thùng rác màu đỏ */-->
+<!--    }-->
 
-    .btn-soft-danger:hover {
-      background-color: #dc3545; /* Màu nền đỏ khi hover */
-      color: white; /* Màu chữ trắng khi hover */
-    }
+<!--    .btn-soft-danger:hover {-->
+<!--      background-color: #dc3545; /* Màu nền đỏ khi hover */-->
+<!--      color: white; /* Màu chữ trắng khi hover */-->
+<!--    }-->
 
-    .btn-soft-danger:hover i {
-      color: white; /* Biểu tượng thùng rác chuyển sang màu trắng khi hover */
-    }
-
-
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  </style>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg bg-body-secondary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="products">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="bt n btn-outline-secondary bi bi-search" type="submit"></button>
-      </form>
-    </div>
-  </div>
-</nav>
-
-<div class="container my-5">
-  <h1 class="text-center mb-4">Thanh Toán</h1>
-
-  <div class="fs-5 mb-4">
-    <strong>Tổng cộng:</strong> <span th:text="${totalPrice}">0</span> VND
-  </div>
-
-  <!--  <div th:if="${message}" class="alert alert-info" th:text="${message}"></div>-->
-  <!--  <table class="table table-bordered table-hover">-->
-  <!--    <thead class="table-secondary">-->
-  <!--    <tr>-->
-  <!--      <th>Sản phẩm</th>-->
-  <!--      <th>Giá</th>-->
-  <!--      <th>Số lượng</th>-->
-  <!--      <th>Tổng</th>-->
-  <!--    </tr>-->
-  <!--    </thead>-->
-  <!--    <tbody>-->
-  <!--    <tr th:each="item : ${cartItems}">-->
-  <!--      <td th:text="${item.product.name}"></td>-->
-  <!--      <td th:text="${item.product.price}" class="text-end"></td>-->
-  <!--      <td th:text="${item.quantity}" class="text-center"></td>-->
-  <!--      <td th:text="${item.product.price * item.quantity}" class="text-end"></td>-->
-  <!--    </tr>-->
-  <!--    </tbody>-->
-  <!--  </table>-->
-
-  <!--  <div class="text-end fs-5" th:if="${totalPrice}">-->
-  <!--    <strong>Tổng cộng:</strong> <span th:text="${totalPrice}"></span>-->
-  <!--  </div>-->
-
-  <form id="checkoutForm" th:action="@{/process-payment}" method="post" class="mt-4">
-    <h3>Thông tin khách hàng</h3>
-    <div class="mb-3">
-      <label for="name" class="form-label">Họ và tên</label>
-      <input type="text" class="form-control" id="name" name="name" required>
-    </div>
-    <div class="mb-3">
-      <label for="phone" class="form-label">Số điện thoại</label>
-      <input type="tel" class="form-control" id="phone" name="phone" required>
-    </div>
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" name="email" required>
-    </div>
-
-    <h3>Chọn cách thức nhận hàng</h3>
-    <div class="mb-3">
-      <label for="deliveryMethod" class="form-label">Phương thức nhận hàng</label>
-      <select class="form-select" id="deliveryMethod" name="deliveryMethod" required>
-        <option value="">-- Chọn phương thức nhận hàng --</option>
-        <option value="Giao Hàng Tận Nơi">Giao Hàng Tận Nơi (Có Phí Giao Hàng)</option>
-        <option value="Nhận Tại Cửa Hàng">Nhận Tại Cửa Hàng</option>
-      </select>
-    </div>
-
-    <div id="storeAddress" style="display: none; margin-top: 20px;">
-      <h5>Địa chỉ cửa hàng:</h5>
-      <p>123 Đường ABC, Phường XYZ, Quận 3, Đà Nẵng</p>
-    </div>
-
-    <div id="deliveryForm" style="display: none; margin-top: 20px;">
-      <div class="mb-3">
-        <label for="province" class="form-label">Tỉnh/Thành phố</label>
-        <select class="form-select" id="province" required>
-          <option value="">-- Chọn Tỉnh/Thành phố --</option>
-          <option value="Hà Nội">Hà Nội</option>
-          <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
-          <option value="Đà Nẵng">Đà Nẵng</option>
-          <!-- Thêm các tỉnh khác -->
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="district" class="form-label">Quận/Huyện</label>
-        <select class="form-select" id="district" required disabled>
-          <option value="">-- Chọn Quận/Huyện --</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="address" class="form-label">Địa chỉ chi tiết</label>
-        <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ chi tiết" required>
-      </div>
-    </div>
-
-    <h3>Chọn hình thức thanh toán</h3>
-    <div class="mb-3">
-      <label for="paymentMethod" class="form-label">Hình thức thanh toán</label>
-      <select class="form-select" id="paymentMethod" name="paymentMethod" required>
-        <option value="none">-- Chọn hình thức thanh toán --</option>
-        <option value="bankTransfer">Chuyển khoản qua ngân hàng</option>
-        <option value="cash">Thanh toán khi nhận hàng</option>
-        <option value="PayPal">Paypal</option>
-      </select>
-    </div>
-
-    <div id="paypalInfo" style="display: none;">
-      <p>Bạn đã chọn thanh toán qua PayPal. Nhấn vào nút dưới đây để tiếp tục.</p>
-      <button id="proceedToPayPal" class="btn btn-primary">Thanh toán với PayPal</button>
-    </div>
-
-    <div id="bankInfo" style="display: none; margin-top: 20px;">
-      <p><strong>CÔNG TY TNHH một thành viên</strong></p>
-      <ul>
-        <li>Vietcombank - CN Đà Nẵng: 9397765888</li>
-        <li>Sacombank - CN Đà Nẵng: 0356559427</li>
-        <li>Agribank - CN Đà Nẵng: 37499456688</li>
-      </ul>
-      <p>Chủ tài khoản: Công ty ABC</p>
-      <p>Nội dung chuyển khoản: Thanh toán đơn hàng [Mã đơn hàng]</p>
-      <p>Vui lòng nhấn nút "Đặt hàng" để hoàn tất. Hoặc liên hệ Hotline: <strong>0397.765.888</strong> để được tư vấn.</p>
-    </div>
-
-    <div id="paymentInfo" style="margin-top: 20px; border: 1px solid #ddd; padding: 10px; display: none;">
-      Quý khách sẽ thanh toán bằng tiền mặt hoặc chuyển khoản cho nhân viên khi nhận hàng. Vui lòng bấm nút "Mua hàng" để hoàn tất.
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <a th:href="@{/cart}" class="btn btn-link" style="text-decoration: none;">Quay lại giỏ hàng</a>
-      <button type="submit" class="btn btn-success">Mua hàng</button>
-    </div>
-  </form>
-
-</div>
-
-<!-- Bootstrap JS -->
-<script src="https://www.paypal.com/sdk/js?client-id=AVYkW1aVTdi_mwkha_zDeQvfpP1wHKoQiKrb8g-CW-OQ6E3p2vfjAEQbI42SX7jMaAl8qKc53IuFjbVp;"></script>
-<script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  const deliveryMethod = document.getElementById("deliveryMethod");
-  const storeAddress = document.getElementById("storeAddress");
-  const deliveryForm = document.getElementById("deliveryForm");
-  const province = document.getElementById("province");
-  const district = document.getElementById("district");
-
-  // Huyện theo tỉnh
-  const districtsByProvince = {
-    "Hà Nội": ["Ba Đình", "Hoàn Kiếm", "Tây Hồ", "Cầu Giấy", "Đống Đa"],
-    "TP Hồ Chí Minh": ["Quận 1", "Quận 3", "Quận 5", "Quận 7", "Quận 10"],
-    "Đà Nẵng": ["Hải Châu", "Thanh Khê", "Ngũ Hành Sơn", "Cẩm Lệ", "Liên Chiểu"]
-  };
-
-  // Xử lý khi thay đổi phương thức nhận hàng
-  deliveryMethod.addEventListener("change", () => {
-    const selectedMethod = deliveryMethod.value;
-    if (selectedMethod === "Nhận Tại Cửa Hàng") {
-      storeAddress.style.display = "block";
-      deliveryForm.style.display = "none";
-    } else if (selectedMethod === "Giao Hàng Tận Nơi") {
-      storeAddress.style.display = "none";
-      deliveryForm.style.display = "block";
-    } else {
-      storeAddress.style.display = "none";
-      deliveryForm.style.display = "none";
-    }
-  });
-
-  // Xử lý khi chọn tỉnh/thành phố
-  province.addEventListener("change", () => {
-    const selectedProvince = province.value;
-    district.innerHTML = "<option value=''>-- Chọn Quận/Huyện --</option>"; // Reset options
-    if (selectedProvince && districtsByProvince[selectedProvince]) {
-      districtsByProvince[selectedProvince].forEach(d => {
-        const option = document.createElement("option");
-        option.value = d;
-        option.textContent = d;
-        district.appendChild(option);
-      });
-      district.disabled = false;
-    } else {
-      district.disabled = true;
-    }
-  });
+<!--    .btn-soft-danger:hover i {-->
+<!--      color: white; /* Biểu tượng thùng rác chuyển sang màu trắng khi hover */-->
+<!--    }-->
 
 
-  document.getElementById('paymentMethod').addEventListener('change', function () {
-    const selectedMethod = this.value; // Lấy giá trị đã chọn
-    const bankInfo = document.getElementById('bankInfo');
-    const paymentInfo = document.getElementById('paymentInfo');
+<!--    input[type="number"]::-webkit-inner-spin-button,-->
+<!--    input[type="number"]::-webkit-outer-spin-button {-->
+<!--      -webkit-appearance: none;-->
+<!--      margin: 0;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav class="navbar navbar-expand-lg bg-body-secondary">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" href="#">Navbar</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" href="#">Home</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Link</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <form class="d-flex" role="search">-->
+<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--                <button class="bt n btn-outline-secondary bi bi-search" type="submit"></button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
 
-    // Ẩn tất cả các phần trước khi hiển thị
-    bankInfo.style.display = 'none';
-    paymentInfo.style.display = 'none';
+<!--<div class="container my-5">-->
+<!--    <h1 class="text-center mb-4">Thanh Toán</h1>-->
 
-    // Kiểm tra và hiển thị theo lựa chọn
-    if (selectedMethod === 'bankTransfer') {
-      bankInfo.style.display = 'block'; // Hiển thị thông tin ngân hàng
-    } else if (selectedMethod === 'cash') {
-      paymentInfo.style.display = 'block'; // Hiển thị thông tin thanh toán khi nhận hàng
-    }
-  });
+<!--    <div class="fs-5 mb-4">-->
+<!--        <strong>Tổng cộng:</strong> <span th:text="${totalPrice}">0</span> VND-->
+<!--    </div>-->
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const paymentMethodSelect = document.getElementById('paymentMethod');
-    const paypalInfo = document.getElementById('paypalInfo');
-    const proceedToPayPalButton = document.getElementById('proceedToPayPal');
+<!--    &lt;!&ndash;  <div th:if="${message}" class="alert alert-info" th:text="${message}"></div>&ndash;&gt;-->
+<!--    &lt;!&ndash;  <table class="table table-bordered table-hover">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <thead class="table-secondary">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <th>Sản phẩm</th>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <th>Giá</th>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <th>Số lượng</th>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <th>Tổng</th>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </thead>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <tbody>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <tr th:each="item : ${cartItems}">&ndash;&gt;-->
+<!--    &lt;!&ndash;      <td th:text="${item.product.name}"></td>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <td th:text="${item.product.price}" class="text-end"></td>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <td th:text="${item.quantity}" class="text-center"></td>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <td th:text="${item.product.price * item.quantity}" class="text-end"></td>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </tbody>&ndash;&gt;-->
+<!--    &lt;!&ndash;  </table>&ndash;&gt;-->
 
-    // Lắng nghe sự kiện thay đổi giá trị của dropdown
-    paymentMethodSelect.addEventListener('change', (event) => {
-      const selectedValue = event.target.value;
+<!--    &lt;!&ndash;  <div class="text-end fs-5" th:if="${totalPrice}">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <strong>Tổng cộng:</strong> <span th:text="${totalPrice}"></span>&ndash;&gt;-->
+<!--    &lt;!&ndash;  </div>&ndash;&gt;-->
 
-      if (selectedValue === 'PayPal') {
-        paypalInfo.style.display = 'block'; // Hiển thị thông tin PayPal
-      } else {
-        paypalInfo.style.display = 'none'; // Ẩn thông tin PayPal
-      }
-    });
+<!--&lt;!&ndash;    <form id="checkoutForm" th:action="@{/payment/pay}" method="post" class="mt-4">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h3>Thông tin khách hàng</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="name" class="form-label">Họ và tên</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="text" class="form-control" id="name" name="name" required>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="phone" class="form-label">Số điện thoại</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="tel" class="form-control" id="phone" name="phone" required>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="email" class="form-label">Email</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="email" class="form-control" id="email" name="email" required>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
 
-    // Xử lý khi người dùng nhấn nút "Thanh toán với PayPal"
-    proceedToPayPalButton.addEventListener('click', () => {
-      // Thực hiện các hành động cần thiết để chuyển sang thanh toán qua PayPal
-      alert('Chuyển hướng đến PayPal để thanh toán.');
-      // Ví dụ: Chuyển hướng người dùng tới trang thanh toán PayPal
-      window.location.href = 'https://www.paypal.com';
-    });
-  });
-</script>
-</body>
-</html>
+<!--&lt;!&ndash;        <h3>Chọn cách thức nhận hàng</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="deliveryMethod" class="form-label">Phương thức nhận hàng</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select class="form-select" id="deliveryMethod" name="deliveryMethod" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="">&#45;&#45; Chọn phương thức nhận hàng &#45;&#45;</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Giao Hàng Tận Nơi">Giao Hàng Tận Nơi (Có Phí Giao Hàng)</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Nhận Tại Cửa Hàng">Nhận Tại Cửa Hàng</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div id="storeAddress" style="display: none; margin-top: 20px;">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h5>Địa chỉ cửa hàng:</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>123 Đường ABC, Phường XYZ, Quận 3, Đà Nẵng</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div id="deliveryForm" style="display: none; margin-top: 20px;">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                <label for="province" class="form-label">Tỉnh/Thành phố</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                <select class="form-select" id="province" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option value="">&#45;&#45; Chọn Tỉnh/Thành phố &#45;&#45;</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option value="Hà Nội">Hà Nội</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option value="Đà Nẵng">Đà Nẵng</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    &lt;!&ndash; Thêm các tỉnh khác &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                </select>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                <label for="district" class="form-label">Quận/Huyện</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                <select class="form-select" id="district" required disabled>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option value="">&#45;&#45; Chọn Quận/Huyện &#45;&#45;</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                </select>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                <label for="address" class="form-label">Địa chỉ chi tiết</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ chi tiết" required>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <h3>Chọn hình thức thanh toán</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="paymentMethod" class="form-label">Hình thức thanh toán</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select class="form-select" id="paymentMethod" name="paymentMethod" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="none">&#45;&#45; Chọn hình thức thanh toán &#45;&#45;</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="bankTransfer">Chuyển khoản qua ngân hàng</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="cash">Thanh toán khi nhận hàng</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="PayPal">Paypal</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div id="paypalInfo" style="display: none;">&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>Bạn đã chọn thanh toán qua PayPal. Nhấn vào nút dưới đây để tiếp tục.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button id="proceedToPayPal" class="btn btn-primary">Thanh toán với PayPal</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div id="bankInfo" style="display: none; margin-top: 20px;">&ndash;&gt;-->
+<!--&lt;!&ndash;            <p><strong>CÔNG TY TNHH một thành viên</strong></p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li>Vietcombank - CN Đà Nẵng: 9397765888</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li>Sacombank - CN Đà Nẵng: 0356559427</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li>Agribank - CN Đà Nẵng: 37499456688</li>&ndash;&gt;-->
+<!--&lt;!&ndash;            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>Chủ tài khoản: Công ty ABC</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>Nội dung chuyển khoản: Thanh toán đơn hàng [Mã đơn hàng]</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>Vui lòng nhấn nút "Đặt hàng" để hoàn tất. Hoặc liên hệ Hotline: <strong>0397.765.888</strong> để được tư vấn.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div id="paymentInfo" style="margin-top: 20px; border: 1px solid #ddd; padding: 10px; display: none;">&ndash;&gt;-->
+<!--&lt;!&ndash;            Quý khách sẽ thanh toán bằng tiền mặt hoặc chuyển khoản cho nhân viên khi nhận hàng. Vui lòng bấm nút "Mua hàng" để hoàn tất.&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="d-flex justify-content-between align-items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a th:href="@{/cart}" class="btn btn-link" style="text-decoration: none;">Quay lại giỏ hàng</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="submit" class="btn btn-success">Mua hàng</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+
+<!--    <form action="#" th:action="@{payment/pay}" method="post">-->
+<!--        <div class="mb-3">-->
+<!--            <label for="amount" class="form-label">Nhập số tiền</label>-->
+<!--            <input type="number" id="amount" name="amount" class="form-control" step="0.01" required>-->
+<!--        </div>-->
+<!--        <div class="d-flex justify-content-between">-->
+<!--            <button type="submit" name="method" value="paypal" class="btn btn-primary">-->
+<!--                Thanh toán với PayPal-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </form>-->
+
+<!--</div>-->
+
+<!--&lt;!&ndash; Bootstrap JS &ndash;&gt;-->
+<!--<script src="https://www.paypal.com/sdk/js?client-id=AVYkW1aVTdi_mwkha_zDeQvfpP1wHKoQiKrb8g-CW-OQ6E3p2vfjAEQbI42SX7jMaAl8qKc53IuFjbVp;"></script>-->
+<!--<script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script>-->
+<!--    const deliveryMethod = document.getElementById("deliveryMethod");-->
+<!--    const storeAddress = document.getElementById("storeAddress");-->
+<!--    const deliveryForm = document.getElementById("deliveryForm");-->
+<!--    const province = document.getElementById("province");-->
+<!--    const district = document.getElementById("district");-->
+
+<!--    // Huyện theo tỉnh-->
+<!--    const districtsByProvince = {-->
+<!--        "Hà Nội": ["Ba Đình", "Hoàn Kiếm", "Tây Hồ", "Cầu Giấy", "Đống Đa"],-->
+<!--        "TP Hồ Chí Minh": ["Quận 1", "Quận 3", "Quận 5", "Quận 7", "Quận 10"],-->
+<!--        "Đà Nẵng": ["Hải Châu", "Thanh Khê", "Ngũ Hành Sơn", "Cẩm Lệ", "Liên Chiểu"]-->
+<!--    };-->
+
+<!--    // Xử lý khi thay đổi phương thức nhận hàng-->
+<!--    deliveryMethod.addEventListener("change", () => {-->
+<!--        const selectedMethod = deliveryMethod.value;-->
+<!--        if (selectedMethod === "Nhận Tại Cửa Hàng") {-->
+<!--            storeAddress.style.display = "block";-->
+<!--            deliveryForm.style.display = "none";-->
+<!--        } else if (selectedMethod === "Giao Hàng Tận Nơi") {-->
+<!--            storeAddress.style.display = "none";-->
+<!--            deliveryForm.style.display = "block";-->
+<!--        } else {-->
+<!--            storeAddress.style.display = "none";-->
+<!--            deliveryForm.style.display = "none";-->
+<!--        }-->
+<!--    });-->
+
+<!--    // Xử lý khi chọn tỉnh/thành phố-->
+<!--    province.addEventListener("change", () => {-->
+<!--        const selectedProvince = province.value;-->
+<!--        district.innerHTML = "<option value=''>&#45;&#45; Chọn Quận/Huyện &#45;&#45;</option>"; // Reset options-->
+<!--        if (selectedProvince && districtsByProvince[selectedProvince]) {-->
+<!--            districtsByProvince[selectedProvince].forEach(d => {-->
+<!--                const option = document.createElement("option");-->
+<!--                option.value = d;-->
+<!--                option.textContent = d;-->
+<!--                district.appendChild(option);-->
+<!--            });-->
+<!--            district.disabled = false;-->
+<!--        } else {-->
+<!--            district.disabled = true;-->
+<!--        }-->
+<!--    });-->
+
+
+<!--    document.getElementById('paymentMethod').addEventListener('change', function () {-->
+<!--        const selectedMethod = this.value; // Lấy giá trị đã chọn-->
+<!--        const bankInfo = document.getElementById('bankInfo');-->
+<!--        const paymentInfo = document.getElementById('paymentInfo');-->
+
+<!--        // Ẩn tất cả các phần trước khi hiển thị-->
+<!--        bankInfo.style.display = 'none';-->
+<!--        paymentInfo.style.display = 'none';-->
+
+<!--        // Kiểm tra và hiển thị theo lựa chọn-->
+<!--        if (selectedMethod === 'bankTransfer') {-->
+<!--            bankInfo.style.display = 'block'; // Hiển thị thông tin ngân hàng-->
+<!--        } else if (selectedMethod === 'cash') {-->
+<!--            paymentInfo.style.display = 'block'; // Hiển thị thông tin thanh toán khi nhận hàng-->
+<!--        }-->
+<!--    });-->
+
+<!--    document.addEventListener('DOMContentLoaded', () => {-->
+<!--        const paymentMethodSelect = document.getElementById('paymentMethod');-->
+<!--        const paypalInfo = document.getElementById('paypalInfo');-->
+<!--        const proceedToPayPalButton = document.getElementById('proceedToPayPal');-->
+
+<!--        // Lắng nghe sự kiện thay đổi giá trị của dropdown-->
+<!--        paymentMethodSelect.addEventListener('change', (event) => {-->
+<!--            const selectedValue = event.target.value;-->
+
+<!--            if (selectedValue === 'PayPal') {-->
+<!--                paypalInfo.style.display = 'block'; // Hiển thị thông tin PayPal-->
+<!--            } else {-->
+<!--                paypalInfo.style.display = 'none'; // Ẩn thông tin PayPal-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

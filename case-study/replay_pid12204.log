@@ -1,0 +1,472 @@
+version 2
+JvmtiExport can_access_local_variables 0
+JvmtiExport can_hotswap_or_post_breakpoint 0
+JvmtiExport can_post_on_exceptions 0
+# 198 ciObject found
+instanceKlass org/gradle/internal/file/FilePathUtil
+ciInstanceKlass java/lang/Cloneable 1 0 7 100 1 100 1 1 1
+instanceKlass com/google/common/hash/PrimitiveSink
+instanceKlass com/google/common/io/Closer$SuppressingSuppressor
+instanceKlass com/google/common/io/Closer$Suppressor
+instanceKlass com/google/common/io/Closer
+instanceKlass com/google/common/io/CharSink
+instanceKlass java/io/File$TempDirectory
+instanceKlass org/gradle/api/internal/file/temp/TempFiles
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23cc00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23c800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23c400
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23c000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23bc00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23b800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23b400
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23b000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23ac00
+instanceKlass org/gradle/internal/watch/vfs/impl/DefaultWatchableFileSystemDetector
+instanceKlass net/rubygrapefruit/platform/internal/PosixFileSystems
+instanceKlass org/gradle/internal/watch/vfs/FileChangeListener
+instanceKlass org/gradle/internal/watch/registry/FileWatcherRegistry$ChangeHandler
+instanceKlass org/gradle/internal/service/scopes/DefaultFileChangeListeners
+instanceKlass org/gradle/internal/nativeintegration/services/NativeServices$3
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23a800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23a400
+instanceKlass org/gradle/internal/service/scopes/VirtualFileSystemServices$GradleUserHomeServices$1
+instanceKlass org/gradle/internal/file/FilePathUtil
+instanceKlass org/gradle/internal/file/FileHierarchySet$Node
+instanceKlass org/gradle/internal/file/FileHierarchySet$NodeVisitor
+instanceKlass org/gradle/internal/file/FileHierarchySet
+instanceKlass org/gradle/cache/internal/DefaultGlobalCacheLocations
+instanceKlass org/gradle/internal/hash/DefaultFileHasher
+instanceKlass org/gradle/api/internal/changedetection/state/CachingFileHasher
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a23a000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a239c00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a239800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a239400
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a239000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a238c00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a238800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a238400
+# instanceKlass java/lang/invoke/LambdaForm$DMH+0x0000014b3a238000
+instanceKlass com/google/common/collect/MapMakerInternalMap$StrongValueEntry
+instanceKlass com/google/common/collect/MapMakerInternalMap$WeakKeyDummyValueEntry$Helper
+instanceKlass com/google/common/collect/MapMakerInternalMap$InternalEntry
+instanceKlass com/google/common/collect/MapMakerInternalMap$1
+instanceKlass com/google/common/collect/MapMakerInternalMap$InternalEntryHelper
+instanceKlass com/google/common/collect/MapMakerInternalMap$WeakValueReference
+instanceKlass com/google/common/collect/Interners$InternerImpl
+instanceKlass com/google/common/collect/MapMaker
+instanceKlass com/google/common/collect/Interners$InternerBuilder
+instanceKlass com/google/common/collect/Interners
+instanceKlass org/gradle/internal/hash/DefaultStreamHasher
+instanceKlass  @bci org/gradle/api/internal/changedetection/state/FileTimeStampInspector <init> (Ljava/io/File;)V 29 <appendix> member <vmtarget> ; # org/gradle/api/internal/changedetection/state/FileTimeStampInspector$$Lambda+0x0000014b3a230910
+instanceKlass org/gradle/api/internal/changedetection/state/FileHasherStatistics
+instanceKlass sun/security/provider/ByteArrayAccess$LE
+instanceKlass com/google/common/base/Charsets
+instanceKlass org/gradle/internal/hash/Hashing$MessageDigestHasher
+instanceKlass org/gradle/internal/hash/Hashing$DefaultHasher
+instanceKlass org/gradle/internal/hash/PrimitiveHasher
+instanceKlass org/gradle/internal/hash/Hasher
+instanceKlass org/gradle/internal/hash/Hashing$MessageDigestHashFunction
+instanceKlass org/gradle/internal/hash/HashFunction
+instanceKlass org/gradle/internal/hash/Hashing
+instanceKlass org/gradle/api/internal/changedetection/state/CachingResourceHasher
+instanceKlass org/gradle/internal/fingerprint/hashing/ResourceHasher
+instanceKlass org/gradle/internal/fingerprint/hashing/ZipEntryContextHasher
+instanceKlass org/gradle/internal/fingerprint/hashing/RegularFileSnapshotContextHasher
+instanceKlass org/gradle/internal/fingerprint/hashing/ConfigurableNormalizer
+instanceKlass org/gradle/internal/snapshot/FileSystemLocationSnapshot
+instanceKlass org/gradle/internal/snapshot/MetadataSnapshot
+instanceKlass org/gradle/internal/snapshot/FileSystemNode
+instanceKlass org/gradle/api/internal/changedetection/state/DefaultResourceSnapshotterCacheService
+instanceKlass org/gradle/internal/hash/HashCode
+instanceKlass  @bci org/gradle/internal/service/scopes/WorkerSharedGlobalScopeServices createGlobalCache (Lorg/gradle/api/internal/classpath/GlobalCacheRootsProvider;)Lorg/gradle/cache/GlobalCache; 6 <appendix> member <vmtarget> ; # org/gradle/internal/service/scopes/WorkerSharedGlobalScopeServices$$Lambda+0x0000014b3a22ccd8
+instanceKlass org/apache/commons/lang/StringUtils
+instanceKlass  @bci org/gradle/api/internal/artifacts/ivyservice/DefaultArtifactCaches <init> (Lorg/gradle/cache/scopes/GlobalScopedCacheBuilderFactory;Lorg/gradle/cache/UnscopedCacheBuilderFactory;Lorg/gradle/api/internal/artifacts/ivyservice/DefaultArtifactCaches$WritableArtifactCacheLockingParameters;Lorg/gradle/api/internal/DocumentationRegistry;Lorg/gradle/api/internal/cache/CacheConfigurationsInternal;Lorg/gradle/cache/CacheCleanupStrategyFactory;)V 28 <appendix> member <vmtarget> ; # org/gradle/api/internal/artifacts/ivyservice/DefaultArtifactCaches$$Lambda+0x0000014b3a213b80
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/WritableArtifactCacheLockingAccessCoordinator
+instanceKlass  @bci org/gradle/cache/internal/DefaultCacheCoordinator beforeLockRelease (Lorg/gradle/cache/FileLock;)V 35 <appendix> member <vmtarget> ; # org/gradle/cache/internal/DefaultCacheCoordinator$$Lambda+0x0000014b3a22c8b8
+instanceKlass  @bci org/gradle/cache/internal/locklistener/DefaultFileLockContentionHandler$ContendedAction run ()V 5 <appendix> member <vmtarget> ; # org/gradle/cache/internal/locklistener/DefaultFileLockContentionHandler$ContendedAction$$Lambda+0x0000014b3a22c698
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/DefaultArtifactCaches$LateInitWritableArtifactCacheLockingAccessCoordinator
+instanceKlass com/google/common/primitives/IntsMethodsForWeb
+instanceKlass org/apache/commons/lang/ArrayUtils
+instanceKlass org/gradle/cache/internal/CacheVersion
+instanceKlass org/gradle/util/internal/DefaultGradleVersion$Stage
+instanceKlass org/gradle/cache/internal/CacheVersionMapping$Builder
+instanceKlass org/gradle/cache/internal/CacheVersionMapping$1
+instanceKlass org/gradle/cache/internal/CacheVersionMapping
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/DefaultArtifactCacheMetadata
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/ArtifactCacheLockingAccessCoordinator
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/ArtifactCacheMetadata
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/DefaultArtifactCaches
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a229800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a229400
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a229000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a228c00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a228800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a228400
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a228000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a224c00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a224800
+instanceKlass org/gradle/cache/internal/DefaultCacheCleanupStrategyFactory
+instanceKlass org/gradle/api/internal/artifacts/DependencyManagementGradleUserHomeScopeServices$1
+instanceKlass  @bci org/gradle/api/internal/changedetection/state/DefaultFileAccessTimeJournal loadOrPersistInceptionTimestamp ()J 5 <appendix> member <vmtarget> ; # org/gradle/api/internal/changedetection/state/DefaultFileAccessTimeJournal$$Lambda+0x0000014b3a227d38
+instanceKlass org/gradle/cache/internal/DefaultCacheCoordinator$IndexedCacheEntry
+instanceKlass  @bci org/gradle/cache/internal/DefaultCacheCoordinator afterLockAcquire (Lorg/gradle/cache/FileLock;)V 38 <appendix> member <vmtarget> ; # org/gradle/cache/internal/DefaultCacheCoordinator$$Lambda+0x0000014b3a2276a8
+instanceKlass  @bci sun/nio/ch/DatagramChannelImpl$DatagramPackets <clinit> ()V 16 <appendix> argL0 ; # sun/nio/ch/DatagramChannelImpl$DatagramPackets$$Lambda+0x0000014b3a1773d0
+instanceKlass sun/nio/ch/DatagramChannelImpl$DatagramPackets
+instanceKlass  @bci java/net/DatagramPacket setData ([BII)V 9 <appendix> argL0 ; # java/net/DatagramPacket$$Lambda+0x0000014b3a176f98
+instanceKlass java/net/DatagramPacket
+instanceKlass org/gradle/cache/internal/locklistener/FileLockPacketPayload
+instanceKlass org/gradle/cache/internal/locklistener/DefaultFileLockContentionHandler$ContendedAction
+instanceKlass org/gradle/cache/internal/locklistener/DefaultFileLockContentionHandler$1
+instanceKlass  @bci org/gradle/cache/internal/DefaultCacheCoordinator toSupplier (Ljava/lang/Runnable;)Ljava/util/function/Supplier; 1 <appendix> member <vmtarget> ; # org/gradle/cache/internal/DefaultCacheCoordinator$$Lambda+0x0000014b3a2269f0
+instanceKlass  @bci org/gradle/cache/internal/DefaultCacheCoordinator newCache (Lorg/gradle/cache/IndexedCacheParameters;)Lorg/gradle/cache/MultiProcessSafeIndexedCache; 139 <appendix> argL0 ; # org/gradle/cache/internal/DefaultCacheCoordinator$$Lambda+0x0000014b3a2267d8
+instanceKlass org/gradle/cache/internal/CrossProcessSynchronizingIndexedCache
+instanceKlass org/gradle/cache/internal/InMemoryDecoratedCache
+instanceKlass org/gradle/cache/internal/InMemoryCacheController
+instanceKlass com/google/common/cache/LongAddables$1
+instanceKlass com/google/common/cache/Striped64$Cell
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a224400
+instanceKlass com/google/common/cache/Striped64$1
+instanceKlass sun/misc/Unsafe
+instanceKlass com/google/common/cache/LongAddable
+instanceKlass com/google/common/cache/LongAddables
+instanceKlass com/google/common/cache/AbstractCache$SimpleStatsCounter
+instanceKlass org/gradle/cache/internal/LoggingEvictionListener
+instanceKlass  @bci org/gradle/cache/internal/DefaultInMemoryCacheDecoratorFactory getCache (Ljava/lang/String;I)Lorg/gradle/cache/internal/DefaultInMemoryCacheDecoratorFactory$CacheDetails; 7 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000014b3a224000
+instanceKlass  @bci org/gradle/cache/internal/DefaultInMemoryCacheDecoratorFactory getCache (Ljava/lang/String;I)Lorg/gradle/cache/internal/DefaultInMemoryCacheDecoratorFactory$CacheDetails; 7 <appendix> member <vmtarget> ; # org/gradle/cache/internal/DefaultInMemoryCacheDecoratorFactory$$Lambda+0x0000014b3a222798
+instanceKlass org/gradle/cache/internal/DefaultInMemoryCacheDecoratorFactory$CacheDetails
+instanceKlass org/gradle/cache/internal/AsyncCacheAccessDecoratedCache
+instanceKlass org/gradle/cache/internal/ExclusiveCacheAccessingWorker
+instanceKlass org/gradle/cache/internal/DefaultMultiProcessSafeIndexedCache
+instanceKlass  @bci org/gradle/cache/internal/DefaultCacheCoordinator newCache (Lorg/gradle/cache/IndexedCacheParameters;)Lorg/gradle/cache/MultiProcessSafeIndexedCache; 71 <appendix> member <vmtarget> ; # org/gradle/cache/internal/DefaultCacheCoordinator$$Lambda+0x0000014b3a221b38
+instanceKlass org/gradle/cache/internal/btree/BTreePersistentIndexedCache
+instanceKlass org/gradle/cache/internal/DefaultInMemoryCacheDecoratorFactory$InMemoryCacheDecorator
+instanceKlass org/gradle/cache/IndexedCacheParameters
+instanceKlass org/gradle/api/internal/changedetection/state/DefaultFileAccessTimeJournal
+instanceKlass org/gradle/cache/internal/MultiProcessSafeAsyncPersistentIndexedCache
+instanceKlass org/gradle/cache/CacheDecorator
+instanceKlass org/gradle/cache/internal/DefaultInMemoryCacheDecoratorFactory
+instanceKlass org/gradle/cache/internal/DefaultCacheFactory$ReferenceTrackingCache
+instanceKlass org/gradle/cache/internal/DefaultCacheFactory$DirCacheReference
+instanceKlass org/gradle/cache/internal/cacheops/CacheOperationStack
+instanceKlass  @bci org/gradle/cache/internal/DefaultCacheCoordinator open ()V 2 <appendix> member <vmtarget> ; # org/gradle/cache/internal/DefaultCacheCoordinator$$Lambda+0x0000014b3a220000
+instanceKlass org/gradle/cache/internal/LockOnDemandCrossProcessCacheAccess$ContendedAction
+instanceKlass org/gradle/cache/internal/LockOnDemandCrossProcessCacheAccess$UnlockAction
+instanceKlass org/gradle/cache/internal/DefaultCacheCoordinator$1
+instanceKlass  @bci org/gradle/cache/internal/DefaultCacheCoordinator <init> (Ljava/lang/String;Ljava/io/File;Lorg/gradle/cache/LockOptions;Ljava/io/File;Lorg/gradle/cache/FileLockManager;Lorg/gradle/cache/internal/CacheInitializationAction;Lorg/gradle/cache/internal/CacheCleanupExecutor;Lorg/gradle/internal/concurrent/ExecutorFactory;)V 82 <appendix> member <vmtarget> ; # org/gradle/cache/internal/DefaultCacheCoordinator$$Lambda+0x0000014b3a21b680
+instanceKlass  @bci org/gradle/cache/internal/DefaultCacheCoordinator <init> (Ljava/lang/String;Ljava/io/File;Lorg/gradle/cache/LockOptions;Ljava/io/File;Lorg/gradle/cache/FileLockManager;Lorg/gradle/cache/internal/CacheInitializationAction;Lorg/gradle/cache/internal/CacheCleanupExecutor;Lorg/gradle/internal/concurrent/ExecutorFactory;)V 74 <appendix> member <vmtarget> ; # org/gradle/cache/internal/DefaultCacheCoordinator$$Lambda+0x0000014b3a21b450
+instanceKlass org/gradle/cache/internal/cacheops/CacheAccessOperationsStack
+instanceKlass org/gradle/cache/internal/CacheInitializationAction$1
+instanceKlass org/gradle/cache/internal/CacheInitializationAction
+instanceKlass org/gradle/cache/AsyncCacheAccess
+instanceKlass org/gradle/cache/MultiProcessSafeIndexedCache
+instanceKlass org/gradle/cache/UnitOfWorkParticipant
+instanceKlass org/gradle/cache/internal/AbstractCrossProcessCacheAccess
+instanceKlass org/gradle/cache/CrossProcessCacheAccess
+instanceKlass org/gradle/cache/internal/DefaultCacheCoordinator
+instanceKlass org/gradle/cache/internal/CacheCreationCoordinator
+instanceKlass org/gradle/cache/internal/DefaultCacheCleanupExecutor
+instanceKlass org/gradle/cache/internal/CacheCleanupExecutor
+instanceKlass org/gradle/cache/IndexedCache
+instanceKlass org/gradle/cache/internal/DefaultPersistentDirectoryStore
+instanceKlass org/gradle/cache/CacheCleanupStrategy$1
+instanceKlass org/gradle/cache/CacheCleanupStrategy
+instanceKlass org/gradle/cache/internal/DefaultCacheBuilder
+instanceKlass org/gradle/cache/internal/scopes/DefaultCacheScopeMapping$1
+instanceKlass  @bci org/gradle/language/java/internal/JavaLanguageServices$JavaGlobalScopeServices createJavaSubscribableBuildActionRunnerRegistration ()Lorg/gradle/internal/build/event/OperationResultPostProcessorFactory; 0 <appendix> argL0 ; # org/gradle/language/java/internal/JavaLanguageServices$JavaGlobalScopeServices$$Lambda+0x0000014b3a212458
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a21a800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a21a400
+# instanceKlass java/lang/invoke/LambdaForm$DMH+0x0000014b3a21a000
+instanceKlass org/gradle/internal/DeprecatedInGradleScope
+instanceKlass org/gradle/BuildAdapter
+instanceKlass org/gradle/BuildListener
+instanceKlass org/gradle/internal/file/DefaultFileSystemDefaultExcludesProvider$1
+instanceKlass java/nio/file/attribute/PosixFilePermissions$1
+instanceKlass java/nio/file/attribute/PosixFilePermissions
+instanceKlass org/apache/tools/ant/util/FileUtils
+instanceKlass org/apache/tools/ant/taskdefs/condition/Os
+instanceKlass org/apache/tools/ant/taskdefs/condition/Condition
+instanceKlass org/apache/tools/ant/types/resources/Appendable
+instanceKlass org/apache/tools/ant/types/resources/FileProvider
+instanceKlass org/apache/tools/ant/types/resources/Touchable
+instanceKlass org/apache/tools/ant/ProjectComponent
+instanceKlass org/apache/tools/ant/types/ResourceCollection
+instanceKlass org/apache/tools/ant/DirectoryScanner
+instanceKlass org/apache/tools/ant/types/ResourceFactory
+instanceKlass org/apache/tools/ant/types/selectors/SelectorScanner
+instanceKlass org/apache/tools/ant/FileScanner
+instanceKlass org/gradle/internal/file/DefaultFileSystemDefaultExcludesProvider
+instanceKlass org/gradle/internal/session/DefaultBuildSessionContext
+instanceKlass org/gradle/internal/session/BuildSessionContext
+instanceKlass org/gradle/plugin/use/internal/InjectedPluginClasspath
+instanceKlass org/gradle/internal/cc/impl/DefaultBuildTreeModelControllerServices
+instanceKlass org/gradle/vcs/internal/resolver/PersistentVcsMetadataCache
+instanceKlass org/gradle/vcs/internal/VcsDirectoryLayout
+instanceKlass org/gradle/vcs/internal/VersionControlRepositoryConnection
+instanceKlass org/gradle/vcs/internal/VersionControlSystem
+instanceKlass org/gradle/vcs/internal/services/DefaultVersionControlRepositoryFactory
+instanceKlass org/gradle/vcs/internal/VersionControlRepositoryConnectionFactory
+instanceKlass org/gradle/api/artifacts/ModuleIdentifier
+instanceKlass org/gradle/vcs/internal/services/VersionControlServices$VersionControlBuildSessionServices
+instanceKlass org/gradle/nativeplatform/toolchain/internal/gcc/metadata/SystemLibraryDiscovery
+instanceKlass org/gradle/nativeplatform/toolchain/internal/xcode/AbstractLocator
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/WindowsKitInstall
+instanceKlass org/gradle/platform/base/internal/toolchain/SearchResult
+instanceKlass org/gradle/platform/base/internal/toolchain/ToolSearchResult
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/AbstractWindowsKitComponentLocator
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/UcrtLocator
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/version/SystemPathVersionLocator
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/version/AbstractVisualStudioVersionLocator
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/VisualStudioLocator
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/WindowsSdkLocator
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/WindowsComponentLocator
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/version/VswhereVersionLocator
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/version/VisualCppMetadataProvider
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/version/VisualStudioMetaDataProvider
+instanceKlass org/gradle/nativeplatform/toolchain/internal/msvcpp/version/VisualStudioVersionLocator
+instanceKlass org/gradle/nativeplatform/internal/services/NativeBinaryServices$BuildSessionScopeServices
+instanceKlass org/gradle/composite/internal/CompositeBuildServices$CompositeBuildSessionScopeServices
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a210400
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a210000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a209c00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a209800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a209400
+# instanceKlass java/lang/invoke/LambdaForm$DMH+0x0000014b3a209000
+instanceKlass org/gradle/api/tasks/testing/TestDescriptor
+instanceKlass org/gradle/api/internal/tasks/testing/operations/TestListenerBuildOperationAdapter
+instanceKlass org/gradle/api/internal/tasks/testing/results/TestListenerInternal
+instanceKlass org/gradle/api/internal/tasks/testing/operations/TestExecutionBuildOperationBuildSessionScopeServices
+instanceKlass org/gradle/internal/jvm/inspection/JvmInstallationProblemReporter
+instanceKlass org/gradle/api/internal/attributes/matching/AttributeMatcher
+instanceKlass org/gradle/api/internal/attributes/matching/AttributeSelectionSchema
+instanceKlass org/gradle/api/internal/attributes/AttributeSchemaServices
+instanceKlass org/gradle/api/internal/attributes/immutable/ImmutableAttributesSchemaFactory
+instanceKlass org/gradle/internal/component/model/IvyArtifactName
+instanceKlass org/gradle/internal/component/external/model/ivy/MutableIvyModuleResolveMetadata
+instanceKlass org/gradle/api/internal/artifacts/repositories/metadata/IvyMutableModuleMetadataFactory
+instanceKlass org/gradle/internal/component/external/model/PreferJavaRuntimeVariant
+instanceKlass org/gradle/internal/component/external/model/maven/MutableMavenModuleResolveMetadata
+instanceKlass org/gradle/internal/component/external/model/MutableModuleComponentResolveMetadata
+instanceKlass org/gradle/api/internal/artifacts/repositories/metadata/MavenImmutableAttributesFactory
+instanceKlass org/gradle/api/internal/artifacts/repositories/metadata/MavenMutableModuleMetadataFactory
+instanceKlass org/gradle/api/internal/artifacts/repositories/metadata/MutableModuleMetadataFactory
+instanceKlass org/gradle/internal/isolation/Isolatable
+instanceKlass org/gradle/internal/hash/Hashable
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/resolveengine/result/AttributeContainerSerializer
+instanceKlass org/gradle/api/internal/attributes/AttributeContainerInternal
+instanceKlass org/gradle/api/attributes/AttributeContainer
+instanceKlass org/gradle/api/internal/attributes/DefaultImmutableAttributesFactory
+instanceKlass org/gradle/api/internal/catalog/DependenciesAccessorsWorkspaceProvider
+instanceKlass org/gradle/api/internal/attributes/ImmutableAttributesFactory
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/resolveengine/result/ComponentSelectionDescriptorFactory
+instanceKlass org/gradle/api/internal/artifacts/DependencyManagementBuildSessionScopeServices
+instanceKlass org/gradle/workers/internal/WorkerExecutionQueueFactory
+instanceKlass org/gradle/workers/internal/WorkerDaemonClientCancellationHandler
+instanceKlass org/gradle/process/internal/worker/child/WorkerDirectoryProvider
+instanceKlass org/gradle/internal/work/ConditionalExecutionQueueFactory
+instanceKlass org/gradle/workers/internal/WorkersServices$BuildSessionScopeServices
+instanceKlass org/gradle/internal/buildtree/BuildTreeModelControllerServices
+instanceKlass org/gradle/api/internal/tasks/userinput/UserInputHandler
+instanceKlass org/gradle/internal/session/BuildSessionActionExecutor
+instanceKlass org/gradle/api/internal/tasks/userinput/BuildScanUserInputHandler
+instanceKlass org/gradle/tooling/internal/provider/LauncherServices$ToolingBuildSessionScopeServices
+instanceKlass org/gradle/internal/fingerprint/impl/FileCollectionFingerprinterRegistrations
+instanceKlass org/gradle/internal/execution/InputFingerprinter
+instanceKlass org/gradle/internal/execution/OutputSnapshotter
+instanceKlass org/gradle/internal/file/FileSystemDefaultExcludesProvider
+instanceKlass org/gradle/internal/execution/FileCollectionFingerprinterRegistry
+instanceKlass org/gradle/internal/service/scopes/VirtualFileSystemServices$BuildSessionServices
+instanceKlass org/gradle/internal/scopeids/PersistentScopeIdStoreFactory
+instanceKlass org/gradle/internal/scopeids/ScopeIdsServices
+instanceKlass org/gradle/internal/work/DefaultAsyncWorkTracker
+instanceKlass org/gradle/internal/work/AsyncWorkTracker
+instanceKlass org/gradle/internal/exceptions/FailureResolutionAware
+instanceKlass org/gradle/internal/build/BuildLayoutValidator
+instanceKlass org/gradle/internal/model/StateTransitionControllerFactory
+instanceKlass org/gradle/internal/model/CalculatedValueCache
+instanceKlass org/gradle/internal/model/ValueCalculator
+instanceKlass org/gradle/internal/model/CalculatedValueContainerFactory
+instanceKlass org/gradle/internal/model/CalculatedValueFactory
+instanceKlass org/gradle/deployment/internal/DefaultDeploymentRegistry
+instanceKlass org/gradle/deployment/internal/PendingChangesListener
+instanceKlass org/gradle/deployment/internal/DeploymentRegistryInternal
+instanceKlass org/gradle/deployment/internal/DeploymentRegistry
+instanceKlass org/gradle/internal/buildevents/BuildStartedTime
+instanceKlass org/gradle/initialization/layout/ProjectCacheDir
+instanceKlass org/gradle/internal/scopeids/id/ScopeId
+instanceKlass org/gradle/internal/scopeids/PersistentScopeIdLoader
+instanceKlass org/gradle/initialization/SettingsLocation
+instanceKlass org/gradle/deployment/internal/PendingChangesManager
+instanceKlass org/gradle/cache/scopes/BuildTreeScopedCacheBuilderFactory
+instanceKlass org/gradle/internal/hash/ChecksumService
+instanceKlass org/gradle/api/internal/file/archive/DecompressionCoordinator
+instanceKlass org/gradle/api/internal/project/CrossProjectConfigurator
+instanceKlass org/gradle/internal/service/scopes/CoreBuildSessionServices
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a208c00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a208800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a208400
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a208000
+instanceKlass org/gradle/internal/snapshot/impl/ValueSnapshotterSerializerRegistry
+instanceKlass org/gradle/internal/snapshot/ValueSnapshotter
+instanceKlass org/gradle/internal/service/scopes/WorkerSharedBuildSessionScopeServices
+instanceKlass org/gradle/internal/service/scopes/DefaultGradleUserHomeScopeServiceRegistry$Services
+instanceKlass org/gradle/api/internal/tasks/compile/incremental/cache/UserHomeScopedCompileCaches
+instanceKlass org/gradle/api/internal/tasks/compile/incremental/cache/GeneralCompileCaches
+instanceKlass org/gradle/api/internal/tasks/CompileServices$UserHomeScopeServices
+instanceKlass org/gradle/kotlin/dsl/provider/plugins/DefaultProjectSchemaProvider
+instanceKlass org/gradle/kotlin/dsl/accessors/ProjectSchemaProvider
+instanceKlass org/gradle/kotlin/dsl/provider/plugins/precompiled/DefaultPrecompiledScriptPluginsSupport
+instanceKlass org/gradle/kotlin/dsl/provider/PrecompiledScriptPluginsSupport
+instanceKlass org/gradle/kotlin/dsl/provider/plugins/DefaultKotlinScriptBasePluginsApplicator
+instanceKlass org/gradle/kotlin/dsl/provider/KotlinScriptBasePluginsApplicator
+instanceKlass org/gradle/kotlin/dsl/provider/plugins/GradleUserHomeServices
+instanceKlass org/gradle/internal/execution/ExecutionEngine$IdentityCacheResult
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/ArtifactCachesProvider
+instanceKlass org/gradle/api/internal/artifacts/ivyservice/DefaultArtifactCaches$WritableArtifactCacheLockingParameters
+instanceKlass org/gradle/api/internal/artifacts/transform/ImmutableTransformWorkspaceServices
+instanceKlass org/gradle/api/internal/artifacts/DependencyManagementGradleUserHomeScopeServices
+instanceKlass org/gradle/workers/internal/WorkerDaemonClientsManager
+instanceKlass org/gradle/workers/internal/ClassLoaderStructureProvider
+instanceKlass org/gradle/workers/internal/ActionExecutionSpecFactory
+instanceKlass org/gradle/workers/internal/WorkersServices$GradleUserHomeServices
+instanceKlass org/gradle/tooling/internal/provider/serialization/PayloadSerializer
+instanceKlass org/gradle/tooling/internal/provider/serialization/PayloadClassLoaderRegistry
+instanceKlass org/gradle/tooling/internal/provider/serialization/PayloadClassLoaderFactory
+instanceKlass org/gradle/internal/daemon/services/DaemonServices$DaemonGradleUserHomeServices
+instanceKlass org/gradle/kotlin/dsl/provider/KotlinScriptClassloadingCache
+instanceKlass org/gradle/kotlin/dsl/provider/GradleUserHomeServices
+instanceKlass org/gradle/kotlin/dsl/support/EmbeddedKotlinProvider
+instanceKlass org/gradle/kotlin/dsl/support/GradleUserHomeServices
+instanceKlass org/gradle/kotlin/dsl/cache/KotlinDslWorkspaceProvider
+instanceKlass org/gradle/kotlin/dsl/cache/GradleUserHomeServices
+instanceKlass org/gradle/internal/service/ServiceAccess$PrivateAccessScope
+instanceKlass org/gradle/internal/watch/registry/FileWatcherRegistryFactory
+instanceKlass org/gradle/internal/watch/vfs/impl/FileWatchingFilter
+instanceKlass org/gradle/internal/vfs/FileSystemAccess$WriteListener
+instanceKlass org/gradle/internal/snapshot/SnapshotHierarchy
+instanceKlass org/gradle/internal/build/BuildState
+instanceKlass org/gradle/api/internal/changedetection/state/CrossBuildFileHashCache
+instanceKlass org/gradle/internal/hash/FileHasher
+instanceKlass org/gradle/internal/watch/vfs/FileChangeListeners
+instanceKlass org/gradle/internal/watch/vfs/BuildLifecycleAwareVirtualFileSystem
+instanceKlass org/gradle/internal/vfs/VirtualFileSystem
+instanceKlass org/gradle/internal/execution/FileCollectionSnapshotter
+instanceKlass org/gradle/internal/watch/vfs/WatchableFileSystemDetector
+instanceKlass org/gradle/api/internal/changedetection/state/ResourceSnapshotterCacheService
+instanceKlass org/gradle/internal/service/scopes/VirtualFileSystemServices$GradleUserHomeServices
+instanceKlass org/gradle/internal/service/DefaultServiceRegistry$InstanceUnpackingVisitor
+instanceKlass org/gradle/internal/execution/workspace/ImmutableWorkspaceProvider
+instanceKlass org/gradle/groovy/scripts/internal/GroovyDslWorkspaceProvider
+instanceKlass org/gradle/internal/fingerprint/classpath/ClasspathFingerprinter
+instanceKlass org/gradle/internal/execution/FileCollectionFingerprinter
+instanceKlass org/gradle/internal/classpath/ClasspathFileTransformer
+instanceKlass org/gradle/internal/snapshot/FileSystemSnapshot
+instanceKlass org/gradle/internal/classpath/DefaultCachedClasspathTransformer
+instanceKlass org/gradle/internal/classpath/CachedClasspathTransformer
+instanceKlass org/gradle/internal/classpath/transforms/ClasspathElementTransformFactoryForLegacy
+instanceKlass org/gradle/internal/classpath/transforms/ClasspathElementTransform
+instanceKlass org/gradle/internal/classpath/transforms/ClasspathElementTransformFactoryForAgent
+instanceKlass org/gradle/internal/classpath/transforms/ClasspathElementTransformFactory
+instanceKlass org/gradle/internal/classpath/types/GradleCoreInstrumentationTypeRegistry
+instanceKlass org/gradle/internal/classpath/types/InstrumentationTypeRegistry
+instanceKlass org/gradle/api/internal/changedetection/state/FileTimeStampInspector
+instanceKlass org/gradle/initialization/RootBuildLifecycleListener
+instanceKlass org/gradle/internal/file/FileAccessTracker
+instanceKlass org/gradle/cache/CleanupAction
+instanceKlass org/gradle/cache/internal/FilesFinder
+instanceKlass org/gradle/internal/classpath/DefaultClasspathTransformerCacheFactory
+instanceKlass org/gradle/internal/classpath/ClasspathTransformerCacheFactory
+instanceKlass org/gradle/internal/classpath/DefaultClasspathBuilder
+instanceKlass org/gradle/internal/classpath/ClasspathBuilder
+instanceKlass org/gradle/internal/classpath/ClasspathEntryVisitor$Entry
+instanceKlass org/gradle/internal/classpath/ClasspathWalker
+instanceKlass org/gradle/cache/internal/GradleUserHomeCleanupServices$1
+instanceKlass org/gradle/internal/cache/MonitoredCleanupAction
+instanceKlass org/gradle/internal/operations/CallableBuildOperation
+instanceKlass org/gradle/cache/internal/GradleUserHomeCleanupService
+instanceKlass org/gradle/cache/internal/VersionSpecificCacheDirectoryScanner
+instanceKlass org/gradle/cache/internal/UsedGradleVersionsFromGradleUserHomeCaches
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1fb000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1fac00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1fa800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1fa400
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1fa000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1f9c00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1f9800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1f9400
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1f9000
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1f8c00
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1f8800
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1f8400
+# instanceKlass java/lang/invoke/LambdaForm$BMH+0x0000014b3a1f8000
+# instanceKlass java/lang/invoke/LambdaForm$DMH+0x0000014b3a1ea400
+instanceKlass  @bci org/gradle/api/internal/cache/DefaultCacheConfigurations_Decorated $gradleInit ()V 1 <appendix> member <vmtarget> ; # org/gradle/api/internal/cache/DefaultCacheConfigurations_Decorated$$Lambda+0x0000014b3a1f5158
+instanceKlass org/gradle/api/internal/cache/NoMarkingStrategy
+instanceKlass org/gradle/api/internal/cache/CacheDirTagMarkingStrategy
+instanceKlass org/gradle/api/internal/provider/TypeSanitizingTransformer
+instanceKlass  @bci org/gradle/api/internal/cache/DefaultCacheConfigurations$ContextualErrorMessageProperty convention (Lorg/gradle/api/provider/Provider;)Lorg/gradle/api/internal/cache/DefaultCacheConfigurations$ContextualErrorMessageProperty; 3 <appendix> member <vmtarget> ; # org/gradle/api/internal/cache/DefaultCacheConfigurations$ContextualErrorMessageProperty$$Lambda+0x0000014b3a1f3f90
+instanceKlass  @bci org/gradle/api/internal/cache/DefaultCacheConfigurations providerFromSupplier (Ljava/util/function/Supplier;)Lorg/gradle/api/provider/Provider; 10 <appendix> member <vmtarget> ; # org/gradle/api/internal/cache/DefaultCacheConfigurations$$Lambda+0x0000014b3a1f3d70
+instanceKlass  @bci org/gradle/api/internal/cache/DefaultCacheConfigurations createCleanupConvention ()Lorg/gradle/api/provider/Provider; 1 <appendix> member <vmtarget> ; # org/gradle/api/internal/cache/DefaultCacheConfigurations$$Lambda+0x0000014b3a1f36c0
+instanceKlass  @bci org/gradle/api/internal/cache/DefaultCacheConfigurations$ContextualErrorMessageProperty convention (Ljava/lang/Object;)Lorg/gradle/api/internal/cache/DefaultCacheConfigurations$ContextualErrorMessageProperty; 3 <appendix> member <vmtarget> ; # org/gradle/api/internal/cache/DefaultCacheConfigurations$ContextualErrorMessageProperty$$Lambda+0x0000014b3a1f34a0
+instanceKlass org/gradle/internal/serialization/Cached
+instanceKlass  @bci org/gradle/internal/instantiation/generator/ManagedObjectFactory cachedOwnerDisplayNameOf (Lorg/gradle/internal/state/ModelObject;)Lorg/gradle/internal/serialization/Cached; 1 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/ManagedObjectFactory$$Lambda+0x0000014b3a1f2e68
+instanceKlass org/gradle/internal/instantiation/generator/ManagedObjectFactory$ManagedPropertyName
+instanceKlass  @bci org/gradle/api/internal/cache/DefaultCacheConfigurations$DefaultCacheResourceConfiguration_Decorated $gradleInit ()V 1 <appendix> member <vmtarget> ; # org/gradle/api/internal/cache/DefaultCacheConfigurations$DefaultCacheResourceConfiguration_Decorated$$Lambda+0x0000014b3a1f2a00
+instanceKlass org/gradle/api/internal/provider/ValueSanitizers$4
+instanceKlass org/gradle/api/internal/provider/ValueSanitizers$3
+instanceKlass org/gradle/api/internal/provider/ValueSanitizers$2
+instanceKlass org/gradle/api/internal/provider/ValueSanitizers$1
+instanceKlass org/gradle/api/internal/provider/ValueCollector
+instanceKlass org/gradle/api/internal/provider/ValueSanitizer
+instanceKlass org/gradle/api/internal/provider/ValueSanitizers
+instanceKlass  @bci java/util/function/Function identity ()Ljava/util/function/Function; 0 <appendix> argL0 ; # java/util/function/Function$$Lambda+0x0000014b3a175468
+instanceKlass org/gradle/api/internal/provider/ValueState
+instanceKlass org/gradle/api/internal/provider/ValueSupplier$Present
+instanceKlass org/gradle/api/internal/provider/ValueSupplier$Missing
+instanceKlass org/gradle/api/internal/provider/ValueSupplier$Value
+instanceKlass org/gradle/api/NamedDomainObjectProvider
+instanceKlass org/gradle/api/internal/provider/Providers
+instanceKlass org/gradle/internal/Describables$AbstractDescribable
+instanceKlass org/gradle/internal/Describables
+instanceKlass org/gradle/api/internal/cache/CacheResourceConfigurationInternal$EntryRetention
+instanceKlass org/gradle/api/internal/cache/DefaultCacheConfigurations$DefaultCacheResourceConfiguration
+# instanceKlass java/lang/invoke/LambdaForm$MH+0x0000014b3a1ea000
+instanceKlass org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ObjectCreationDetails
+instanceKlass org/gradle/internal/instantiation/generator/InjectUtil
+instanceKlass com/google/common/collect/Iterables
+instanceKlass com/google/common/collect/Ordering
+instanceKlass org/gradle/internal/instantiation/generator/ConstructorComparator
+instanceKlass org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$InvokeConstructorStrategy
+instanceKlass org/gradle/internal/instantiation/generator/AbstractClassGenerator$GeneratedClassImpl$GeneratedConstructorImpl
+instanceKlass org/gradle/internal/instantiation/generator/ClassGenerator$GeneratedConstructor
+instanceKlass org/gradle/internal/instantiation/generator/ClassGenerator$SerializationConstructor
+instanceKlass jdk/internal/org/objectweb/asm/ClassReader
+instanceKlass org/objectweb/asm/Handler
+instanceKlass org/objectweb/asm/Attribute
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addConstructor (Ljava/lang/reflect/Constructor;Z)V 83 <adapter> ; # java/lang/invoke/LambdaForm$MH+0x0000014b3a1e9c00
+# instanceKlass java/lang/invoke/LambdaForm$DMH+0x0000014b3a1e9800
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addConstructor (Ljava/lang/reflect/Constructor;Z)V 83 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000014b3a1e9400
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addConstructor (Ljava/lang/reflect/Constructor;Z)V 83 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e68b8
+instanceKlass  @cpi org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl 1176 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000014b3a1e9000
+instanceKlass org/gradle/model/internal/asm/AsmClassGeneratorUtils
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addLazyGroovySupportSetterOverloads (Lorg/gradle/internal/instantiation/generator/AbstractClassGenerator$PropertyMetadata;Lorg/gradle/internal/instantiation/generator/AbstractClassGenerator$MethodMetadata;)V 21 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e5fd8
+instanceKlass org/apache/groovy/util/BeanUtils
+instanceKlass groovy/lang/MetaProperty
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addSetMethod (Lorg/gradle/internal/instantiation/generator/AbstractClassGenerator$PropertyMetadata;Ljava/lang/reflect/Method;)V 66 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e54c8
+instanceKlass  @cpi org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl 1330 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000014b3a1e8c00
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addActionMethod (Ljava/lang/reflect/Method;)V 98 <adapter> ; # java/lang/invoke/LambdaForm$MH+0x0000014b3a1e8800
+# instanceKlass java/lang/invoke/LambdaForm$DMH+0x0000014b3a1e8400
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addActionMethod (Ljava/lang/reflect/Method;)V 98 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000014b3a1e8000
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addActionMethod (Ljava/lang/reflect/Method;)V 98 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e4de0
+instanceKlass  @cpi org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl 1343 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000014b3a1ddc00
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addActionMethod (Ljava/lang/reflect/Method;)V 22 <appendix> argL0 ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e4bc8
+instanceKlass com/google/common/collect/LinkedHashMultimap$ValueSet$1
+instanceKlass com/google/common/collect/AbstractMapBasedMultimap$WrappedCollection$WrappedIterator
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addDynamicMethods ()V 82 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e2e20
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addDynamicMethods ()V 64 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e2740
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addDynamicMethods ()V 49 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e2060
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addDynamicMethods ()V 34 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e1980
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl addSetter (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/gradle/model/internal/asm/BytecodeFragment;)V 7 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e0de0
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl mixInGroovyObject ()V 50 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e0bc0
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl mixInGroovyObject ()V 35 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1e04e0
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl mixInDynamicAware ()V 60 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1dfdc8
+instanceKlass  @bci org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl mixInDynamicAware ()V 37 <appendix> member <vmtarget> ; # org/gradle/internal/instantiation/generator/AsmBackedClassGenerator$ClassBuilderImpl$$Lambda+0x0000014b3a1df6e8
