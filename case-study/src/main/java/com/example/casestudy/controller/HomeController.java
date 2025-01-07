@@ -1,7 +1,9 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.dto.TopProductDTO;
+import com.example.casestudy.model.Banner;
 import com.example.casestudy.model.Product;
+import com.example.casestudy.service.IBannerService;
 import com.example.casestudy.service.IProductService;
 import com.example.casestudy.service.IProductServicee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class HomeController {
     @Autowired
     private IProductService productService;
 
+    @Autowired
+    private IBannerService bannerService;
+
     @GetMapping
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
@@ -38,12 +43,14 @@ public class HomeController {
             int end = Math.min(i + 4, products.size());
             productGroups.add(products.subList(i, end));
         }
+        List<Banner> banners = bannerService.findAll();
+        model.addAttribute("banners", banners);
         model.addAttribute("bestSellers", bestSellers);
         model.addAttribute("productGroups", productGroups);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("name", name);
 
-        return "home"; // Tên view
+        return "home";
     }
 }

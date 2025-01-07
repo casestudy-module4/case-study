@@ -806,23 +806,19 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                 <div class="bg section-bg fill bg-fill  bg-loaded" ></div>
                 <div class="section-content relative">
                     <!-- banner -->
-                    <div id="carouselExample" class="carousel slide">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="/img/banner/slider_1.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="/img/banner/slider_1.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="/img/banner/slider_1.jpg" class="d-block w-100" alt="...">
+                            <div th:each="banner, iterStat : ${banners}">
+                                <div th:class="${iterStat.index == 0 ? 'carousel-item active' : 'carousel-item'}">
+                                    <img th:src="${banner.img}" class="d-block w-100" alt="Banner Image">
+                                </div>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -914,8 +910,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                                             </a>
                                             <div class="card-body">
                                                 <h5 class="card-title" th:text="${topProduct.product.name}"></h5>
-                                                <p class="card-text">Giá: <span th:text="${topProduct.product.price}"></span> VND</p>
-                                                <a th:href="@{/products/{id}(id=${topProduct.product.id})}" class="btn btn-primary btn-sm">Xem chi tiết</a>
+                                                <td th:text="${#numbers.formatDecimal(topProduct.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
                                             </div>
                                         </div>
                                     </div>
