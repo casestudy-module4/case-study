@@ -132,7 +132,7 @@ public class AdminController {
             return "product/fragment";
         }
 
-        if (product.getId() != null || productService.findById(product.getId()) != null) {
+        if (product.getId() != null && productService.findById(product.getId()) != null) {
             product.setRemainProductQuantity(product.getTotalProductQuantity());
             productService.update(id, product);
         } else {

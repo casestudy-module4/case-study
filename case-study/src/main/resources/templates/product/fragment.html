@@ -44,55 +44,133 @@
         </div>
     </div>
 </div>
+<!--<div th:fragment="modal-update">-->
+<!--    <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="updateProductModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="updateProductModalLabel">Cập nhật sản phẩm</h5>-->
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <form action="/admins/home/id/update" method="post" enctype="multipart/form-data">-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="productName" class="form-label">Tên sản phẩm</label>-->
+<!--                            <input type="text" class="form-control" id="productName" name="name" required>-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="productPrice" class="form-label">Giá</label>-->
+<!--                            <input type="number" class="form-control" id="productPrice" name="price" required>-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="productDescription" class="form-label">Mô tả</label>-->
+<!--                            <textarea class="form-control" id="productDescription" name="description" rows="3" required></textarea>-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="productPackagingDate" class="form-label">Ngày đóng gói</label>-->
+<!--                            <input type="date" class="form-control" id="productPackagingDate" name="productPackagingDate" required>-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="totalProductQuantity" class="form-label">Tổng số lượng</label>-->
+<!--                            <input type="number" class="form-control" id="totalProductQuantity" name="totalProductQuantity" required>-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="images" class="form-label">Hình ảnh</label>-->
+<!--                            <input type="file" class="form-control" id="images" name="images" required>-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="category" class="form-label">Danh mục</label>-->
+<!--                            <select id="category" name="category.id" class="form-control">-->
+<!--                                <th:block th:each="category : ${categories}">-->
+<!--                                    <option th:value="${category.id}" th:text="${category.nameCategory}"></option>-->
+<!--                                </th:block>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <button type="submit" class="btn btn-primary">Cập nhật</button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <div th:fragment="modal-update">
     <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="updateProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateProductModalLabel">Cập nhật sản phẩm</h5>
+                    <h5 class="modal-title" id="updateProductModalLabel">Cập nhật thông tin sản phẩm</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/admins/home/id/update" method="post" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="productName" class="form-label">Tên sản phẩm</label>
-                            <input type="text" class="form-control" id="productName" name="name" required>
+                    <form id="updateProductForm" action="/admins/home/update" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="productsName" class="form-label">Tên sản phẩm</label>
+                                    <input type="text" class="form-control" id="productName" name="name" placeholder="Nhập tên sản phẩm" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productsPrice" class="form-label">Giá</label>
+                                    <input type="number" class="form-control" id="productPrice" name="price" placeholder="Nhập giá sản phẩm" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productsDescription" class="form-label">Mô tả</label>
+                                    <textarea class="form-control" id="productDescription" name="description" rows="3" placeholder="Nhập mô tả sản phẩm" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productsPackagingDate" class="form-label">Ngày sản xuất</label>
+                                    <input type="date" class="form-control" id="productPackagingDate" name="productPackagingDate" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="totalProductsQuantity" class="form-label">Tổng số lượng</label>
+                                    <input type="number" class="form-control" id="totalProductQuantity" name="totalProductQuantity" placeholder="Nhập tổng số lượng" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="category" class="form-label">Danh mục</label>
+                                    <select id="category" name="category.id" class="form-control">
+                                        <option value="">Chọn danh mục</option>
+                                        <th:block th:each="category : ${categories}">
+                                            <option th:value="${category.id}" th:text="${category.nameCategory}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h6 class="mb-3">Xem trước hình ảnh</h6>
+                                <img
+                                        id="previewImage"
+                                        src="https://via.placeholder.com/300"
+                                        alt="Xem trước hình ảnh"
+                                        class="img-fluid border rounded mb-3"
+                                        style="max-height: 300px;">
+
+                                <div class="mb-3">
+                                    <label for="image1" class="form-label">Chọn hình ảnh</label>
+                                    <input
+                                            type="file"
+                                            class="form-control"
+                                            id="images"
+                                            name="images"
+                                            accept="image/*"
+                                            onchange="previewImage(event)"
+                                            required>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="productPrice" class="form-label">Giá</label>
-                            <input type="number" class="form-control" id="productPrice" name="price" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productDescription" class="form-label">Mô tả</label>
-                            <textarea class="form-control" id="productDescription" name="description" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productPackagingDate" class="form-label">Ngày đóng gói</label>
-                            <input type="date" class="form-control" id="productPackagingDate" name="productPackagingDate" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="totalProductQuantity" class="form-label">Tổng số lượng</label>
-                            <input type="number" class="form-control" id="totalProductQuantity" name="totalProductQuantity" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="images" class="form-label">Hình ảnh</label>
-                            <input type="file" class="form-control" id="images" name="images" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Danh mục</label>
-                            <select id="category" name="category.id" class="form-control">
-                                <th:block th:each="category : ${categories}">
-                                    <option th:value="${category.id}" th:text="${category.nameCategory}"></option>
-                                </th:block>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Cập nhật</button>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button
+                            type="submit"
+                            form="addProductForm"
+                            class="btn btn-success"
+                            style="width: 150px;">
+                        Thêm mới
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <div th:fragment="modal-create">
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -136,12 +214,14 @@
                                 </div>
                             </div>
                             <div class="col-md-6 text-center">
+                                <h6 class="mb-3">Xem trước hình ảnh</h6>
                                 <img
                                         id="previewImage"
                                         src="https://via.placeholder.com/300"
                                         alt="Xem trước hình ảnh"
                                         class="img-fluid border rounded mb-3"
                                         style="max-height: 300px;">
+
                                 <div class="mb-3">
                                     <label for="image1" class="form-label">Chọn hình ảnh</label>
                                     <input
@@ -157,6 +237,8 @@
                         </div>
                     </form>
                 </div>
+
+                <!-- Footer -->
                 <div class="modal-footer">
                     <button
                             type="submit"
@@ -169,6 +251,7 @@
             </div>
         </div>
     </div>
+
     <script>
         function previewImage(event) {
             const fileInput = event.target;
@@ -187,7 +270,9 @@
         }
     </script>
 </div>
-    <div th:fragment="modal-detail">
+
+
+<div th:fragment="modal-detail">
     <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
