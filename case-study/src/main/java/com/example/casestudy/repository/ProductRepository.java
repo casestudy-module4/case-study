@@ -14,7 +14,6 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p.name, SUM(o.quantity) FROM details_order o JOIN o.product p GROUP BY p.id, p.name ORDER BY SUM(o.quantity) DESC")
     List<Object[]> findMostPurchasedProducts();
-    Page<Product> findByCategoryId(Integer categoryId, Pageable pageable);
 
     @Query("SELECT MONTH(o.timeOrder) AS month, SUM(d.quantity) AS totalSold " +
             "FROM details_order d JOIN d.order o " +
@@ -30,9 +29,13 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "LEFT JOIN payments  pay ON od.order.id = pay.order.id " +
             "WHERE p.id = :productId AND pay.status = com.example.casestudy.model.Payment.PaymentStatus.COMPLETED " +
             "GROUP BY p.id")
+
+
     Integer findRemainProductQuantity(@Param("productId") Integer productId);
 
     Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
     Optional<Product> findById(Integer id);
+
+    Page<Product> findByCategoryId(Integer categoryId, Pageable pageable);
 }

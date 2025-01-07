@@ -26,7 +26,11 @@ public class ProductService implements IProductService {
     }
     @Override
     public Page<Product> findAll(String name, Integer pageable) {
-        return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 5));
+        return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 8));
+    }
+
+    public Page<Product> getAllProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
     @Override
@@ -41,7 +45,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Page<Product> getProductsByCategory(Integer id, Pageable pageable) {
-        return null;
+        return productRepository.findByCategoryId(id, pageable);
     }
 
     @Override
