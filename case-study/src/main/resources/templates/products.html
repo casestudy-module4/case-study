@@ -98,7 +98,7 @@
                 <li><a class="dropdown-item" th:href="@{/products(page=0)}">Tất cả</a></li>
                 <li th:each="category : ${categories}">
                     <a class="dropdown-item" th:href="@{/products(categoryId=${category.id})}"
-                       th:text="${category.name_category}"></a>
+                       th:text="${category.nameCategory}"></a>
                 </li>
             </ul>
 
