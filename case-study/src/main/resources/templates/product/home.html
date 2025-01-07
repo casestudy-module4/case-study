@@ -45,7 +45,7 @@
                 <td>
                     <img th:src="${product.image}" th:alt="'Hình ảnh của ' + ${product.name}" class="w-70 text-center" width="70" th:onclick="viewImage(this.getAttribute('src'))" />
                 </td>
-                <td th:text="${product.price}"></td>
+                <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></td>
                 <td>
                     <a href="#"
                        class="btn btn-sm "
@@ -59,8 +59,8 @@
                        th:data-image="${product.image}"
                        th:data-category="${product.category?.nameCategory}"
                        th:onclick="updateModal(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-price'),
-                        this.getAttribute('data-description'), this.getAttribute('data-productPackagingDate'), this.getAttribute('data-totalProductQuantity'),
-                        this.getAttribute('data-remainProductQuantity'), this.getAttribute('data-image'), this.getAttribute('data-category'))">
+this.getAttribute('data-description'), this.getAttribute('data-productPackagingDate'), this.getAttribute('data-totalProductQuantity'),
+this.getAttribute('data-image'), this.getAttribute('data-category'))">
                         <i class="bi bi-pencil"></i>
                     </a>
                     <a href="#"
@@ -73,7 +73,7 @@
                     <a href="#" class="btn btn-link" data-bs-toggle="tooltip" title="Xem chi tiết"
                        th:data-id="${product.id}"
                        th:data-name="${product.name}"
-                       th:data-price="${product.price}"
+                       th:data-price="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"
                        th:data-description="${product.description}"
                        th:data-productPackagingDate="${product.productPackagingDate}"
                        th:data-totalProductQuantity="${product.totalProductQuantity}"
@@ -141,17 +141,18 @@
         document.getElementById('category').value = category;
 
 
-        const previewImage = document.getElementById("previewImage");
+        const previewImage = document.getElementById("previewsImage");
         if (previewImage) {
             if (images) {
                 previewImage.src = images;
+                console.log(images);
                 previewImage.alt = `Image of ${productName}`;
             } else {
                 previewImage.src = "https://via.placeholder.com/300";
                 previewImage.alt = "No image available";
             }
         }
-        const productImage = document.getElementById("productImage");
+        const productImage = document.getElementById("productImages");
         if (productImage) {
             productImage.src = images ? images : "https://via.placeholder.com/500";
             productImage.alt = `Image of ${productName}`;
@@ -199,7 +200,7 @@
     function viewImage(imageSrc) {
         const previewImage = document.getElementById("previewImage");
         if (previewImage) {
-            previewImage.src = imageSrc;
+            previewImage.setAttribute("src", imageSrc);
             previewImage.alt = "Xem trước hình ảnh";
         }
         const imagePreviewModal = new bootstrap.Modal(document.getElementById("imagePreviewModal"));
