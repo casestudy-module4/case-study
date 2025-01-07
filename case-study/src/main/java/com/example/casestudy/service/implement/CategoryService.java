@@ -68,6 +68,6 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Page<Category> findByName(String name, Integer page) {
-        return categoryRepository.findByNameCategory(name, PageRequest.of(page, 5));
+        return categoryRepository.findAllByNameCategoryContainingIgnoreCase(name, PageRequest.of(page, 5));
     }
 }
