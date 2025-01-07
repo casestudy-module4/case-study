@@ -59,4 +59,12 @@
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
     });
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize Bootstrap Toasts
+        const toastElements = document.querySelectorAll('.toast');
+        toastElements.forEach(toastElement => {
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        });
+    });
 </script>
