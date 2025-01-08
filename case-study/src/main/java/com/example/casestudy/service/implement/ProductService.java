@@ -1,6 +1,7 @@
 package com.example.casestudy.service.implement;
 
 import com.example.casestudy.dto.ProductSalesDTO;
+import com.example.casestudy.dto.TopProductDTO;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.repository.OrderDetailRepository;
 import com.example.casestudy.repository.ProductRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -104,5 +106,26 @@ public class ProductService implements IProductService {
             salesData.put((Integer) result[0], ((Number) result[1]).intValue());
         }
         return salesData;
+    }
+
+    @Override
+    public List<TopProductDTO> getTopSellingOrDefaultProducts() {
+        List<TopProductDTO> topSellingProducts = productRepository
+                .findTopSellingProducts(PageRequest.of(0, 4))
+                .getContent();
+        if (topSellingProducts.isEmpty()) {
+            List<Product> defaultProducts = productRepository
+                    .findAll(PageRequest.of(0, 4))
+                    .getContent();
+
+            return defaultProducts.stream().map(product -> new TopProductDTO(
+                    product,
+                    product.getCategory(),
+                    0L,
+                    product.getImage()
+            )).collect(Collectors.toList());
+        }
+
+        return topSellingProducts;
     }
 }

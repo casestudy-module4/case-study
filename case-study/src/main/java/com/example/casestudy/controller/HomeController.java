@@ -1,7 +1,10 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.dto.CategoryDTO;
+import com.example.casestudy.dto.TopProductDTO;
+import com.example.casestudy.model.Banner;
 import com.example.casestudy.model.Product;
+import com.example.casestudy.service.IBannerService;
 import com.example.casestudy.service.ICategoryService;
 import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class HomeController {
     @Autowired
     private ICategoryService categoryService;
 
+    @Autowired
+    private IBannerService bannerService;
+
     @GetMapping
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
@@ -32,7 +38,7 @@ public class HomeController {
 
         Page<Product> productPage = productService.findAll(name.trim(), page);
         List<Product> products = productPage.getContent();
-        List<TopProductDTO> bestSellers = iproductService.getTopSellingOrDefaultProducts();
+        List<TopProductDTO> bestSellers = productService.getTopSellingOrDefaultProducts();
 
         List<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTOs();
         model.addAttribute("categories", categoryDTOs);
@@ -42,7 +48,11 @@ public class HomeController {
             int end = Math.min(i + 4, products.size());
             productGroups.add(products.subList(i, end));
         }
+
+        List<Banner> banners = bannerService.findAll();
+        model.addAttribute("banners", banners);
         model.addAttribute("bestSellers", bestSellers);
+
         model.addAttribute("productGroups", productGroups);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());

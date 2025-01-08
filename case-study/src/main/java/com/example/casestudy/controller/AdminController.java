@@ -1,22 +1,17 @@
 package com.example.casestudy.controller;
 
-
+import com.example.casestudy.dto.PaymentRequest;
 import com.example.casestudy.model.Category;
 import com.example.casestudy.model.Customer;
 import com.example.casestudy.model.Product;
-import com.example.casestudy.service.ICategoryService;
-import com.example.casestudy.service.ICustomerService;
-import com.example.casestudy.service.IOrderService;
-import com.example.casestudy.service.IProductService;
+import com.example.casestudy.service.*;
 import com.example.casestudy.service.implement.AccountService;
-import com.example.casestudy.service.IProductService;
 import com.example.casestudy.service.implement.EmailService;
-//import com.example.casestudy.service.implement.PaymentService;
+import com.example.casestudy.service.implement.PaymentService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -42,17 +37,19 @@ public class AdminController {
     private ICustomerService customerService;
     @Autowired
     private IOrderService orderService;
-//    @Autowired
-//    private PaymentService paymentService;
+    @Autowired
+    private PaymentService paymentService;
     @Autowired
     private IProductService productService;
-
     @Autowired
     private AccountService accountService;
     @Autowired
     private ICategoryService categoryService;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private IOrderDetailsService orderDetailsService;
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/home")
     public String showHomePage(@RequestParam(defaultValue = "") String name, Model model, @RequestParam(defaultValue = "0") int page) {
@@ -263,17 +260,18 @@ public class AdminController {
         model.addAttribute("accountRegistrationData", accountService.getAccountRegistrationsByMonth());
         return "statistic";
     }
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-//    @PostMapping("/process-payment")
-//    public String processPayment(@RequestBody PaymentRequest paymentRequest, Model model) throws MessagingException {
-//        boolean isPaymentSuccessful = paymentService.processPayment(paymentRequest);
-//
-//        if (isPaymentSuccessful) {
-//            model.addAttribute("message", "Payment successful! Email sent to customer.");
-//            return "success-page";
-//        } else {
-//            model.addAttribute("error", "Payment failed.");
-//            return "error-page";
-//        }
-//    }
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PostMapping("/process-payment")
+    public String processPayment(@RequestBody PaymentRequest paymentRequest, Model model) throws MessagingException {
+        boolean isPaymentSuccessful = paymentService.processPayment(paymentRequest);
+
+        if (isPaymentSuccessful) {
+            model.addAttribute("message", "Payment successful! Email sent to customer.");
+            return "success-page";
+        } else {
+            model.addAttribute("error", "Payment failed.");
+            return "error-page";
+        }
+    }
+
 }
