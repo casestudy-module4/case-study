@@ -1,8 +1,6 @@
 package com.example.casestudy.controller;
 
-import com.example.casestudy.dto.CategoryDTO;
 import com.example.casestudy.model.Product;
-import com.example.casestudy.service.ICategoryService;
 import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,9 +20,6 @@ public class HomeController {
     @Autowired
     private IProductService productService;
 
-    @Autowired
-    private ICategoryService categoryService;
-
     @GetMapping
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
@@ -32,9 +27,6 @@ public class HomeController {
 
         Page<Product> productPage = productService.findAll(name.trim(), page);
         List<Product> products = productPage.getContent();
-
-        List<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTOs();
-        model.addAttribute("categories", categoryDTOs);
 
         List<List<Product>> productGroups = new ArrayList<>();
         for (int i = 0; i < products.size(); i += 4) {
@@ -47,6 +39,6 @@ public class HomeController {
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("name", name);
 
-        return "home";
+        return "home"; // Tên view
     }
 }

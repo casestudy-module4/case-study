@@ -2,7 +2,6 @@ package com.example.casestudy.service;
 
 import com.example.casestudy.model.Product;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Map;
@@ -21,5 +20,4 @@ public interface IProductService extends IBaseService<Product> {
 
     Page<Product> searchProductsByName(String searchName,Pageable pageable);
 
-    Page<Product> getAllProducts(Pageable pageable);
 }
