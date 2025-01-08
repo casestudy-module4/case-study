@@ -32,9 +32,15 @@ public class Product {
     private Integer totalProductQuantity;
     @NotNull(message = "Please update image")
     private String image;
-    @NotNull
     private Integer remainProductQuantity;
     @ManyToOne
     @JoinColumn(name = "category", referencedColumnName = "id", nullable = false)
     private Category category;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.remainProductQuantity == null) {
+            this.remainProductQuantity = this.totalProductQuantity;
+        }
+    }
 }
