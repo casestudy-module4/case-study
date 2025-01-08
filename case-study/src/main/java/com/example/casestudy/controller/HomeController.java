@@ -32,6 +32,7 @@ public class HomeController {
 
         Page<Product> productPage = productService.findAll(name.trim(), page);
         List<Product> products = productPage.getContent();
+        List<TopProductDTO> bestSellers = iproductService.getTopSellingOrDefaultProducts();
 
         List<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTOs();
         model.addAttribute("categories", categoryDTOs);
@@ -41,7 +42,7 @@ public class HomeController {
             int end = Math.min(i + 4, products.size());
             productGroups.add(products.subList(i, end));
         }
-
+        model.addAttribute("bestSellers", bestSellers);
         model.addAttribute("productGroups", productGroups);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
