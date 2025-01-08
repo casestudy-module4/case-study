@@ -126,7 +126,7 @@ this.getAttribute('data-image'), this.getAttribute('data-category'))">
     });
 </script>
 <script th:inline="javascript">
-    function updateModal(productId, productName, productPrice, productDescription, productPackagingDate, totalProductQuantity, images, category){
+    function updateModal(productId, productName, productPrice, productDescription, productPackagingDate, totalProductQuantity, images, category) {
         document.getElementById("productIdToUpdate").innerText = productId;
         document.getElementById("productNameToUpdate").innerText = productName;
         document.getElementById("updateProductModalLabel").innerText = "Update Product " + productName + " with - ID: " + productId;
@@ -138,7 +138,7 @@ this.getAttribute('data-image'), this.getAttribute('data-category'))">
         document.getElementById('productDescription').value = productDescription;
         document.getElementById('productPackagingDate').value = productPackagingDate;
         document.getElementById('totalProductQuantity').value = totalProductQuantity;
-        document.getElementById('updateCategory').value = category;
+
         const previewImage = document.getElementById("previewImageForUpdate");
         if (previewImage) {
             if (images) {
@@ -154,11 +154,21 @@ this.getAttribute('data-image'), this.getAttribute('data-category'))">
             productImage.src = images ? images : "https://via.placeholder.com/500";
             productImage.alt = `Image of ${productName}`;
         }
+        console.log("Category to update:", category);
+
+        const categoryDropdown = document.getElementById('updateCategory');
+        let categoryOptions = Array.from(categoryDropdown.options).map(option => option.value);
+        let uniqueCategories = Array.from(new Set(categoryOptions));
+        if (uniqueCategories.includes(category)) {
+            categoryDropdown.value = category;
+        } else {
+            const tempOption = new Option(category, category, true, true);
+            categoryDropdown.add(tempOption);
+        }
         const myModal = new bootstrap.Modal(document.getElementById('updateProductModal'));
         myModal.show();
     }
 </script>
-
 <script>
     function detailModal(id, name, price, description, packing, totalQuantity, remainQuantity, category, image) {
         document.getElementById("productId").innerText = id;
