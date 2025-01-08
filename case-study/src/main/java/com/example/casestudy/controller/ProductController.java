@@ -1,5 +1,6 @@
 package com.example.casestudy.controller;
 
+import com.example.casestudy.dto.CategoryDTO;
 import com.example.casestudy.model.Category;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.ICategoryService;
@@ -26,32 +27,21 @@ public class ProductController {
     private ICategoryService categoryService;
 
     @GetMapping
-    public String getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
-                              @RequestParam(defaultValue = "") String name,
-                              @RequestParam(name = "searchQuery", required = false, defaultValue = "") String searchQuery,
+    public String getProducts(@RequestParam(defaultValue = "") String name,
+                              @RequestParam(name = "categoryId", required = false) Integer categoryId,
+                              @RequestParam(name = "searchQuery", defaultValue = "") String searchQuery,
                               @RequestParam(defaultValue = "0") int page,
                               Model model) {
-        List<Category> categories = categoryService.getAll();
-        model.addAttribute("categories", categories);
+        List<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTOs();
+        model.addAttribute("categories", categoryDTOs);
 
         Page<Product> productPage;
-
-        if (searchQuery != null && !searchQuery.isEmpty()) {
-            productPage = productService.searchProductsByName(searchQuery, PageRequest.of(page, 8));
-        }
-
-        else if (categoryId != null) {
-            productPage = productService.getProductsByCategory(categoryId, PageRequest.of(page, 8));
-        }
-        else {
-            productPage = productService.findAll(name.trim(), page);
-            List<Product> products = productPage.getContent();
-
-            List<List<Product>> productGroups = new ArrayList<>();
-            for (int i = 0; i < products.size(); i += 4) {
-                int end = Math.min(i + 4, products.size());
-                productGroups.add(products.subList(i, end));
-            }
+        if (!searchQuery.isEmpty()) {
+            productPage = productService.findByName(searchQuery, page);
+        } else if (categoryId != null) {
+            productPage = productService.getProductsByCategory(categoryId, PageRequest.of(page, 9));
+        } else {
+            productPage = productService.getAllProducts(PageRequest.of(page, 9));
         }
 
         model.addAttribute("products", productPage.getContent());
@@ -60,7 +50,7 @@ public class ProductController {
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("searchQuery", searchQuery);
 
-        return "products";
+        return "test"; // Tên file HTML hiển thị kết quả
     }
 
     @GetMapping("/details")
