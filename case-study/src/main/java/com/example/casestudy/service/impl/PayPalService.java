@@ -1,9 +1,7 @@
 package com.example.casestudy.service.impl;
 
-import com.example.casestudy.service.IPayService;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
-
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PayPalService implements IPayService {
+public class PayPalService {
     @Autowired
     private APIContext apiContext;
 
-    @Override
-    public Payment createPaymentWithPayPal(Double total,
+    public Payment createPaymentWithPayPal(
+            Double total,
             String currency,
             String method,
             String intent,
@@ -28,7 +26,7 @@ public class PayPalService implements IPayService {
             String successUrl) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);
-//        total = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        total = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
         amount.setTotal(String.format("%.2f", total));
 
         Transaction transaction = new Transaction();

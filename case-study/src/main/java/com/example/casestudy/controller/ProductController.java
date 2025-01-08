@@ -1,5 +1,6 @@
 package com.example.casestudy.controller;
 
+import com.example.casestudy.dto.CategoryDTO;
 import com.example.casestudy.model.Category;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.ICategoryService;
@@ -11,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/products")
+@SessionAttributes("cart")
 public class ProductController {
 
     @Autowired
@@ -24,38 +27,30 @@ public class ProductController {
     private ICategoryService categoryService;
 
     @GetMapping
-    public String getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
-                              @RequestParam(name = "searchQuery", required = false, defaultValue = "") String searchQuery,
+    public String getProducts(@RequestParam(defaultValue = "") String name,
+                              @RequestParam(name = "categoryId", required = false) Integer categoryId,
+                              @RequestParam(name = "searchQuery", defaultValue = "") String searchQuery,
                               @RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "") String name,
                               Model model) {
-
-        List<Category> categories = categoryService.getAll();
-        model.addAttribute("categories", categories);
+        List<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTOs();
+        model.addAttribute("categories", categoryDTOs);
 
         Page<Product> productPage;
-
-        if (searchQuery != null && !searchQuery.isEmpty()) {
-            productPage = productService.searchProductsByName(searchQuery, PageRequest.of(page, 8));
+        if (!searchQuery.isEmpty()) {
+            productPage = productService.findByName(searchQuery, page);
+        } else if (categoryId != null) {
+            productPage = productService.getProductsByCategory(categoryId, PageRequest.of(page, 9));
         } else {
-            if (categoryId != null) {
-                productPage = productService.getProductsByCategory(categoryId, PageRequest.of(page, 8));
-            } else {
-                if(page < 0){
-                    page = 0;
-                }
-                Page<Product> products = productService.findAll(name, page);
-                model.addAttribute("products", products);
-
-                model.addAttribute("categories", categoryService.getAll());
-            }
+            productPage = productService.getAllProducts(PageRequest.of(page, 9));
         }
 
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("searchQuery", searchQuery);
 
-        return "products";
+        return "test"; // Tên file HTML hiển thị kết quả
     }
 
     @GetMapping("/details")
@@ -65,13 +60,14 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String addToCart(@RequestParam Integer productId, @RequestParam int quantity, @SessionAttribute("cart") List<Product> cart) {
+    public String addToCart(@RequestParam Integer productId,
+                            @RequestParam int quantity,
+                            @SessionAttribute("cart") List<Product> cart) {
         Product product = productService.findById(productId);
 
         for (int i = 0; i < quantity; i++) {
             cart.add(product);
         }
-
         return "redirect:/cart";
     }
 }

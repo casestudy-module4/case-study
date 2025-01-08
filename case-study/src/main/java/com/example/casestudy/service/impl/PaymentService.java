@@ -29,18 +29,18 @@
 //    public Payment updatePaymentStatus(Payment payment, Payment.PaymentStatus status) {
 //        payment.setStatus(status);
 //
-//        if (status == Payment.PaymentStatus.SUCCESS) {
-//            // Tạo đơn hàng khi thanh toán thành công
-//            createOrderAfterPaymentSuccess(payment);
-//        }
+////        if (status == Payment.PaymentStatus.SUCCESS) {
+////            // Tạo đơn hàng khi thanh toán thành công
+////            createOrderAfterPaymentSuccess(payment);
+////        }
 //
 //        return paymentRepository.save(payment);
 //    }
 //
 //    private void createOrderAfterPaymentSuccess(Payment payment) {
-//        Order order = payment.getOrder();
-//        order.setOrderDate(LocalDateTime.now());
-//        order.setStatus(Order.OrderStatus.CONFIRMED);
-//        orderRepository.save(order);
+////        Order order = payment.getOrder();
+////        order.setOrderDate(LocalDateTime.now());
+////        order.setStatus(Order.OrderStatus.CONFIRMED);
+////        orderRepository.save(order);
 //    }
 //}

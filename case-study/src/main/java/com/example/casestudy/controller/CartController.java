@@ -1,13 +1,9 @@
 package com.example.casestudy.controller;
 
-import com.example.casestudy.dto.CartItem;
 import com.example.casestudy.service.CartService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/cart")
@@ -42,4 +38,5 @@ public class CartController {
         cartService.removeFromCart(orderDetailId);
         return "redirect:/cart";
     }
+
 }

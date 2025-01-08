@@ -37,18 +37,7 @@ public class OrderServiceImpl {
         return order.getTotalPrice();
     }
 
-    public Order saveOrder(Order order, List<CartItem> cartItems) {
-        // Tính tổng giá trị đơn hàng từ danh sách CartItem
-        double totalAmount = cartItems.stream()
-                .mapToDouble(item -> item.getTotalPrice() * item.getQuantity())
-                .sum();
-        // Thiết lập tổng giá trị và trạng thái mặc định cho đơn hàng
-        order.setTotalPrice(totalAmount);
-        order.setStatusOrder(0); // Giả sử 0 là trạng thái "Chờ xử lý"
-        // Lưu đơn hàng vào cơ sở dữ liệu
-        Order savedOrder = orderPayRepository.save(order);
-        // Gọi phương thức khác nếu cần lưu CartItem vào cơ sở dữ liệu
-        // e.g., cartItemRepository.saveAll(cartItems);
-        return savedOrder;
-    }
+//    public Order saveOrder(Order order, List<CartItem> selectedItems) {
+//        return null;
+//    }
 }
