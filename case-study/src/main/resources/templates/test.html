@@ -4,11 +4,9 @@
     <meta charset="UTF-8"/>
     <link rel="profile" href="http://gmpg.org/xfn/11"/>
     <link rel="pingback" href="https://tetviet.monamedia.net/xmlrpc.php"/>
-
-    <script>(function (html) {
-        html.className = html.className.replace(/\bno-js\b/, 'js')
-    })(document.documentElement);</script>
-    <title>Cửa hàng &#8211; Trang 2 &#8211; Mona Tết Việt</title>
+    <link rel="stylesheet" href="/style/style-products.css">
+    <script th:src="@{/style/script-products.js}"></script>
+    <title>Cửa hàng &#8211; Mona Tết Việt</title>
     <meta name='robots' content='max-image-preview:large'/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel='dns-prefetch' href='//stats.wp.com'/>
@@ -31,353 +29,11 @@
           href="https://tetviet.monamedia.net/comments/feed/"/>
     <link rel="alternate" type="application/rss+xml" title="Nguồn tin Mona Tết Việt &raquo; Sản phẩm"
           href="https://tetviet.monamedia.net/cua-hang/feed/"/>
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        window._wpemojiSettings = {
-            "baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/",
-            "ext": ".png",
-            "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/",
-            "svgExt": ".svg",
-            "source": {"concatemoji": "https:\/\/tetviet.monamedia.net\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.4.2"}
-        };
-        /*! This file is auto-generated */
-        !function (i, n) {
-            var o, s, e;
-
-            function c(e) {
-                try {
-                    var t = {supportTests: e, timestamp: (new Date).valueOf()};
-                    sessionStorage.setItem(o, JSON.stringify(t))
-                } catch (e) {
-                }
-            }
-
-            function p(e, t, n) {
-                e.clearRect(0, 0, e.canvas.width, e.canvas.height), e.fillText(t, 0, 0);
-                var t = new Uint32Array(e.getImageData(0, 0, e.canvas.width, e.canvas.height).data),
-                    r = (e.clearRect(0, 0, e.canvas.width, e.canvas.height), e.fillText(n, 0, 0), new Uint32Array(e.getImageData(0, 0, e.canvas.width, e.canvas.height).data));
-                return t.every(function (e, t) {
-                    return e === r[t]
-                })
-            }
-
-            function u(e, t, n) {
-                switch (t) {
-                    case"flag":
-                        return n(e, "\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f", "\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f") ? !1 : !n(e, "\ud83c\uddfa\ud83c\uddf3", "\ud83c\uddfa\u200b\ud83c\uddf3") && !n(e, "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f", "\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");
-                    case"emoji":
-                        return !n(e, "\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff", "\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")
-                }
-                return !1
-            }
-
-            function f(e, t, n) {
-                var r = "undefined" != typeof WorkerGlobalScope && self instanceof WorkerGlobalScope ? new OffscreenCanvas(300, 150) : i.createElement("canvas"),
-                    a = r.getContext("2d", {willReadFrequently: !0}),
-                    o = (a.textBaseline = "top", a.font = "600 32px Arial", {});
-                return e.forEach(function (e) {
-                    o[e] = t(a, e, n)
-                }), o
-            }
-
-            function t(e) {
-                var t = i.createElement("script");
-                t.src = e, t.defer = !0, i.head.appendChild(t)
-            }
-
-            "undefined" != typeof Promise && (o = "wpEmojiSettingsSupports", s = ["flag", "emoji"], n.supports = {
-                everything: !0,
-                everythingExceptFlag: !0
-            }, e = new Promise(function (e) {
-                i.addEventListener("DOMContentLoaded", e, {once: !0})
-            }), new Promise(function (t) {
-                var n = function () {
-                    try {
-                        var e = JSON.parse(sessionStorage.getItem(o));
-                        if ("object" == typeof e && "number" == typeof e.timestamp && (new Date).valueOf() < e.timestamp + 604800 && "object" == typeof e.supportTests) return e.supportTests
-                    } catch (e) {
-                    }
-                    return null
-                }();
-                if (!n) {
-                    if ("undefined" != typeof Worker && "undefined" != typeof OffscreenCanvas && "undefined" != typeof URL && URL.createObjectURL && "undefined" != typeof Blob) try {
-                        var e = "postMessage(" + f.toString() + "(" + [JSON.stringify(s), u.toString(), p.toString()].join(",") + "));",
-                            r = new Blob([e], {type: "text/javascript"}),
-                            a = new Worker(URL.createObjectURL(r), {name: "wpTestEmojiSupports"});
-                        return void (a.onmessage = function (e) {
-                            c(n = e.data), a.terminate(), t(n)
-                        })
-                    } catch (e) {
-                    }
-                    c(n = f(s, u, p))
-                }
-                t(n)
-            }).then(function (e) {
-                for (var t in e) n.supports[t] = e[t], n.supports.everything = n.supports.everything && n.supports[t], "flag" !== t && (n.supports.everythingExceptFlag = n.supports.everythingExceptFlag && n.supports[t]);
-                n.supports.everythingExceptFlag = n.supports.everythingExceptFlag && !n.supports.flag, n.DOMReady = !1, n.readyCallback = function () {
-                    n.DOMReady = !0
-                }
-            }).then(function () {
-                return e
-            }).then(function () {
-                var e;
-                n.supports.everything || (n.readyCallback(), (e = n.source || {}).concatemoji ? t(e.concatemoji) : e.wpemoji && e.twemoji && (t(e.twemoji), t(e.wpemoji)))
-            }))
-        }((window, document), window._wpemojiSettings);
-        /* ]]> */
-    </script>
     <link rel='stylesheet' id='dashicons-css'
           href='https://tetviet.monamedia.net/wp-includes/css/dashicons.min.css?ver=6.4.2' type='text/css' media='all'/>
     <link rel='stylesheet' id='menu-icons-extra-css'
           href='https://tetviet.monamedia.net/wp-content/plugins/ot-flatsome-vertical-menu/libs/menu-icons/css/extra.min.css?ver=0.12.2'
           type='text/css' media='all'/>
-    <style id='wp-emoji-styles-inline-css' type='text/css'>
-
-        img.wp-smiley, img.emoji {
-            display: inline !important;
-            border: none !important;
-            box-shadow: none !important;
-            height: 1em !important;
-            width: 1em !important;
-            margin: 0 0.07em !important;
-            vertical-align: -0.1em !important;
-            background: none !important;
-            padding: 0 !important;
-        }
-    </style>
-    <style id='wp-block-library-inline-css' type='text/css'>
-        :root {
-            --wp-admin-theme-color: #007cba;
-            --wp-admin-theme-color--rgb: 0, 124, 186;
-            --wp-admin-theme-color-darker-10: #006ba1;
-            --wp-admin-theme-color-darker-10--rgb: 0, 107, 161;
-            --wp-admin-theme-color-darker-20: #005a87;
-            --wp-admin-theme-color-darker-20--rgb: 0, 90, 135;
-            --wp-admin-border-width-focus: 2px;
-            --wp-block-synced-color: #7a00df;
-            --wp-block-synced-color--rgb: 122, 0, 223
-        }
-
-        @media (min-resolution: 192dpi) {
-            :root {
-                --wp-admin-border-width-focus: 1.5px
-            }
-        }
-
-        .wp-element-button {
-            cursor: pointer
-        }
-
-        :root {
-            --wp--preset--font-size--normal: 16px;
-            --wp--preset--font-size--huge: 42px
-        }
-
-        :root .has-very-light-gray-background-color {
-            background-color: #eee
-        }
-
-        :root .has-very-dark-gray-background-color {
-            background-color: #313131
-        }
-
-        :root .has-very-light-gray-color {
-            color: #eee
-        }
-
-        :root .has-very-dark-gray-color {
-            color: #313131
-        }
-
-        :root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background {
-            background: linear-gradient(135deg, #00d084, #0693e3)
-        }
-
-        :root .has-purple-crush-gradient-background {
-            background: linear-gradient(135deg, #34e2e4, #4721fb 50%, #ab1dfe)
-        }
-
-        :root .has-hazy-dawn-gradient-background {
-            background: linear-gradient(135deg, #faaca8, #dad0ec)
-        }
-
-        :root .has-subdued-olive-gradient-background {
-            background: linear-gradient(135deg, #fafae1, #67a671)
-        }
-
-        :root .has-atomic-cream-gradient-background {
-            background: linear-gradient(135deg, #fdd79a, #004a59)
-        }
-
-        :root .has-nightshade-gradient-background {
-            background: linear-gradient(135deg, #330968, #31cdcf)
-        }
-
-        :root .has-midnight-gradient-background {
-            background: linear-gradient(135deg, #020381, #2874fc)
-        }
-
-        .has-regular-font-size {
-            font-size: 1em
-        }
-
-        .has-larger-font-size {
-            font-size: 2.625em
-        }
-
-        .has-normal-font-size {
-            font-size: var(--wp--preset--font-size--normal)
-        }
-
-        .has-huge-font-size {
-            font-size: var(--wp--preset--font-size--huge)
-        }
-
-        .has-text-align-center {
-            text-align: center
-        }
-
-        .has-text-align-left {
-            text-align: left
-        }
-
-        .has-text-align-right {
-            text-align: right
-        }
-
-        #end-resizable-editor-section {
-            display: none
-        }
-
-        .aligncenter {
-            clear: both
-        }
-
-        .items-justified-left {
-            justify-content: flex-start
-        }
-
-        .items-justified-center {
-            justify-content: center
-        }
-
-        .items-justified-right {
-            justify-content: flex-end
-        }
-
-        .items-justified-space-between {
-            justify-content: space-between
-        }
-
-        .screen-reader-text {
-            clip: rect(1px, 1px, 1px, 1px);
-            word-wrap: normal !important;
-            border: 0;
-            -webkit-clip-path: inset(50%);
-            clip-path: inset(50%);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px
-        }
-
-        .screen-reader-text:focus {
-            clip: auto !important;
-            background-color: #ddd;
-            -webkit-clip-path: none;
-            clip-path: none;
-            color: #444;
-            display: block;
-            font-size: 1em;
-            height: auto;
-            left: 5px;
-            line-height: normal;
-            padding: 15px 23px 14px;
-            text-decoration: none;
-            top: 5px;
-            width: auto;
-            z-index: 100000
-        }
-
-        html :where(.has-border-color) {
-            border-style: solid
-        }
-
-        html :where([style*=border-top-color]) {
-            border-top-style: solid
-        }
-
-        html :where([style*=border-right-color]) {
-            border-right-style: solid
-        }
-
-        html :where([style*=border-bottom-color]) {
-            border-bottom-style: solid
-        }
-
-        html :where([style*=border-left-color]) {
-            border-left-style: solid
-        }
-
-        html :where([style*=border-width]) {
-            border-style: solid
-        }
-
-        html :where([style*=border-top-width]) {
-            border-top-style: solid
-        }
-
-        html :where([style*=border-right-width]) {
-            border-right-style: solid
-        }
-
-        html :where([style*=border-bottom-width]) {
-            border-bottom-style: solid
-        }
-
-        html :where([style*=border-left-width]) {
-            border-left-style: solid
-        }
-
-        html :where(img[class*=wp-image-]) {
-            height: auto;
-            max-width: 100%
-        }
-
-        :where(figure) {
-            margin: 0 0 1em
-        }
-
-        html :where(.is-position-sticky) {
-            --wp-admin--admin-bar--position-offset: var(--wp-admin--admin-bar--height, 0px)
-        }
-
-        @media screen and (max-width: 600px) {
-            html :where(.is-position-sticky) {
-                --wp-admin--admin-bar--position-offset: 0px
-            }
-        }
-    </style>
-    <style id='classic-theme-styles-inline-css' type='text/css'>
-        /*! This file is auto-generated */
-        .wp-block-button__link {
-            color: #fff;
-            background-color: #32373c;
-            border-radius: 9999px;
-            box-shadow: none;
-            text-decoration: none;
-            padding: calc(.667em + 2px) calc(1.333em + 2px);
-            font-size: 1.125em
-        }
-
-        .wp-block-file__button {
-            background: #32373c;
-            color: #fff;
-            text-decoration: none
-        }
-    </style>
     <link rel='stylesheet' id='hrw-css'
           href='https://tetviet.monamedia.net/wp-content/plugins/call-now-icon-animate/css.css' type='text/css'
           media=''/>
@@ -390,11 +46,6 @@
     <link rel='stylesheet' id='ot-vertical-menu-css-css'
           href='https://tetviet.monamedia.net/wp-content/plugins/ot-flatsome-vertical-menu/assets/css/style.css?ver=1.2.3'
           type='text/css' media='all'/>
-    <style id='woocommerce-inline-inline-css' type='text/css'>
-        .woocommerce form .form-row .required {
-            visibility: visible;
-        }
-    </style>
     <link rel='stylesheet' id='trp-language-switcher-style-css'
           href='https://tetviet.monamedia.net/wp-content/plugins/translatepress-multilingual/assets/css/trp-language-switcher.css?ver=2.6.9'
           type='text/css' media='all'/>
@@ -408,70 +59,15 @@
           href='https://use.fontawesome.com/releases/v5.15.4/css/all.css?ver=2.0.3' type='text/css' media='all'/>
     <link rel='stylesheet' id='bfa-font-awesome-v4-shim-css'
           href='https://use.fontawesome.com/releases/v5.15.4/css/v4-shims.css?ver=2.0.3' type='text/css' media='all'/>
-    <style id='bfa-font-awesome-v4-shim-inline-css' type='text/css'>
-
-        @font-face {
-            font-family: 'FontAwesome';
-            src: url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-brands-400.eot'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-brands-400.eot?#iefix') format('embedded-opentype'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-brands-400.woff2') format('woff2'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-brands-400.woff') format('woff'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-brands-400.ttf') format('truetype'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-brands-400.svg#fontawesome') format('svg');
-        }
-
-        @font-face {
-            font-family: 'FontAwesome';
-            src: url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-solid-900.eot'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-solid-900.eot?#iefix') format('embedded-opentype'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-solid-900.woff2') format('woff2'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-solid-900.woff') format('woff'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-solid-900.ttf') format('truetype'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-solid-900.svg#fontawesome') format('svg');
-        }
-
-        @font-face {
-            font-family: 'FontAwesome';
-            src: url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-regular-400.eot'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-regular-400.eot?#iefix') format('embedded-opentype'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-regular-400.woff2') format('woff2'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-regular-400.woff') format('woff'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-regular-400.ttf') format('truetype'),
-            url('https://use.fontawesome.com/releases/v5.15.4/webfonts/fa-regular-400.svg#fontawesome') format('svg');
-            unicode-range: U+F004-F005, U+F007, U+F017, U+F022, U+F024, U+F02E, U+F03E, U+F044, U+F057-F059, U+F06E, U+F070, U+F075, U+F07B-F07C, U+F080, U+F086, U+F089, U+F094, U+F09D, U+F0A0, U+F0A4-F0A7, U+F0C5, U+F0C7-F0C8, U+F0E0, U+F0EB, U+F0F3, U+F0F8, U+F0FE, U+F111, U+F118-F11A, U+F11C, U+F133, U+F144, U+F146, U+F14A, U+F14D-F14E, U+F150-F152, U+F15B-F15C, U+F164-F165, U+F185-F186, U+F191-F192, U+F1AD, U+F1C1-F1C9, U+F1CD, U+F1D8, U+F1E3, U+F1EA, U+F1F6, U+F1F9, U+F20A, U+F247-F249, U+F24D, U+F254-F25B, U+F25D, U+F267, U+F271-F274, U+F279, U+F28B, U+F28D, U+F2B5-F2B6, U+F2B9, U+F2BB, U+F2BD, U+F2C1-F2C2, U+F2D0, U+F2D2, U+F2DC, U+F2ED, U+F328, U+F358-F35B, U+F3A5, U+F3D1, U+F410, U+F4AD;
-        }
-
-    </style>
     <link rel='stylesheet' id='flatsome-main-css'
           href='https://tetviet.monamedia.net/wp-content/themes/flatsome/assets/css/flatsome.css?ver=3.16.2'
           type='text/css' media='all'/>
-    <style id='flatsome-main-inline-css' type='text/css'>
-        @font-face {
-            font-family: "fl-icons";
-            font-display: block;
-            src: url(https://tetviet.monamedia.net/wp-content/themes/flatsome/assets/css/icons/fl-icons.eot?v=3.16.2);
-            src: url(https://tetviet.monamedia.net/wp-content/themes/flatsome/assets/css/icons/fl-icons.eot#iefix?v=3.16.2) format("embedded-opentype"),
-            url(https://tetviet.monamedia.net/wp-content/themes/flatsome/assets/css/icons/fl-icons.woff2?v=3.16.2) format("woff2"),
-            url(https://tetviet.monamedia.net/wp-content/themes/flatsome/assets/css/icons/fl-icons.ttf?v=3.16.2) format("truetype"),
-            url(https://tetviet.monamedia.net/wp-content/themes/flatsome/assets/css/icons/fl-icons.woff?v=3.16.2) format("woff"),
-            url(https://tetviet.monamedia.net/wp-content/themes/flatsome/assets/css/icons/fl-icons.svg?v=3.16.2#fl-icons) format("svg");
-        }
-    </style>
     <link rel='stylesheet' id='flatsome-shop-css'
           href='https://tetviet.monamedia.net/wp-content/themes/flatsome/assets/css/flatsome-shop.css?ver=3.16.2'
           type='text/css' media='all'/>
     <link rel='stylesheet' id='flatsome-style-css'
           href='https://tetviet.monamedia.net/wp-content/themes/flatsome-child/style.css?ver=3.0' type='text/css'
           media='all'/>
-    <script type="text/javascript">
-        window._nslDOMReady = function (callback) {
-            if (document.readyState === "complete" || document.readyState === "interactive") {
-                callback();
-            } else {
-                document.addEventListener("DOMContentLoaded", callback);
-            }
-        };
-    </script>
     <script type="text/javascript"
             src="https://tetviet.monamedia.net/wp-includes/js/dist/vendor/wp-polyfill-inert.min.js?ver=3.1.2"
             id="wp-polyfill-inert-js"></script>
@@ -493,29 +89,12 @@
     <script type="text/javascript"
             src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.7.0-wc.8.4.0"
             id="jquery-blockui-js" defer="defer" data-wp-strategy="defer"></script>
-    <script type="text/javascript" id="wc-add-to-cart-js-extra">
-        /* <![CDATA[ */
-        var wc_add_to_cart_params = {
-            "ajax_url": "\/wp-admin\/admin-ajax.php",
-            "wc_ajax_url": "\/?wc-ajax=%%endpoint%%",
-            "i18n_view_cart": "Xem gi\u1ecf h\u00e0ng",
-            "cart_url": "https:\/\/tetviet.monamedia.net\/gio-hang\/",
-            "is_cart": "",
-            "cart_redirect_after_add": "no"
-        };
-        /* ]]> */
-    </script>
     <script type="text/javascript"
             src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=8.4.0"
             id="wc-add-to-cart-js" defer="defer" data-wp-strategy="defer"></script>
     <script type="text/javascript"
             src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4-wc.8.4.0"
             id="js-cookie-js" defer="defer" data-wp-strategy="defer"></script>
-    <script type="text/javascript" id="woocommerce-js-extra">
-        /* <![CDATA[ */
-        var woocommerce_params = {"ajax_url": "\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/?wc-ajax=%%endpoint%%"};
-        /* ]]> */
-    </script>
     <script type="text/javascript"
             src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=8.4.0"
             id="woocommerce-js" defer="defer" data-wp-strategy="defer"></script>
@@ -527,136 +106,11 @@
     <meta name="generator" content="WordPress 6.4.2"/>
     <meta name="generator" content="WooCommerce 8.4.0"/>
     <link rel="alternate" hreflang="vi" href="https://tetviet.monamedia.net/cua-hang/page/2/"/>
-    <style>.bg {
-        opacity: 0;
-        transition: opacity 1s;
-        -webkit-transition: opacity 1s;
-    }
-
-    .bg-loaded {
-        opacity: 1;
-    }</style>
     <noscript>
         <style>.woocommerce-product-gallery {
             opacity: 1 !important;
         }</style>
     </noscript>
-    <style type="text/css">.essb_links_list li.essb_totalcount_item .essb_t_l_big .essb_t_nb:after, .essb_links_list li.essb_totalcount_item .essb_t_r_big .essb_t_nb:after {
-        color: #777777;
-        content: "shares";
-        display: block;
-        font-size: 11px;
-        font-weight: normal;
-        text-align: center;
-        text-transform: uppercase;
-        margin-top: -5px;
-    }
-
-    .essb_links_list li.essb_totalcount_item .essb_t_l_big, .essb_links_list li.essb_totalcount_item .essb_t_r_big {
-        text-align: center;
-    }
-
-    .essb_displayed_sidebar .essb_links_list li.essb_totalcount_item .essb_t_l_big .essb_t_nb:after, .essb_displayed_sidebar .essb_links_list li.essb_totalcount_item .essb_t_r_big .essb_t_nb:after {
-        margin-top: 0px;
-    }
-
-    .essb_displayed_sidebar_right .essb_links_list li.essb_totalcount_item .essb_t_l_big .essb_t_nb:after, .essb_displayed_sidebar_right .essb_links_list li.essb_totalcount_item .essb_t_r_big .essb_t_nb:after {
-        margin-top: 0px;
-    }
-
-    .essb_totalcount_item_before, .essb_totalcount_item_after {
-        display: block !important;
-    }
-
-    .essb_totalcount_item_before .essb_totalcount, .essb_totalcount_item_after .essb_totalcount {
-        border: 0px !important;
-    }
-
-    .essb_counter_insidebeforename {
-        margin-right: 5px;
-        font-weight: bold;
-    }
-
-    .essb_width_columns_1 li {
-        width: 100%;
-    }
-
-    .essb_width_columns_1 li a {
-        width: 92%;
-    }
-
-    .essb_width_columns_2 li {
-        width: 49%;
-    }
-
-    .essb_width_columns_2 li a {
-        width: 86%;
-    }
-
-    .essb_width_columns_3 li {
-        width: 32%;
-    }
-
-    .essb_width_columns_3 li a {
-        width: 80%;
-    }
-
-    .essb_width_columns_4 li {
-        width: 24%;
-    }
-
-    .essb_width_columns_4 li a {
-        width: 70%;
-    }
-
-    .essb_width_columns_5 li {
-        width: 19.5%;
-    }
-
-    .essb_width_columns_5 li a {
-        width: 60%;
-    }
-
-    .essb_width_columns_6 li {
-        width: 16%;
-    }
-
-    .essb_width_columns_6 li a {
-        width: 55%;
-    }
-
-    .essb_links li.essb_totalcount_item_before, .essb_width_columns_1 li.essb_totalcount_item_after {
-        width: 100%;
-        text-align: left;
-    }
-
-    .essb_network_align_center a {
-        text-align: center;
-    }
-
-    .essb_network_align_right .essb_network_name {
-        float: right;
-    }</style>
-    <script type="text/javascript">var essb_settings = {
-        "ajax_url": "https:\/\/tetviet.monamedia.net\/wp-admin\/admin-ajax.php",
-        "essb3_nonce": "f8d164a64f",
-        "essb3_plugin_url": "https:\/\/tetviet.monamedia.net\/wp-content\/plugins\/easy-social-share-buttons3",
-        "essb3_facebook_total": true,
-        "essb3_admin_ajax": false,
-        "essb3_internal_counter": false,
-        "essb3_stats": false,
-        "essb3_ga": false,
-        "essb3_ga_mode": "simple",
-        "essb3_counter_button_min": 0,
-        "essb3_counter_total_min": 0,
-        "blog_url": "https:\/\/tetviet.monamedia.net\/",
-        "ajax_type": "wp",
-        "essb3_postfloat_stay": false,
-        "essb3_no_counter_mailprint": false,
-        "essb3_single_ajax": false,
-        "twitter_counter": "self",
-        "post_id": 621
-    };</script>
     <link rel="icon" href="https://tetviet.monamedia.net/wp-content/uploads/2023/12/cropped-logo-mona-website-32x32.png"
           sizes="32x32"/>
     <link rel="icon"
@@ -666,7 +120,8 @@
           href="https://tetviet.monamedia.net/wp-content/uploads/2023/12/cropped-logo-mona-website-180x180.png"/>
     <meta name="msapplication-TileImage"
           content="https://tetviet.monamedia.net/wp-content/uploads/2023/12/cropped-logo-mona-website-270x270.png"/>
-    <style id="custom-css" type="text/css">:root {
+    <style id="custom-css" type="text/css">
+        :root {
         --primary-color: #c51b1b;
     }
 
@@ -940,406 +395,8 @@
 
     .label-popular.menu-item > a:after {
         content: "Popular";
-    }</style>
-    <style type="text/css" id="wp-custom-css">
-        /*---------global-----------*/
-        /*---căn đều sẳn phẩm---*/
-        .has-shadow > .col > .col-inner {
-            height: 100%;
-        }
-
-        .flickity-viewport .col.is-selected {
-            height: 100%;
-        }
-
-        .flickity-viewport .col-inner {
-            height: 100%;
-        }
-
-        .product-small.box.has-hover.box-normal.box-text-bottom {
-            height: 100%;
-            border: 1px solid #efefef;
-        }
-
-        /*.product-small.box:hover {
-         border: 2px dashed #ddd;
-    }*/
-        /*---giới hạn chữ tên sản phẩm---*/
-        p.name.product-title a {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            height: 2.6em;
-            margin-bottom: 10px;
-        }
-
-        /*---style product price---*/
-        .price-wrapper {
-            display: table;
-        }
-
-        .price-wrapper .price {
-            height: 1.3em;
-            display: table-cell;
-            vertical-align: middle;
-            text-align: center;
-            line-height: 120%;
-        }
-
-
-        /*---style related product---*/
-        .related-products-wrapper .product-small.box {
-            background-color: #fff;
-            /*box-shadow: 0 1px 3px -2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
-            border: 2px dashed #ddd;
-        }
-
-        /*
-    .related-products-wrapper .product-small.box:hover {
-        box-shadow: 0 3px 6px -4px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    }*/
-        .related-products-wrapper .box-text.box-text-products {
-            padding: 15px;
-        }
-
-        /*---end style related product---*/
-
-        /*-style tiêu đề bài viết trước sau-*/
-        .nav-previous,
-        .nav-next {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 1;
-            height: auto;
-        }
-
-        /*---style giới hạn chữ bài viết---*/
-        .blog-archive h5.post-title.is-large {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            height: 2.6em;
-        }
-
-        .blog-archive p.from_the_blog_excerpt {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            height: 3em;
-        }
-
-        /*---style shop and product sidebar---*/
-        #shop-sidebar ul,
-        #product-sidebar ul,
-        .post-sidebar ul {
-            font-size: 14px;
-            border: 1px solid #ddd;
-            padding: 15px;
-            background-color: #fff;
-        }
-
-        #shop-sidebar .is-divider,
-        #product-sidebar .is-divider,
-        .post-sidebar .is-divider {
-            margin-top: 0px;
-            background-color: rgba(0, 0, 0, 0);
-        }
-
-        #shop-sidebar ul.product_list_widget li a:not(.remove),
-        #product-sidebar ul.product_list_widget li a:not(.remove) {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            height: 2.6em;
-        }
-
-        #shop-sidebar .recent-blog-posts a,
-        #product-sidebar .recent-blog-posts a,
-        .post-sidebar .recent-blog-posts a {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
-            height: 3.6em;
-            color: #444;
-        }
-
-        #shop-sidebar span.post_comments.op-7.block.is-xsmall,
-        #product-sidebar span.post_comments.oppercase.op-7.block.is-xsmall,
-        #product-sidebar span.post_comments.op-7.block.is-xsmall,
-        .post-sidebar span.post_comments.op-7.block.is-xsmall {
-            display: none;
-        }
-
-        .post-sidebar input.search-field.mb-0 {
-            height: 45px;
-            border-radius: 5px 0 0 5px;
-        }
-
-        .post-sidebar button.ux-search-submit.submit-button.secondary.button.icon.mb-0 {
-            width: 45px;
-            height: 45px;
-            border-radius: 0 5px 5px 0;
-            background-color: #ed3523;
-        }
-
-        /*---end style shop and product sidebar---*/
-        /*---style filter in sidebar---*/
-        ul.woocommerce-widget-layered-nav-list {
-            max-height: 300px;
-            overflow: auto;
-            padding-right: 20px;
-        }
-
-        ul.product_list_widget {
-            font-size: 14px;
-        }
-
-        /*---end style filter in sidebar---*/
-        /*--------end global--------*/
-
-        /*---------content-----------*/
-        /*-----style contact form-----*/
-        .sec_lien_he .form-ct {
-            width: 780px;
-            margin: 0 auto;
-            max-width: 100%;
-        }
-
-        .sec_lien_he .form-ct .form-row {
-            padding: 5px;
-            float: left;
-            width: 100%;
-            margin-bottom: 0;
-        }
-
-        .sec_lien_he .form-ct .form-row.w50 {
-            width: 50%;
-        }
-
-        .sec_lien_he .center-txt {
-            text-align: center;
-        }
-
-        .sec_lien_he .center-txt input {
-            min-width: 170px;
-        }
-
-        .sec_lien_he .wpcf7-form-control:focus {
-            border-color: #f8b742;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(248, 183, 66, 0.6);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(248, 183, 66, 0.6);
-        }
-
-        /*---end style contact form---*/
-
-        /*---style button mua hàng---*/
-        button.single_add_to_cart_button.button.alt {
-            background-color: #ed3523;
-        }
-
-        .sec_tet {
-            line-height: 100%
-        }
-
-        .col_border_product .col-inner {
-            border: 1px solid #ebebeb;
-            padding: 5px;
-        }
-
-        .col_border_product .col-inner img {
-            border: 1px solid #ebebeb;
-        }
-
-        /*--------end content--------*/
-
-
-        /*-----style mobile mode-----*/
-        @media screen and (max-width: 549px) {
-
-        }
-
-        /*---end style mobile mode---*/        </style>
-    <style id="kirki-inline-styles">/* cyrillic-ext */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Mu72xMKTU1Kvnz.woff) format('woff');
-        unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
     }
-
-    /* cyrillic */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Mu5mxMKTU1Kvnz.woff) format('woff');
-        unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-    }
-
-    /* greek-ext */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Mu7mxMKTU1Kvnz.woff) format('woff');
-        unicode-range: U+1F00-1FFF;
-    }
-
-    /* greek */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Mu4WxMKTU1Kvnz.woff) format('woff');
-        unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-    }
-
-    /* vietnamese */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Mu7WxMKTU1Kvnz.woff) format('woff');
-        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-    }
-
-    /* latin-ext */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Mu7GxMKTU1Kvnz.woff) format('woff');
-        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-
-    /* latin */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Mu4mxMKTU1Kg.woff) format('woff');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-
-    /* cyrillic-ext */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfCRc-AMP6lbBP.woff) format('woff');
-        unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-    }
-
-    /* cyrillic */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfABc-AMP6lbBP.woff) format('woff');
-        unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-    }
-
-    /* greek-ext */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfCBc-AMP6lbBP.woff) format('woff');
-        unicode-range: U+1F00-1FFF;
-    }
-
-    /* greek */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfBxc-AMP6lbBP.woff) format('woff');
-        unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-    }
-
-    /* vietnamese */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfCxc-AMP6lbBP.woff) format('woff');
-        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-    }
-
-    /* latin-ext */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfChc-AMP6lbBP.woff) format('woff');
-        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-
-    /* latin */
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfBBc-AMP6lQ.woff) format('woff');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-
-    /* vietnamese */
-    @font-face {
-        font-family: 'Dancing Script';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/dancingscript/v25/If2cXTr6YS-zF4S-kcSWSVi_sxjsohD9F50Ruu7BMSo3Rep6hNX6pmRMjLo.woff) format('woff');
-        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-    }
-
-    /* latin-ext */
-    @font-face {
-        font-family: 'Dancing Script';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/dancingscript/v25/If2cXTr6YS-zF4S-kcSWSVi_sxjsohD9F50Ruu7BMSo3ROp6hNX6pmRMjLo.woff) format('woff');
-        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-
-    /* latin */
-    @font-face {
-        font-family: 'Dancing Script';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(https://fonts.gstatic.com/s/dancingscript/v25/If2cXTr6YS-zF4S-kcSWSVi_sxjsohD9F50Ruu7BMSo3Sup6hNX6pmRM.woff) format('woff');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }</style>
+    </style>
 </head>
 
 <body class="archive paged post-type-archive post-type-archive-product paged-2 post-type-paged-2 theme-flatsome ot-vertical-menu woocommerce-shop woocommerce woocommerce-page woocommerce-no-js translatepress-vi lightbox nav-dropdown-has-arrow nav-dropdown-has-shadow nav-dropdown-has-border">
@@ -1598,123 +655,90 @@
         </div>
     </div>
 
-    <main id="main" class="">
+    <main id="main">
         <div class="row category-page-row">
-
-            <div class="col large-3 hide-for-medium ">
+            <!-- Sidebar danh mục -->
+            <div class="col large-3 hide-for-medium">
                 <div id="shop-sidebar" class="sidebar-inner col-inner">
                     <aside id="woocommerce_product_categories-3" class="widget woocommerce widget_product_categories">
                         <span class="widget-title shop-sidebar">Danh mục sản phẩm</span>
                         <div class="is-divider small"></div>
-                        <select name="product_cat" id="product_cat" class="dropdown_product_cat">
-                            <option value="" selected="selected">Chọn danh mục</option>
-                            <option th:each="category : ${categories}"
-                                    th:value="${category.id}"
-                                    th:text="${category.nameCategory}"></option>
-                        </select>
+                        <form action="#" method="get">
+                            <select name="categoryId" id="product_cat" class="dropdown_product_cat" onchange="this.form.submit()">
+                                <option value="" selected="selected">Chọn danh mục</option>
+                                <option th:each="category : ${categories}"
+                                        th:value="${category.id}"
+                                        th:text="${category.nameCategory}"
+                                        th:selected="${category.id == categoryId}">
+                                </option>
+                            </select>
+                        </form>
                     </aside>
                 </div>
             </div>
 
+            <!-- Danh sách sản phẩm -->
             <div class="col large-9">
-                <div class="shop-container">
-
-
+                <div class="shop-container page-content">
                     <div class="woocommerce-notices-wrapper"></div>
-                    <div class="products row row-small large-columns-4 medium-columns-3 small-columns-2 has-shadow row-box-shadow-1 row-box-shadow-2-hover">
-                        <div class="product-small col has-hover product type-product post-621 status-publish first instock product_cat-hop-qua-tet has-post-thumbnail shipping-taxable purchasable product-type-simple">
+                    <div class="products row row-small large-columns-4 medium-columns-4 small-columns-2 has-shadow">
+                        <!-- Sản phẩm -->
+                        <div class="product-small col has-hover" th:each="product : ${products}">
                             <div class="col-inner">
-                                <div id="product-container" class="row">
-                                    <div class="col-sm-3" th:each="product : ${products}">
-                                        <div class="card border-0">
-                                            <div class="card-body">
-                                                <img class="card-img" th:src="@{${product.image}}" th:alt="${product.name}">
-                                                <button type="button" class="btn btn-primary view-detail-btn"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#productDetailModal"
-                                                        th:attr="data-product-id=${product.id}">
-                                                    Xem chi tiết
-                                                </button>
-                                                <p class="card-title" th:text="${product.name}"></p>
-                                                <p class="card-text">Giá tiền: <span th:text="${product.price}"></span> VND</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Phân trang -->
-                                <nav>
-                                    <ul class="pagination justify-content-center mt-3">
-                                        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                                            <a class="page-link" th:href="@{/products(categoryId=${categoryId}, page=${currentPage - 1})}">&laquo;
-                                                Trước</a>
-                                        </li>
-                                        <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                                            <a class="page-link" th:href="@{/products(categoryId=${categoryId}, page=${currentPage + 1})}">Tiếp theo
-                                                &raquo;</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                <img class="card-img" th:src="@{${product.image}}" th:alt="${product.name}">
+                                <p class="card-title" th:text="${product.name}"></p>
+                                <p class="card-text">Giá: <span th:text="${product.price}"></span> VND</p>
                             </div>
-                            <style>
-                                .price-wrapper {
-                                    margin-top: 10px;
-                                    font-size: 1.2em;
-                                    color: #e60000; /* Màu đỏ cho giá */
-                                    font-weight: bold;
-                                }
-
-                                .price-wrapper .woocommerce-Price-amount {
-                                    font-family: Arial, sans-serif;
-                                }
-
-                            </style>
                         </div>
-                    </div><!-- row -->
-                    <div class="container">
-                        <nav class="woocommerce-pagination">
-                            <ul class="page-numbers nav-pagination links text-center">
-                                <li><a class="prev page-number" href="https://tetviet.monamedia.net/cua-hang/page/1/"><i
-                                        class="icon-angle-left"></i></a></li>
-                                <li><a class="page-number" href="https://tetviet.monamedia.net/cua-hang/page/1/">1</a>
-                                </li>
-                                <li><span aria-current="page" class="page-number current">2</span></li>
-                            </ul>
-                        </nav>
                     </div>
 
-                </div><!-- shop container -->
+                    <!-- Phân trang -->
+                    <nav class="pagination-container">
+                        <button class="pagination-btn prev-btn"
+                                th:disabled="${currentPage == 0}"
+                                th:onclick="|window.location.href='/products?page=' + (${currentPage - 1})|">
+                            &laquo; Trước
+                        </button>
+
+                        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                        <button class="pagination-btn"
+                                th:classappend="${currentPage == i} ? 'active' : ''"
+                                th:onclick="|window.location.href='/products?page=' + ${i}|"
+                                th:text="${i + 1}">
+                        </button>
+                    </span>
+
+                        <button class="pagination-btn next-btn"
+                                th:disabled="${currentPage == totalPages - 1}"
+                                th:onclick="|window.location.href='/products?page=' + (${currentPage + 1})|">
+                            Tiếp theo &raquo;
+                        </button>
+                    </nav>
+                </div>
             </div>
         </div>
 
+        <!-- Loading spinner -->
+        <div id="loading-spinner" class="spinner-overlay" style="display: none;">
+            <div class="spinner"></div>
+        </div>
     </main>
 
     <footer id="footer" class="footer-wrapper">
 
-
         <section class="section sec_footer dark" id="section_1753290570">
             <div class="bg section-bg fill bg-fill  ">
 
-
                 <div class="section-bg-overlay absolute fill"></div>
 
-
             </div>
-
-
             <div class="section-content relative">
-
 
                 <span class="scroll-to" data-label="Scroll to: #lien-he" data-bullet="false" data-link="#lien-he"
                       data-title="Liên hệ"><a name="lien-he"></a></span>
 
                 <div id="gap-1099608839" class="gap-element clearfix" style="display:block; height:auto;">
 
-                    <style>
-                        #gap-1099608839 {
-                            padding-top: 60px;
-                        }
-                    </style>
                 </div>
 
 
@@ -1892,12 +916,6 @@
 
 
                             <div id="gap-1445559032" class="gap-element clearfix" style="display:block; height:auto;">
-
-                                <style>
-                                    #gap-1445559032 {
-                                        padding-top: 20px;
-                                    }
-                                </style>
                             </div>
 
 
@@ -1991,32 +1009,6 @@
                 </div>
 
             </div>
-
-
-            <style>
-                #section_1753290570 {
-                    padding-top: 0px;
-                    padding-bottom: 0px;
-                }
-
-                #section_1753290570 .section-bg-overlay {
-                    background-color: rgba(0, 0, 0, 0.8);
-                }
-
-                #section_1753290570 .section-bg.bg-loaded {
-                    background-image: url(https://tetviet.monamedia.net/wp-content/uploads/2023/12/hop-qua-tet-1.jpg);
-                }
-
-                #section_1753290570 .ux-shape-divider--top svg {
-                    height: 150px;
-                    --divider-top-width: 100%;
-                }
-
-                #section_1753290570 .ux-shape-divider--bottom svg {
-                    height: 150px;
-                    --divider-width: 100%;
-                }
-            </style>
         </section>
 
         <!-- FOOTER 1 -->
@@ -2232,365 +1224,12 @@
         }
     ]
 }</script>
-<script type="text/javascript">
-    (function () {
-        var c = document.body.className;
-        c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
-        document.body.className = c;
-    })();
-</script>
 <link rel='stylesheet' id='select2-css'
       href='https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/css/select2.css?ver=8.4.0'
       type='text/css' media='all'/>
-<style id='global-styles-inline-css' type='text/css'>
-    body {
-        --wp--preset--color--black: #000000;
-        --wp--preset--color--cyan-bluish-gray: #abb8c3;
-        --wp--preset--color--white: #ffffff;
-        --wp--preset--color--pale-pink: #f78da7;
-        --wp--preset--color--vivid-red: #cf2e2e;
-        --wp--preset--color--luminous-vivid-orange: #ff6900;
-        --wp--preset--color--luminous-vivid-amber: #fcb900;
-        --wp--preset--color--light-green-cyan: #7bdcb5;
-        --wp--preset--color--vivid-green-cyan: #00d084;
-        --wp--preset--color--pale-cyan-blue: #8ed1fc;
-        --wp--preset--color--vivid-cyan-blue: #0693e3;
-        --wp--preset--color--vivid-purple: #9b51e0;
-        --wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg, rgba(6, 147, 227, 1) 0%, rgb(155, 81, 224) 100%);
-        --wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg, rgb(122, 220, 180) 0%, rgb(0, 208, 130) 100%);
-        --wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg, rgba(252, 185, 0, 1) 0%, rgba(255, 105, 0, 1) 100%);
-        --wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg, rgba(255, 105, 0, 1) 0%, rgb(207, 46, 46) 100%);
-        --wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg, rgb(238, 238, 238) 0%, rgb(169, 184, 195) 100%);
-        --wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg, rgb(74, 234, 220) 0%, rgb(151, 120, 209) 20%, rgb(207, 42, 186) 40%, rgb(238, 44, 130) 60%, rgb(251, 105, 98) 80%, rgb(254, 248, 76) 100%);
-        --wp--preset--gradient--blush-light-purple: linear-gradient(135deg, rgb(255, 206, 236) 0%, rgb(152, 150, 240) 100%);
-        --wp--preset--gradient--blush-bordeaux: linear-gradient(135deg, rgb(254, 205, 165) 0%, rgb(254, 45, 45) 50%, rgb(107, 0, 62) 100%);
-        --wp--preset--gradient--luminous-dusk: linear-gradient(135deg, rgb(255, 203, 112) 0%, rgb(199, 81, 192) 50%, rgb(65, 88, 208) 100%);
-        --wp--preset--gradient--pale-ocean: linear-gradient(135deg, rgb(255, 245, 203) 0%, rgb(182, 227, 212) 50%, rgb(51, 167, 181) 100%);
-        --wp--preset--gradient--electric-grass: linear-gradient(135deg, rgb(202, 248, 128) 0%, rgb(113, 206, 126) 100%);
-        --wp--preset--gradient--midnight: linear-gradient(135deg, rgb(2, 3, 129) 0%, rgb(40, 116, 252) 100%);
-        --wp--preset--font-size--small: 13px;
-        --wp--preset--font-size--medium: 20px;
-        --wp--preset--font-size--large: 36px;
-        --wp--preset--font-size--x-large: 42px;
-        --wp--preset--spacing--20: 0.44rem;
-        --wp--preset--spacing--30: 0.67rem;
-        --wp--preset--spacing--40: 1rem;
-        --wp--preset--spacing--50: 1.5rem;
-        --wp--preset--spacing--60: 2.25rem;
-        --wp--preset--spacing--70: 3.38rem;
-        --wp--preset--spacing--80: 5.06rem;
-        --wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);
-        --wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);
-        --wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);
-        --wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);
-        --wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);
-    }
-
-    :where(.is-layout-flex) {
-        gap: 0.5em;
-    }
-
-    :where(.is-layout-grid) {
-        gap: 0.5em;
-    }
-
-    body .is-layout-flow > .alignleft {
-        float: left;
-        margin-inline-start: 0;
-        margin-inline-end: 2em;
-    }
-
-    body .is-layout-flow > .alignright {
-        float: right;
-        margin-inline-start: 2em;
-        margin-inline-end: 0;
-    }
-
-    body .is-layout-flow > .aligncenter {
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-
-    body .is-layout-constrained > .alignleft {
-        float: left;
-        margin-inline-start: 0;
-        margin-inline-end: 2em;
-    }
-
-    body .is-layout-constrained > .alignright {
-        float: right;
-        margin-inline-start: 2em;
-        margin-inline-end: 0;
-    }
-
-    body .is-layout-constrained > .aligncenter {
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-
-    body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
-        max-width: var(--wp--style--global--content-size);
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-
-    body .is-layout-constrained > .alignwide {
-        max-width: var(--wp--style--global--wide-size);
-    }
-
-    body .is-layout-flex {
-        display: flex;
-    }
-
-    body .is-layout-flex {
-        flex-wrap: wrap;
-        align-items: center;
-    }
-
-    body .is-layout-flex > * {
-        margin: 0;
-    }
-
-    body .is-layout-grid {
-        display: grid;
-    }
-
-    body .is-layout-grid > * {
-        margin: 0;
-    }
-
-    :where(.wp-block-columns.is-layout-flex) {
-        gap: 2em;
-    }
-
-    :where(.wp-block-columns.is-layout-grid) {
-        gap: 2em;
-    }
-
-    :where(.wp-block-post-template.is-layout-flex) {
-        gap: 1.25em;
-    }
-
-    :where(.wp-block-post-template.is-layout-grid) {
-        gap: 1.25em;
-    }
-
-    .has-black-color {
-        color: var(--wp--preset--color--black) !important;
-    }
-
-    .has-cyan-bluish-gray-color {
-        color: var(--wp--preset--color--cyan-bluish-gray) !important;
-    }
-
-    .has-white-color {
-        color: var(--wp--preset--color--white) !important;
-    }
-
-    .has-pale-pink-color {
-        color: var(--wp--preset--color--pale-pink) !important;
-    }
-
-    .has-vivid-red-color {
-        color: var(--wp--preset--color--vivid-red) !important;
-    }
-
-    .has-luminous-vivid-orange-color {
-        color: var(--wp--preset--color--luminous-vivid-orange) !important;
-    }
-
-    .has-luminous-vivid-amber-color {
-        color: var(--wp--preset--color--luminous-vivid-amber) !important;
-    }
-
-    .has-light-green-cyan-color {
-        color: var(--wp--preset--color--light-green-cyan) !important;
-    }
-
-    .has-vivid-green-cyan-color {
-        color: var(--wp--preset--color--vivid-green-cyan) !important;
-    }
-
-    .has-pale-cyan-blue-color {
-        color: var(--wp--preset--color--pale-cyan-blue) !important;
-    }
-
-    .has-vivid-cyan-blue-color {
-        color: var(--wp--preset--color--vivid-cyan-blue) !important;
-    }
-
-    .has-vivid-purple-color {
-        color: var(--wp--preset--color--vivid-purple) !important;
-    }
-
-    .has-black-background-color {
-        background-color: var(--wp--preset--color--black) !important;
-    }
-
-    .has-cyan-bluish-gray-background-color {
-        background-color: var(--wp--preset--color--cyan-bluish-gray) !important;
-    }
-
-    .has-white-background-color {
-        background-color: var(--wp--preset--color--white) !important;
-    }
-
-    .has-pale-pink-background-color {
-        background-color: var(--wp--preset--color--pale-pink) !important;
-    }
-
-    .has-vivid-red-background-color {
-        background-color: var(--wp--preset--color--vivid-red) !important;
-    }
-
-    .has-luminous-vivid-orange-background-color {
-        background-color: var(--wp--preset--color--luminous-vivid-orange) !important;
-    }
-
-    .has-luminous-vivid-amber-background-color {
-        background-color: var(--wp--preset--color--luminous-vivid-amber) !important;
-    }
-
-    .has-light-green-cyan-background-color {
-        background-color: var(--wp--preset--color--light-green-cyan) !important;
-    }
-
-    .has-vivid-green-cyan-background-color {
-        background-color: var(--wp--preset--color--vivid-green-cyan) !important;
-    }
-
-    .has-pale-cyan-blue-background-color {
-        background-color: var(--wp--preset--color--pale-cyan-blue) !important;
-    }
-
-    .has-vivid-cyan-blue-background-color {
-        background-color: var(--wp--preset--color--vivid-cyan-blue) !important;
-    }
-
-    .has-vivid-purple-background-color {
-        background-color: var(--wp--preset--color--vivid-purple) !important;
-    }
-
-    .has-black-border-color {
-        border-color: var(--wp--preset--color--black) !important;
-    }
-
-    .has-cyan-bluish-gray-border-color {
-        border-color: var(--wp--preset--color--cyan-bluish-gray) !important;
-    }
-
-    .has-white-border-color {
-        border-color: var(--wp--preset--color--white) !important;
-    }
-
-    .has-pale-pink-border-color {
-        border-color: var(--wp--preset--color--pale-pink) !important;
-    }
-
-    .has-vivid-red-border-color {
-        border-color: var(--wp--preset--color--vivid-red) !important;
-    }
-
-    .has-luminous-vivid-orange-border-color {
-        border-color: var(--wp--preset--color--luminous-vivid-orange) !important;
-    }
-
-    .has-luminous-vivid-amber-border-color {
-        border-color: var(--wp--preset--color--luminous-vivid-amber) !important;
-    }
-
-    .has-light-green-cyan-border-color {
-        border-color: var(--wp--preset--color--light-green-cyan) !important;
-    }
-
-    .has-vivid-green-cyan-border-color {
-        border-color: var(--wp--preset--color--vivid-green-cyan) !important;
-    }
-
-    .has-pale-cyan-blue-border-color {
-        border-color: var(--wp--preset--color--pale-cyan-blue) !important;
-    }
-
-    .has-vivid-cyan-blue-border-color {
-        border-color: var(--wp--preset--color--vivid-cyan-blue) !important;
-    }
-
-    .has-vivid-purple-border-color {
-        border-color: var(--wp--preset--color--vivid-purple) !important;
-    }
-
-    .has-vivid-cyan-blue-to-vivid-purple-gradient-background {
-        background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;
-    }
-
-    .has-light-green-cyan-to-vivid-green-cyan-gradient-background {
-        background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;
-    }
-
-    .has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background {
-        background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;
-    }
-
-    .has-luminous-vivid-orange-to-vivid-red-gradient-background {
-        background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;
-    }
-
-    .has-very-light-gray-to-cyan-bluish-gray-gradient-background {
-        background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;
-    }
-
-    .has-cool-to-warm-spectrum-gradient-background {
-        background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;
-    }
-
-    .has-blush-light-purple-gradient-background {
-        background: var(--wp--preset--gradient--blush-light-purple) !important;
-    }
-
-    .has-blush-bordeaux-gradient-background {
-        background: var(--wp--preset--gradient--blush-bordeaux) !important;
-    }
-
-    .has-luminous-dusk-gradient-background {
-        background: var(--wp--preset--gradient--luminous-dusk) !important;
-    }
-
-    .has-pale-ocean-gradient-background {
-        background: var(--wp--preset--gradient--pale-ocean) !important;
-    }
-
-    .has-electric-grass-gradient-background {
-        background: var(--wp--preset--gradient--electric-grass) !important;
-    }
-
-    .has-midnight-gradient-background {
-        background: var(--wp--preset--gradient--midnight) !important;
-    }
-
-    .has-small-font-size {
-        font-size: var(--wp--preset--font-size--small) !important;
-    }
-
-    .has-medium-font-size {
-        font-size: var(--wp--preset--font-size--medium) !important;
-    }
-
-    .has-large-font-size {
-        font-size: var(--wp--preset--font-size--large) !important;
-    }
-
-    .has-x-large-font-size {
-        font-size: var(--wp--preset--font-size--x-large) !important;
-    }
-</style>
 <script type="text/javascript"
         src="https://tetviet.monamedia.net/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=5.8.5"
         id="swv-js"></script>
-<script type="text/javascript" id="contact-form-7-js-extra">
-    /* <![CDATA[ */
-    var wpcf7 = {"api": {"root": "https:\/\/tetviet.monamedia.net\/wp-json\/", "namespace": "contact-form-7\/v1"}};
-    /* ]]> */
-</script>
 <script type="text/javascript"
         src="https://tetviet.monamedia.net/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.8.5"
         id="contact-form-7-js"></script>
@@ -2608,35 +1247,6 @@
         id="flatsome-live-search-js"></script>
 <script type="text/javascript" src="https://tetviet.monamedia.net/wp-includes/js/hoverIntent.min.js?ver=1.10.2"
         id="hoverIntent-js"></script>
-<script type="text/javascript" id="flatsome-js-js-extra">
-    /* <![CDATA[ */
-    var flatsomeVars = {
-        "theme": {"version": "3.16.2"},
-        "ajaxurl": "https:\/\/tetviet.monamedia.net\/wp-admin\/admin-ajax.php",
-        "rtl": "",
-        "sticky_height": "90",
-        "assets_url": "https:\/\/tetviet.monamedia.net\/wp-content\/themes\/flatsome\/assets\/js\/",
-        "lightbox": {
-            "close_markup": "<button title=\"%title%\" type=\"button\" class=\"mfp-close\"><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-x\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"><\/line><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"><\/line><\/svg><\/button>",
-            "close_btn_inside": false
-        },
-        "user": {"can_edit_pages": false},
-        "i18n": {"mainMenu": "Main Menu", "toggleButton": "Toggle"},
-        "options": {
-            "cookie_notice_version": "1",
-            "swatches_layout": false,
-            "swatches_box_select_event": false,
-            "swatches_box_behavior_selected": false,
-            "swatches_box_update_urls": "1",
-            "swatches_box_reset": false,
-            "swatches_box_reset_extent": false,
-            "swatches_box_reset_time": 300,
-            "search_result_latency": "0"
-        },
-        "is_mini_cart_reveal": "1"
-    };
-    /* ]]> */
-</script>
 <script type="text/javascript"
         src="https://tetviet.monamedia.net/wp-content/themes/flatsome/assets/js/flatsome.js?ver=fcf0c1642621a86609ed4ca283f0db68"
         id="flatsome-js-js"></script>
@@ -2651,235 +1261,15 @@
 <script type="text/javascript"
         src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/selectWoo/selectWoo.full.min.js?ver=1.0.9-wc.8.4.0"
         id="selectWoo-js" defer="defer" data-wp-strategy="defer"></script>
-<script type="text/javascript" id="zxcvbn-async-js-extra">
-    /* <![CDATA[ */
-    var _zxcvbnSettings = {"src": "https:\/\/tetviet.monamedia.net\/wp-includes\/js\/zxcvbn.min.js"};
-    /* ]]> */
-</script>
 <script type="text/javascript" src="https://tetviet.monamedia.net/wp-includes/js/zxcvbn-async.min.js?ver=1.0"
         id="zxcvbn-async-js"></script>
 <script type="text/javascript"
         src="https://tetviet.monamedia.net/wp-includes/js/dist/i18n.min.js?ver=7701b0c3857f914212ef"
         id="wp-i18n-js"></script>
-<script type="text/javascript" id="wp-i18n-js-after">
-    /* <![CDATA[ */
-    wp.i18n.setLocaleData({'text direction\u0004ltr': ['ltr']});
-    /* ]]> */
-</script>
-<script type="text/javascript" id="password-strength-meter-js-extra">
-    /* <![CDATA[ */
-    var pwsL10n = {
-        "unknown": "M\u1eadt kh\u1ea9u m\u1ea1nh kh\u00f4ng x\u00e1c \u0111\u1ecbnh",
-        "short": "R\u1ea5t y\u1ebfu",
-        "bad": "Y\u1ebfu",
-        "good": "Trung b\u00ecnh",
-        "strong": "M\u1ea1nh",
-        "mismatch": "M\u1eadt kh\u1ea9u kh\u00f4ng kh\u1edbp"
-    };
-    /* ]]> */
-</script>
-<script type="text/javascript" id="password-strength-meter-js-translations">
-    /* <![CDATA[ */
-    (function (domain, translations) {
-        var localeData = translations.locale_data[domain] || translations.locale_data.messages;
-        localeData[""].domain = domain;
-        wp.i18n.setLocaleData(localeData, domain);
-    })("default", {
-        "translation-revision-date": "2023-07-15 15:29:09+0000",
-        "generator": "GlotPress\/4.0.0-alpha.9",
-        "domain": "messages",
-        "locale_data": {
-            "messages": {
-                "": {
-                    "domain": "messages",
-                    "plural-forms": "nplurals=1; plural=0;",
-                    "lang": "vi_VN"
-                },
-                "%1$s is deprecated since version %2$s! Use %3$s instead. Please consider writing more inclusive code.": ["%1$s \u0111\u00e3 ng\u1eebng ho\u1ea1t \u0111\u1ed9ng t\u1eeb phi\u00ean b\u1ea3n %2$s! S\u1eed d\u1ee5ng thay th\u1ebf b\u1eb1ng %3$s."]
-            }
-        },
-        "comment": {"reference": "wp-admin\/js\/password-strength-meter.js"}
-    });
-    /* ]]> */
-</script>
 <script type="text/javascript" src="https://tetviet.monamedia.net/wp-admin/js/password-strength-meter.min.js?ver=6.4.2"
         id="password-strength-meter-js"></script>
-<script type="text/javascript" id="wc-password-strength-meter-js-extra">
-    /* <![CDATA[ */
-    var wc_password_strength_meter_params = {
-        "min_password_strength": "3",
-        "stop_checkout": "",
-        "i18n_password_error": "Vui l\u00f2ng nh\u1eadp m\u1eadt kh\u1ea9u kh\u00f3 h\u01a1n.",
-        "i18n_password_hint": "G\u1ee3i \u00fd: M\u1eadt kh\u1ea9u ph\u1ea3i c\u00f3 \u00edt nh\u1ea5t 12 k\u00fd t\u1ef1. \u0110\u1ec3 n\u00e2ng cao \u0111\u1ed9 b\u1ea3o m\u1eadt, s\u1eed d\u1ee5ng ch\u1eef in hoa, in th\u01b0\u1eddng, ch\u1eef s\u1ed1 v\u00e0 c\u00e1c k\u00fd t\u1ef1 \u0111\u1eb7c bi\u1ec7t nh\u01b0 ! \" ? $ % ^ & )."
-    };
-    /* ]]> */
-</script>
 <script type="text/javascript"
         src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/frontend/password-strength-meter.min.js?ver=8.4.0"
         id="wc-password-strength-meter-js" defer="defer" data-wp-strategy="defer"></script>
-<!-- WooCommerce JavaScript -->
-<script type="text/javascript">
-    jQuery(function ($) {
-
-        jQuery('.dropdown_product_cat').on('change', function () {
-            if (jQuery(this).val() != '') {
-                var this_page = '';
-                var home_url = 'https://tetviet.monamedia.net/';
-                if (home_url.indexOf('?') > 0) {
-                    this_page = home_url + '&product_cat=' + jQuery(this).val();
-                } else {
-                    this_page = home_url + '?product_cat=' + jQuery(this).val();
-                }
-                location.href = this_page;
-            } else {
-                location.href = 'https://tetviet.monamedia.net/cua-hang/';
-            }
-        });
-
-        if (jQuery().selectWoo) {
-            var wc_product_cat_select = function () {
-                jQuery('.dropdown_product_cat').selectWoo({
-                    placeholder: 'Chọn danh mục',
-                    minimumResultsForSearch: 5,
-                    width: '100%',
-                    allowClear: true,
-                    language: {
-                        noResults: function () {
-                            return 'Không tìm thấy kết quả phù hợp';
-                        }
-                    }
-                });
-            };
-            wc_product_cat_select();
-        }
-
-    });
-</script>
-<style type="text/css"></style>
-<script type="text/javascript">var essb_clicked_lovethis = false;
-var essb_love_you_message_thanks = "Thank you for loving this.";
-var essb_love_you_message_loved = "You already love this today.";
-var essb_lovethis = function (oInstance) {
-    if (essb_clicked_lovethis) {
-        alert(essb_love_you_message_loved);
-        return;
-    }
-    var element = jQuery('.essb_' + oInstance);
-    if (!element.length) {
-        return;
-    }
-    var instance_post_id = jQuery(element).attr("data-essb-postid") || "";
-    var cookie_set = essb_get_lovecookie("essb_love_" + instance_post_id);
-    if (cookie_set) {
-        alert(essb_love_you_message_loved);
-        return;
-    }
-    if (typeof (essb_settings) != "undefined") {
-        jQuery.post(essb_settings.ajax_url, {
-            'action': 'essb_love_action',
-            'post_id': instance_post_id,
-            'service': 'love',
-            'nonce': essb_settings.essb3_nonce
-        }, function (data) {
-            if (data) {
-                alert(essb_love_you_message_thanks);
-            }
-        }, 'json');
-    }
-    essb_tracking_only('', 'love', oInstance, true);
-};
-var essb_get_lovecookie = function (name) {
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    if (parts.length == 2) return parts.pop().split(";").shift();
-};
-var essb_window = function (oUrl, oService, oInstance) {
-    var element = jQuery('.essb_' + oInstance);
-    var instance_post_id = jQuery(element).attr("data-essb-postid") || "";
-    var instance_position = jQuery(element).attr("data-essb-position") || "";
-    var wnd;
-    var w = 800;
-    var h = 500;
-    if (oService == "twitter") {
-        w = 500;
-        h = 300;
-    }
-    var left = (screen.width / 2) - (w / 2);
-    var top = (screen.height / 2) - (h / 2);
-    if (oService == "twitter") {
-        wnd = window.open(oUrl, "essb_share_window", "height=300,width=500,resizable=1,scrollbars=yes,top=" + top + ",left=" + left);
-    } else {
-        wnd = window.open(oUrl, "essb_share_window", "height=500,width=800,resizable=1,scrollbars=yes,top=" + top + ",left=" + left);
-    }
-    if (typeof (essb_settings) != "undefined") {
-        if (essb_settings.essb3_stats) {
-            if (typeof (essb_handle_stats) != "undefined") {
-                essb_handle_stats(oService, instance_post_id, oInstance);
-            }
-        }
-        if (essb_settings.essb3_ga) {
-            essb_ga_tracking(oService, oUrl, instance_position);
-        }
-    }
-    essb_self_postcount(oService, instance_post_id);
-    var pollTimer = window.setInterval(function () {
-        if (wnd.closed !== false) {
-            window.clearInterval(pollTimer);
-            essb_smart_onclose_events(oService, instance_post_id);
-        }
-    }, 200);
-};
-var essb_self_postcount = function (oService, oCountID) {
-    if (typeof (essb_settings) != "undefined") {
-        oCountID = String(oCountID);
-        jQuery.post(essb_settings.ajax_url, {
-            'action': 'essb_self_postcount',
-            'post_id': oCountID,
-            'service': oService,
-            'nonce': essb_settings.essb3_nonce
-        }, function (data) {
-            if (data) {
-            }
-        }, 'json');
-    }
-};
-var essb_smart_onclose_events = function (oService, oPostID) {
-    if (typeof (essbasc_popup_show) == 'function') {
-        essbasc_popup_show();
-    }
-    if (typeof essb_acs_code == 'function') {
-        essb_acs_code(oService, oPostID);
-    }
-};
-var essb_tracking_only = function (oUrl, oService, oInstance, oAfterShare) {
-    var element = jQuery('.essb_' + oInstance);
-    if (oUrl == "") {
-        oUrl = document.URL;
-    }
-    var instance_post_id = jQuery(element).attr("data-essb-postid") || "";
-    var instance_position = jQuery(element).attr("data-essb-position") || "";
-    if (typeof (essb_settings) != "undefined") {
-        if (essb_settings.essb3_stats) {
-            if (typeof (essb_handle_stats) != "undefined") {
-                essb_handle_stats(oService, instance_post_id, oInstance);
-            }
-        }
-        if (essb_settings.essb3_ga) {
-            essb_ga_tracking(oService, oUrl, instance_position);
-        }
-    }
-    essb_self_postcount(oService, instance_post_id);
-    if (oAfterShare) {
-        essb_smart_onclose_events(oService, instance_post_id);
-    }
-};
-var essb_pinterest_picker = function (oInstance) {
-    essb_tracking_only('', 'pinterest', oInstance);
-    var e = document.createElement('script');
-    e.setAttribute('type', 'text/javascript');
-    e.setAttribute('charset', 'UTF-8');
-    e.setAttribute('src', '//assets.pinterest.com/js/pinmarklet.js?r=' + Math.random() * 99999999);
-    document.body.appendChild(e);
-};</script>
 </body>
 </html>
