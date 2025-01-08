@@ -9,10 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.Random;
 
 @Controller
@@ -23,6 +25,32 @@ public class SecurityController {
 
     @Autowired
     private EmailService emailService;
+
+    @GetMapping("/custom-login")
+    public String loginUser(Model model, @RequestParam(value = "error", defaultValue = "false") String error) {
+        model.addAttribute("errorLogin", "true".equals(error) ? "Sai Tên Tài Khoản Hoặc Mật Khẩu." : null);
+        model.addAttribute("showModal", "true".equals(error)); // Hiển thị modal khi có lỗi
+        return "home";
+
+    }
+
+    @GetMapping("/register")
+    public String registerPage(Model model) {
+        model.addAttribute("user", new Account());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") Account user, RedirectAttributes redirectAttributes) {
+        try {
+            accountService.registerUser(user, "ROLE_USER");
+            redirectAttributes.addFlashAttribute("message", "Registration successful! You can now log in.");
+            return "redirect:/login";
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/register";
+        }
+    }
 
     @GetMapping(value = "/admins/login")
     public String loginPage(Model model, @RequestParam(value = "error", defaultValue = "") String error) {
@@ -84,6 +112,7 @@ public class SecurityController {
             return "redirect:/admins/reset-password?email=" + email;
         }
     }
+
     @PostMapping("/admins/change-password")
     public String changePassword(@RequestParam("currentPassword") String currentPassword,
                                  @RequestParam("newPassword") String newPassword,
