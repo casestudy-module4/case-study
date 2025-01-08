@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="/style/style-home.css">
 
 
-    <script>(function (html) {
-        html.className = html.className.replace(/\bno-js\b/, 'js')
-    })(document.documentElement);</script>
     <title>Mona Tết Việt</title>
     <meta name='robots' content='max-image-preview:large'/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
@@ -32,6 +29,9 @@
           href="https://tetviet.monamedia.net/feed/"/>
     <link rel="alternate" type="application/rss+xml" title="Dòng phản hồi Mona Tết Việt &raquo;"
           href="https://tetviet.monamedia.net/comments/feed/"/>
+
+    <!-- icon -->
+
     <script type="text/javascript">
         /* <![CDATA[ */
         window._wpemojiSettings = {
@@ -235,6 +235,8 @@
     <link rel='stylesheet' id='flatsome-style-css'
           href='https://tetviet.monamedia.net/wp-content/themes/flatsome-child/style.css?ver=3.0' type='text/css'
           media='all'/>
+
+    <!-- callback Tài liệu -->
     <script type="text/javascript">
         window._nslDOMReady = function (callback) {
             if (document.readyState === "complete" || document.readyState === "interactive") {
@@ -265,21 +267,8 @@
     <script type="text/javascript"
             src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.7.0-wc.8.4.0"
             id="jquery-blockui-js" defer="defer" data-wp-strategy="defer"></script>
-    <script type="text/javascript" id="wc-add-to-cart-js-extra">
-        /* <![CDATA[ */
-        var wc_add_to_cart_params = {
-            "ajax_url": "\/wp-admin\/admin-ajax.php",
-            "wc_ajax_url": "\/?wc-ajax=%%endpoint%%",
-            "i18n_view_cart": "Xem gi\u1ecf h\u00e0ng",
-            "cart_url": "https:\/\/tetviet.monamedia.net\/gio-hang\/",
-            "is_cart": "",
-            "cart_redirect_after_add": "no"
-        };
-        /* ]]> */
-    </script>
-    <script type="text/javascript"
-            src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=8.4.0"
-            id="wc-add-to-cart-js" defer="defer" data-wp-strategy="defer"></script>
+
+    <!-- quản lý cookies -->
     <script type="text/javascript"
             src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4-wc.8.4.0"
             id="js-cookie-js" defer="defer" data-wp-strategy="defer"></script>
@@ -288,12 +277,11 @@
         var woocommerce_params = {"ajax_url": "\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/?wc-ajax=%%endpoint%%"};
         /* ]]> */
     </script>
+    <!-- điều chỉnh lúc update thông tin -->
     <script type="text/javascript"
             src="https://tetviet.monamedia.net/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=8.4.0"
             id="woocommerce-js" defer="defer" data-wp-strategy="defer"></script>
-    <script type="text/javascript"
-            src="https://tetviet.monamedia.net/wp-content/plugins/translatepress-multilingual/assets/js/trp-frontend-compatibility.js?ver=2.6.9"
-            id="trp-frontend-compatibility-js"></script>
+
     <link rel="https://api.w.org/" href="https://tetviet.monamedia.net/wp-json/"/>
     <link rel="alternate" type="application/json" href="https://tetviet.monamedia.net/wp-json/wp/v2/pages/16"/>
     <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://tetviet.monamedia.net/xmlrpc.php?rsd"/>
@@ -1136,9 +1124,9 @@
                     <div class="flex-col hide-for-medium flex-left">
                         <ul class="nav nav-left medium-nav-center nav-small  nav-divided">
                             <li class="html custom html_topbar_right"><p class="mona_html hotline">
-                                <strong>HOTLINE: </strong><a href="tel:0313728397">0313728397</a></p></li>
+                                <strong>HOTLINE: </strong><a href="tel:0313728397">#####</a></p></li>
                             <li class="html custom html_top_right_text"><p class="mona_html hotline">
-                                <strong>EMAIL: </strong><a href="mailto:info@themona.global">info@themona.global</a></p>
+                                <strong>EMAIL: </strong><a href="finestdana@gmail.com">finestdana@gmail.com</a></p>
                             </li>
                         </ul>
                     </div>
@@ -1154,13 +1142,13 @@
     "
                             >
 
-                                <a href="https://tetviet.monamedia.net/tai-khoan/"
+                                <a href="#"
                                    class="nav-top-link nav-top-not-logged-in is-small"
                                    data-open="#login-form-popup"><span>Đăng nhập   </span>
                                 </a>
                             </li>
                             <li class="cart-item has-icon has-dropdown">
-                                <a href="/checkout" title="Giỏ hàng" class="header-cart-link is-small">
+                                <a href="/cart" title="Giỏ hàng" class="header-cart-link is-small">
 <span class="header-cart-title">Giỏ hàng   /      <span class="cart-price"><span
         class="woocommerce-Price-amount amount"><bdi>0&nbsp;<span
         class="woocommerce-Price-currencySymbol">&#8363;</span></bdi></span></span>
@@ -1192,7 +1180,7 @@
                     <div id="logo" class="flex-col logo">
 
                         <!-- Header logo -->
-                        <a href="https://tetviet.monamedia.net/" title="Mona Tết Việt" rel="home">
+                        <a href="/home" title="Mona Tết Việt" rel="home">
                             <img width="236" height="135"
                                  src="https://tetviet.monamedia.net/wp-content/uploads/2023/12/Mona-4-e1703487245508.png"
                                  class="header_logo header-logo" alt="Mona Tết Việt"/><img width="236" height="135"
@@ -1208,16 +1196,16 @@
                                 <a href="#" data-open="#main-menu" data-pos="left" data-bg="main-menu-overlay"
                                    data-color="" class="is-small" aria-label="Menu" aria-controls="main-menu"
                                    aria-expanded="false">
-
-                                    <i class="icon-menu"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                                    </svg>
                                 </a>
                             </li>
                         </ul>
                     </div>
 
                     <!-- Left Elements -->
-                    <div class="flex-col hide-for-medium flex-left
-            flex-grow">
+                    <div class="flex-col hide-for-medium flex-left flex-grow">
                         <ul class="header-nav header-nav-main nav nav-left  nav-size-xlarge nav-spacing-xlarge">
                         </ul>
                     </div>
@@ -1230,48 +1218,17 @@
                                 <a href="/home" aria-current="page" class="nav-top-link">Trang chủ</a></li>
                             <li id="menu-item-450"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-450 menu-item-design-default">
-                                <a href="https://tetviet.monamedia.net/gioi-thieu/" class="nav-top-link">Giới thiệu</a>
+                                <a href="/introduction" class="nav-top-link">Giới thiệu</a>
                             </li>
                             <li id="menu-item-449"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-449 menu-item-design-default">
                                 <a href="/products" class="nav-top-link">Cửa hàng</a></li>
                             <li id="menu-item-698"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-698 menu-item-design-default">
-                                <a href="https://tetviet.monamedia.net/blog/" class="nav-top-link">Blog</a></li>
+                                <a href="#" class="nav-top-link">Blog</a></li>
                             <li id="menu-item-451"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-451 menu-item-design-default">
-                                <a href="https://tetviet.monamedia.net/lien-he/" class="nav-top-link">Liên hệ</a></li>
-                            <li class="header-search header-search-lightbox has-icon">
-                                <a href="#search-lightbox" aria-label="Tìm kiếm" data-open="#search-lightbox"
-                                   data-focus="input.search-field"
-                                   class="is-small">
-                                    <i class="icon-search" style="font-size:16px;"></i></a>
-
-                                <div id="search-lightbox" class="mfp-hide dark text-center">
-                                    <div class="searchform-wrapper ux-search-box relative form-flat is-large">
-                                        <form role="search" method="get" class="searchform"
-                                              action="https://tetviet.monamedia.net/">
-                                            <div class="flex-row relative">
-                                                <div class="flex-col flex-grow">
-                                                    <label class="screen-reader-text"
-                                                           for="woocommerce-product-search-field-0">Tìm kiếm:</label>
-                                                    <input type="search" id="woocommerce-product-search-field-0"
-                                                           class="search-field mb-0" placeholder="Tìm kiếm&hellip;"
-                                                           value="" name="s"/>
-                                                    <input type="hidden" name="post_type" value="product"/>
-                                                </div>
-                                                <div class="flex-col">
-                                                    <button type="submit" value="Tìm kiếm"
-                                                            class="ux-search-submit submit-button secondary button  icon mb-0"
-                                                            aria-label="Submit">
-                                                        <i class="icon-search"></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="live-search-results text-left z-top"></div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </li>
+                                <a href="#" class="nav-top-link">Liên hệ</a></li>
                         </ul>
                     </div>
 
@@ -1280,7 +1237,7 @@
                         <ul class="mobile-nav nav nav-right ">
                             <li class="cart-item has-icon">
 
-                                <a href="https://tetviet.monamedia.net/gio-hang/"
+                                <a href="/cart"
                                    class="header-cart-link off-canvas-toggle nav-top-link is-small"
                                    data-open="#cart-popup" data-class="off-canvas-cart" title="Giỏ hàng"
                                    data-pos="right">
@@ -1362,7 +1319,7 @@
                                         <div class="text-inner text-center">
 
 
-                                            <h3 class="uppercase"><strong>Mona Tết Việt</strong></h3>
+                                            <h3 class="uppercase"><strong>FINEST DANA Tết Việt</strong></h3>
                                             <h4>Món quà sum vầy!</h4>
                                             <div class="is-divider divider clearfix"
                                                  style="margin-top:0em;margin-bottom:0em;max-width:30%;background-color:rgba(255, 255, 255, 0.5);"></div>
@@ -1500,7 +1457,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
 
                         <div id="col-1765123018" class="col small-12 large-12">
                             <div class="col-inner text-center">
-                                <h1><span data-text-color="alert">Đón xuân 2024 MONA cho ra mắt bộ sưu tập</span></h1>
+                                <h1><span data-text-color="alert">Đón xuân 2024 FINEST DANA cho ra mắt bộ sưu tập</span></h1>
                                 <h1><span data-text-color="primary">PHÚ QUÝ ĐOÀN VIÊN DUY NHẤT TẠI VIỆT NAM</span></h1>
                                 <div class="is-divider divider clearfix"
                                      style="max-width:30%;background-color:rgba(255, 255, 255, 0.5);"></div>
@@ -2260,7 +2217,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                     <div class="row row-small" id="row-677757660">
                         <div id="col-652848803" class="col small-12 large-12">
                             <div class="col-inner text-center">
-                                <h3><span style="font-size: 160%;" data-text-color="primary"><strong>Cái tên Mona chúng tôi đặt hết tấm lòng mình vào đấy</strong></span>
+                                <h3><span style="font-size: 160%;" data-text-color="primary"><strong>Cái tên Finest Dana chúng tôi đặt hết tấm lòng mình vào đấy</strong></span>
                                 </h3>
                                 <h5><span style="font-size: 140%;"><em>Thiên là trời, lương trong lương thiện, thiên lương nhằm hướng đến giá trị cao nhất trong cuộc sống</em></span>
                                 </h5>
@@ -2383,7 +2340,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                                         <div class="col-inner">
                                             <h2><span data-text-color="primary"><strong>Mỹ miều hộp bánh đài trang trong ngoài</strong></span>
                                             </h2>
-                                            <p>Tôi chủ bánh MonaCake với kinh nghiệm 5 năm trong ngành nhà hàng khách
+                                            <p>Tôi chủ bánh Finest Dana Cake với kinh nghiệm 5 năm trong ngành nhà hàng khách
                                                 sạn tự tin rằng mình luôn đưa ra những sản phẩm hoàn hảo từ nội dung đến
                                                 hình thức…</p>
                                             <a href="/my-mieu-hop-banh-dai-trang-trong-ngoai/" target="_self"
@@ -2448,7 +2405,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                     <div class="row" id="row-744006915">
                         <div id="col-106351105" class="col medium-6 small-12 large-6">
                             <div class="col-inner">
-                                <h2 class="mona_title" style="text-align: center;"><span data-text-color="secondary">Mona Cake cam kết với khách hàng</span>
+                                <h2 class="mona_title" style="text-align: center;"><span data-text-color="secondary">Finest Dana Cake cam kết với khách hàng</span>
                                 </h2>
                                 <p style="text-align: left;"><span data-text-color="secondary"><i
                                         class="fa fa-arrow-circle-right "></i></span> Chúng tôi cam kết cung cấp những
@@ -2503,9 +2460,9 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                                                         nói hết cái này đến cái khác về vệ sinh thực phẩm cũng ngán lắm
                                                         nhất là quy trình làm bánh trung thu, thèm thì thèm nhưng sợ sợ.
                                                         Bữa hổm được chị trong công ty đem cái bánh lên cho ăn, chị nói
-                                                        sản phẩm Tết Mona này gần nhà chị làm nên sạch sẽ lắm tại chị
+                                                        sản phẩm Tết Finest Dana này gần nhà chị làm nên sạch sẽ lắm tại chị
                                                         hay qua nhà đó chơi và thấy chị chủ làm bằng tay từ sơ chế đến
-                                                        chế biến. Vậy là từ đó mình cũng đặt mua tại Mona Cake luôn vừa
+                                                        chế biến. Vậy là từ đó mình cũng đặt mua tại Finest Dana Cake luôn vừa
                                                         ngon vừa đảm bảo vệ sinh.</p>
                                                 </div>
                                             </div>
@@ -2515,7 +2472,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                                                 <div class="col-inner">
                                                     <p><strong>Chị Nguyễn Ngọc Lan Thi ( Nhân viên kế toán – Quận 9,
                                                         TPHCM )</strong></p>
-                                                    <p>Công ty mình từ xưa giờ vẫn đặt sản phẩm tết của Mona để tặng
+                                                    <p>Công ty mình từ xưa giờ vẫn đặt sản phẩm tết của Finest Dana để tặng
                                                         khách hàng, mình là người đi đặt riết rồi quen chị chủ luôn, chị
                                                         là người rất kĩ tính nên bánh vừa ngon vừa sạch đặc biệt là hộp
                                                         bánh rất tinh tế và trang nhã, tặng khách chưa ăn người ta đã
@@ -2528,7 +2485,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                                                 <div class="col-inner">
                                                     <p><strong>Chị Nguyễn Bích Lan ( Bán hàng – Gò Vấp, TPHCM )</strong>
                                                     </p>
-                                                    <p>Trung thu năm ngoái mình đặt sản phẩm Tết ở Mona để bán cho
+                                                    <p>Trung thu năm ngoái mình đặt sản phẩm Tết ở Finest Dana để bán cho
                                                         khách, vì là bánh nhà làm nên mình không mua nhiều chỉ đặt vài
                                                         hộp được thì mình đặt tiếp, mà thấy bán cũng chạy lắm. Nhớ Tết
                                                         năm ngoái mình đem ra bao nhiêu là bán hết bấy nhiêu và chủ yếu
@@ -2639,7 +2596,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                                     </div>
                                 </div>
                                 <div class="icon-box-text last-reset">
-                                    <p>1073/23 Cách Mạng Tháng 8, P.7, Q.Tân Bình, TP.HCM</p>
+                                    <p>CODEGYM Đà Nẵng</p>
                                 </div>
                             </div>
                             <div class="icon-box featured-box icon-box-left text-left is-xlarge">
@@ -2711,7 +2668,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                                 <div class="icon-box-text last-reset">
 
 
-                                    <p><a href="mailto:info@themona.global">info@themona.global</a></p>
+                                    <p><a href="finestdana@gmail.com">finestdana@gmail.com</a></p>
 
                                 </div>
                             </div>
@@ -2809,20 +2766,20 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                         <div class="col-inner">
                             <h2>Danh mục</h2>
                             <ul class="sidebar-wrapper ul-reset">
-                                <div class="mona_sidebar_footer">
+                                <div class="1_sidebar_footer">
                                     <div class="menu-menu-chinh-container">
                                         <ul id="menu-menu-chinh-1" class="menu">
                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-448">
-                                                <a href="https://tetviet.monamedia.net/" aria-current="page">Trang
+                                                <a href="/home" aria-current="page">Trang
                                                     chủ</a></li>
                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-450">
-                                                <a href="https://tetviet.monamedia.net/gioi-thieu/">Giới thiệu</a></li>
+                                                <a href="/introduction">Giới thiệu</a></li>
                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-449">
-                                                <a href="https://tetviet.monamedia.net/cua-hang/">Cửa hàng</a></li>
+                                                <a href="/products">Cửa hàng</a></li>
                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-698">
-                                                <a href="https://tetviet.monamedia.net/blog/">Blog</a></li>
+                                                <a href="#">Blog</a></li>
                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-451">
-                                                <a href="https://tetviet.monamedia.net/lien-he/">Liên hệ</a></li>
+                                                <a href="#">Liên hệ</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -2877,11 +2834,7 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
 
                 <div class="footer-primary pull-left">
                     <div class="copyright-footer">
-                        © Thiết kế và lập trình bởi <img
-                            src="https://tetviet.monamedia.net/wp-content/uploads/2023/12/logo-mona-thu-gon-trang.png"
-                            style="height: 15px;
-    margin-bottom: 4px;
-    padding-left: 5px;" alt="MonaMedia"></div>
+                        © Thiết kế và lập trình bởi C0824G</div>
                 </div>
             </div>
         </div>
@@ -2926,17 +2879,17 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
                 </div>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-448">
-                <a href="https://tetviet.monamedia.net/" aria-current="page">Trang chủ</a></li>
+                <a href="/home" aria-current="page">Trang chủ</a></li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-450"><a
-                    href="https://tetviet.monamedia.net/gioi-thieu/">Giới thiệu</a></li>
+                    href="/introduction">Giới thiệu</a></li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-449"><a
-                    href="https://tetviet.monamedia.net/cua-hang/">Cửa hàng</a></li>
+                    href="/products">Cửa hàng</a></li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-698"><a
-                    href="https://tetviet.monamedia.net/blog/">Blog</a></li>
+                    href="#">Blog</a></li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-451"><a
-                    href="https://tetviet.monamedia.net/lien-he/">Liên hệ</a></li>
+                    href="#">Liên hệ</a></li>
             <li class="account-item has-icon menu-item">
-                <a href="https://tetviet.monamedia.net/tai-khoan/"
+                <a href="#"
                    class="nav-top-link nav-top-not-logged-in">
                     <span class="header-account-title">Đăng nhập  </span>
                 </a>
@@ -2944,101 +2897,6 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
         </ul>
     </div>
 </div>
-<div id="login-form-popup" class="lightbox-content mfp-hide">
-    <div class="woocommerce">
-        <div class="woocommerce-notices-wrapper"></div>
-        <div class="account-container lightbox-inner">
-            <div class="col2-set row row-divided row-large" id="customer_login">
-
-                <div class="col-1 large-6 col pb-0">
-
-
-                    <div class="account-login-inner">
-
-                        <h3 class="uppercase">Đăng nhập</h3>
-
-                        <form class="woocommerce-form woocommerce-form-login login" method="post">
-                            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                <label for="username">Tên tài khoản hoặc địa chỉ email&nbsp;<span
-                                        class="required">*</span></label>
-                                <input type="text" class="woocommerce-Input woocommerce-Input--text input-text"
-                                       name="username" id="username" autocomplete="username" value=""/></p>
-                            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                <label for="password">Mật khẩu&nbsp;<span class="required">*</span></label>
-                                <input class="woocommerce-Input woocommerce-Input--text input-text" type="password"
-                                       name="password" id="password" autocomplete="current-password"/>
-                            </p>
-
-                            <p class="form-row">
-                                <label class="woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme">
-                                    <input class="woocommerce-form__input woocommerce-form__input-checkbox"
-                                           name="rememberme" type="checkbox" id="rememberme" value="forever"/> <span>Ghi nhớ mật khẩu</span>
-                                </label>
-                                <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce"
-                                       value="439e1f5a24"/><input type="hidden" name="_wp_http_referer" value="/"/>
-                                <button type="submit" class="woocommerce-button button woocommerce-form-login__submit"
-                                        name="login" value="Đăng nhập">Đăng nhập
-                                </button>
-                            </p>
-                            <p class="woocommerce-LostPassword lost_password">
-                                <a href="https://tetviet.monamedia.net/tai-khoan/lost-password/">Quên mật khẩu?</a>
-                            </p>
-
-
-                        </form>
-                    </div>
-                </div>
-                <div class="col-2 large-6 col pb-0">
-
-                    <div class="account-register-inner">
-
-                        <h3 class="uppercase">Đăng ký</h3>
-
-                        <form method="post" class="woocommerce-form woocommerce-form-register register">
-
-                            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                <label for="reg_email">Địa chỉ email&nbsp;<span class="required">*</span></label>
-                                <input type="email" class="woocommerce-Input woocommerce-Input--text input-text"
-                                       name="email" id="reg_email" autocomplete="email" value=""/></p>
-
-
-                            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                <label for="reg_password">Mật khẩu&nbsp;<span class="required">*</span></label>
-                                <input type="password" class="woocommerce-Input woocommerce-Input--text input-text"
-                                       name="password" id="reg_password" autocomplete="new-password"/>
-                            </p>
-
-
-                            <div class="woocommerce-privacy-policy-text"></div>
-                            <p class="woocommerce-form-row form-row">
-                                <input type="hidden" id="woocommerce-register-nonce" name="woocommerce-register-nonce"
-                                       value="348568a438"/><input type="hidden" name="_wp_http_referer" value="/"/>
-                                <button type="submit"
-                                        class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit"
-                                        name="register" value="Đăng ký">Đăng ký
-                                </button>
-                            </p>
-
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-</div>
-<script type="text/javascript">
-    (function () {
-        var c = document.body.className;
-        c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
-        document.body.className = c;
-    })();
-</script>
 <style id='global-styles-inline-css' type='text/css'>
     body {
         --wp--preset--color--black: #000000;
@@ -3380,29 +3238,16 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
         font-size: var(--wp--preset--font-size--x-large) !important;
     }
 </style>
-<script type="text/javascript"
-        src="https://tetviet.monamedia.net/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=5.8.5"
-        id="swv-js"></script>
-<script type="text/javascript" id="contact-form-7-js-extra">
-    /* <![CDATA[ */
-    var wpcf7 = {"api": {"root": "https:\/\/tetviet.monamedia.net\/wp-json\/", "namespace": "contact-form-7\/v1"}};
-    /* ]]> */
-</script>
-<script type="text/javascript"
-        src="https://tetviet.monamedia.net/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.8.5"
-        id="contact-form-7-js"></script>
+<!-- kiểm soát hành vi -->
 <script type="text/javascript"
         src="https://tetviet.monamedia.net/wp-content/plugins/ot-flatsome-vertical-menu/assets/vendor/superfish/hoverIntent.js?ver=1.2.3"
         id="ot-hoverIntent-js"></script>
-<script type="text/javascript"
-        src="https://tetviet.monamedia.net/wp-content/plugins/ot-flatsome-vertical-menu/assets/vendor/superfish/superfish.min.js?ver=1.2.3"
-        id="ot-superfish-js"></script>
+<!-- kiểm soát hover -->
 <script type="text/javascript"
         src="https://tetviet.monamedia.net/wp-content/plugins/ot-flatsome-vertical-menu/assets/js/ot-vertical-menu.min.js?ver=1.2.3"
         id="ot-vertical-menu-js"></script>
-<script type="text/javascript"
-        src="https://tetviet.monamedia.net/wp-content/themes/flatsome/inc/extensions/flatsome-live-search/flatsome-live-search.js?ver=3.16.2"
-        id="flatsome-live-search-js"></script>
+
+<!-- hiệu ứng hover mượt mà -->
 <script type="text/javascript" src="https://tetviet.monamedia.net/wp-includes/js/hoverIntent.min.js?ver=1.10.2"
         id="hoverIntent-js"></script>
 <script type="text/javascript" id="flatsome-js-js-extra">

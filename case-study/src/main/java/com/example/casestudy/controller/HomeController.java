@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping
 public class HomeController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class HomeController {
     @Autowired
     private IBannerService bannerService;
 
-    @GetMapping
+    @GetMapping("/home")
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
                        @RequestParam(defaultValue = "0") int page) {
@@ -59,5 +59,10 @@ public class HomeController {
         model.addAttribute("name", name);
 
         return "home";
+    }
+
+    @GetMapping("/introduction")
+    public String introduction() {
+        return "introduction";
     }
 }
