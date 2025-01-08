@@ -1,6 +1,7 @@
 
 package com.example.casestudy.service.implement;
 
+import com.example.casestudy.dto.CustomerDTO;
 import com.example.casestudy.model.Customer;
 import com.example.casestudy.repository.CustomerRepository;
 import com.example.casestudy.service.ICustomerService;
@@ -37,5 +38,31 @@ public class CustomerService implements ICustomerService {
         return customerRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public CustomerDTO getCustomerById() {
+        Customer customer = customerRepository.findById(1).orElseThrow(() -> new RuntimeException("Không tìm thấy khách hàng"));
+        return new CustomerDTO(
+                customer.getId(),
+                customer.getFullName(),
+                customer.getPhoneNumber(),
+                customer.getEmail(),
+                customer.getAddress(),
+                customer.getGender(),
+                customer.getBirthdate(),
+                customer.getImage()
+        );
+    }
 
+    @Override
+    public void updateCustomer(CustomerDTO customerDTO) {
+        Customer customer = customerRepository.findById(customerDTO.getId()).orElseThrow(() -> new RuntimeException("Không tìm thấy khách hàng"));
+        customer.setFullName(customerDTO.getFullName());
+        customer.setPhoneNumber(customerDTO.getPhoneNumber());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setAddress(customerDTO.getAddress());
+        customer.setGender(customerDTO.getGender());
+        customer.setBirthdate(customerDTO.getBirthdate());
+        customer.setImage(customerDTO.getImage());
+        customerRepository.save(customer);
+    }
 }
