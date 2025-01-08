@@ -37,7 +37,7 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
-//    @Bean
+    //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http
 //                .csrf(csrf -> csrf.disable())
@@ -89,35 +89,39 @@ public class SecurityConfig {
 //
 //        return http.build();
 //    }
-@Bean
-@Order(2)
-public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception {
-    http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/home", "/login", "/register", "/style/**", "/img/**").permitAll()
-                    .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                    .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                    .usernameParameter("username")
-                    .passwordParameter("password")
-                    .loginPage("/custom-login")
-                    .loginProcessingUrl("/login")
-                    .failureUrl("/custom-login?error=true")
-                    .defaultSuccessUrl("/products", true)
-                    .permitAll()
-            )
-            .logout(logout -> logout
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/custom-login?logout=true")
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
-                    .permitAll()
-            );
+    @Bean
+    @Order(2)
+    public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/home", "/login", "/register", "/style/**", "/img/**").permitAll()
+                        .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                                .usernameParameter("username")
+                                .passwordParameter("password")
+                                .loginPage("/custom-login")
+                                .loginProcessingUrl("/login")
+                                .failureUrl("/custom-login?error=true")
+                                .successHandler((request, response, authentication) -> {
+                                    response.sendRedirect("/home?success=true");
+                                })
+//                                .defaultSuccessUrl("/home", true)
+                                .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/home?logout=true")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                );
 
-    return http.build();
-}
+        return http.build();
+    }
+
     @Bean
     @Order(1)
     public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -146,4 +150,4 @@ public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exc
 
         return http.build();
     }
-    }
+}

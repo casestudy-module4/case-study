@@ -60,7 +60,7 @@ public class AdminController {
         Page<Product> products = productService.findByName(name, page);
         model.addAttribute("products", products);
         model.addAttribute("categories", categoryService.getAll());
-        return "product/home2";
+        return "product/home";
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/home/create")
@@ -72,7 +72,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.getAll());
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "product/home2";
+            return "product/home";
         }
 
         // Xử lý upload file ảnh
@@ -104,7 +104,7 @@ public class AdminController {
         } catch (IOException e) {
             model.addAttribute("categories", categoryService.getAll());
             model.addAttribute("error", "Lỗi khi tải ảnh: " + e.getMessage());
-            return "product/home2";
+            return "product/home";
         }
         return "redirect:/admins/home";
     }
@@ -119,7 +119,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.getAll());
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "product/home2";
+            return "product/home";
         }
 
         try {
@@ -132,7 +132,7 @@ public class AdminController {
         } catch (IOException e) {
             model.addAttribute("categories", categoryService.getAll());
             model.addAttribute("error", "Lỗi khi tải ảnh: " + e.getMessage());
-            return "product/home2";
+            return "product/home";
         }
         return "redirect:/admins/home";
     }

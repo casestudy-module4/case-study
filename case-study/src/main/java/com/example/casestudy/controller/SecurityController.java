@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.Random;
 
 @Controller
@@ -26,12 +27,13 @@ public class SecurityController {
     private EmailService emailService;
 
     @GetMapping("/custom-login")
-    public String loginUser(Model model, @RequestParam(value = "error", defaultValue = "") String error) {
-        if ("true".equals(error)) {
-            model.addAttribute("error", "Invalid username or password.");
-        }
-        return "fragment/login :: login";
+    public String loginUser(Model model, @RequestParam(value = "error", defaultValue = "false") String error) {
+        model.addAttribute("errorLogin", "true".equals(error) ? "Sai Tên Tài Khoản Hoặc Mật Khẩu." : null);
+        model.addAttribute("showModal", "true".equals(error)); // Hiển thị modal khi có lỗi
+        return "home";
+
     }
+
     @GetMapping("/register")
     public String registerPage(Model model) {
         model.addAttribute("user", new Account());
@@ -110,6 +112,7 @@ public class SecurityController {
             return "redirect:/admins/reset-password?email=" + email;
         }
     }
+
     @PostMapping("/admins/change-password")
     public String changePassword(@RequestParam("currentPassword") String currentPassword,
                                  @RequestParam("newPassword") String newPassword,
