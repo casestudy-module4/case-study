@@ -79,7 +79,7 @@ this.getAttribute('data-image'), this.getAttribute('data-category'))">
                        th:data-totalProductQuantity="${product.totalProductQuantity}"
                        th:data-remainProductQuantity="${product.remainProductQuantity}"
                        th:data-image="${product.image}"
-                       th:data-category="${product.category?.nameCategory}"
+                       th:data-category="${product.category?.id}"
                        th:onclick="detailModal(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-price'),
                         this.getAttribute('data-description'), this.getAttribute('data-productPackagingDate'), this.getAttribute('data-totalProductQuantity'),
                         this.getAttribute('data-remainProductQuantity'), this.getAttribute('data-category'), this.getAttribute('data-image'))">
@@ -138,14 +138,11 @@ this.getAttribute('data-image'), this.getAttribute('data-category'))">
         document.getElementById('productDescription').value = productDescription;
         document.getElementById('productPackagingDate').value = productPackagingDate;
         document.getElementById('totalProductQuantity').value = totalProductQuantity;
-        document.getElementById('category').value = category;
-
-
-        const previewImage = document.getElementById("previewsImage");
+        document.getElementById('updateCategory').value = category;
+        const previewImage = document.getElementById("previewImageForUpdate");
         if (previewImage) {
             if (images) {
                 previewImage.src = images;
-                console.log(images);
                 previewImage.alt = `Image of ${productName}`;
             } else {
                 previewImage.src = "https://via.placeholder.com/300";
@@ -198,13 +195,56 @@ this.getAttribute('data-image'), this.getAttribute('data-category'))">
 </script>
 <script th:inline="javascript">
     function viewImage(imageSrc) {
-        const previewImage = document.getElementById("previewImage");
-        if (previewImage) {
-            previewImage.setAttribute("src", imageSrc);
-            previewImage.alt = "Xem trước hình ảnh";
+        const reviewImage = document.getElementById("previewImageForResize");
+        if (reviewImage) {
+            reviewImage.setAttribute("src", imageSrc);
+            reviewImage.alt = "Xem trước hình ảnh";
         }
         const imagePreviewModal = new bootstrap.Modal(document.getElementById("imagePreviewModal"));
         imagePreviewModal.show();
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const updateModal = document.getElementById('updateProductModal');
+        if (updateModal) {
+            updateModal.addEventListener('shown.bs.modal', function () {
+                const fileInput = document.getElementById('productImages');
+                if (fileInput) {
+                    fileInput.addEventListener('change', function (event) {
+                        previewImage(event, 'previewImageForUpdate');
+                    });
+                }
+            });
+        }
+
+        const createModal = document.getElementById('addProductModal');
+        if (createModal) {
+            createModal.addEventListener('shown.bs.modal', function () {
+                const fileInput = document.getElementById('image1');
+                if (fileInput) {
+                    fileInput.addEventListener('change', function (event) {
+                        previewImage(event, 'previewImageForCreate');
+                    });
+                }
+            });
+        }
+    });
+
+    function previewImage(event, idImage) {
+        const fileInput = event.target;
+        const file = fileInput.files[0];
+        const preview = document.getElementById(idImage);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "https://via.placeholder.com/300";
+        }
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
