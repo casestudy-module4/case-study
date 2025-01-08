@@ -104,7 +104,7 @@ public class SecurityConfig {
                                 .passwordParameter("password")
                                 .loginPage("/custom-login")
                                 .loginProcessingUrl("/login")
-                                .failureUrl("/custom-login?error=true")
+                                .failureUrl("/home?error=true")
                                 .successHandler((request, response, authentication) -> {
                                     response.sendRedirect("/home?success=true");
                                 })
