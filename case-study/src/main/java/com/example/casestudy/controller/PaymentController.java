@@ -6,6 +6,9 @@ import com.example.casestudy.model.Order;
 import com.example.casestudy.service.CartService;
 import com.example.casestudy.service.impl.OrderServiceImpl;
 import com.example.casestudy.service.impl.PayPalService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +42,7 @@ public class PaymentController {
 
     @PostMapping("/pay")
     public String processPayment(
-            @RequestParam("amount") Double amount,
+            @RequestParam("totalAmount") Double amount,
             @RequestParam("productIds") List<Integer> productIds,
             @RequestParam("quantities") List<Integer> quantities,
             HttpSession session) {
@@ -76,7 +80,6 @@ public class PaymentController {
         }
         return "redirect:/";
     }
-
     @GetMapping("/success")
     public String successPay(@RequestParam("paymentId") String paymentId,
                              @RequestParam("PayerID") String payerId,
@@ -90,7 +93,7 @@ public class PaymentController {
 
                 Order order = new Order();
                 order.setTotalPrice(totalPrice);
-                // Thêm các thông tin khác cho đơn hàng nếu cần
+//                order.setStatusOrder(1);
                 Order savedOrder = orderService.saveOrder(order, selectedItems);
 
                 // Xóa các sản phẩm được chọn khỏi giỏ hàng

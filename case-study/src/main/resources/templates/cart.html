@@ -48,104 +48,76 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<!--<form th:action="@{/payment/pay}" method="post">-->
-<!--    <div class="container py-5">-->
-<!--        <h1 class="mb-4 text-center">Giỏ Hàng</h1>-->
-<!--        <div class="table-responsive">-->
-<!--            <table class="table table-bordered cart-table">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>Chọn</th>-->
-<!--                    <th>Sản phẩm</th>-->
-<!--                    <th>Giá</th>-->
-<!--                    <th>Số lượng</th>-->
-<!--                    <th>Tổng</th>-->
-<!--                    <th>Thao tác</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr th:each="item : ${cartItems}">-->
-<!--                    &lt;!&ndash; Cột chọn &ndash;&gt;-->
-<!--                    <td>-->
-<!--                        <input type="checkbox" class="form-check-input product-checkbox"-->
-<!--                               th:data-price="${item.product.price}" th:data-quantity="${item.quantity}" name="productIds"-->
-<!--                               th:value="${item.product.id}">-->
-<!--                    </td>-->
-<!--                    &lt;!&ndash; Cột sản phẩm với hình ảnh &ndash;&gt;-->
-<!--                    <td>-->
-<!--                        <img th:src="@{${item.product.image}}" alt="Sản phẩm" class="me-2"-->
-<!--                             style="width: 50px; height: 50px;">-->
-<!--                        <span th:text="${item.product.name}"></span>-->
-<!--                    </td>-->
-<!--                    &lt;!&ndash; Cột giá &ndash;&gt;-->
-<!--                    <td th:text="${item.product.price} + ' VND'" th:data-price="${item.product.price}"></td>-->
-<!--                    &lt;!&ndash; Cột số lượng với các nút tăng giảm &ndash;&gt;-->
-<!--                    <td>-->
-<!--                        <div class="quantity-controls">-->
-<!--                            <button type="button" class="btn btn-sm decrease-btn">−</button>-->
-<!--                            <input type="number" class="quantity-input" name="quantities" th:value="${item.quantity}" min="1" th:data-price="${item.product.price}">-->
-<!--                            <button type="button" class="btn btn-sm increase-btn">+</button>-->
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                    &lt;!&ndash; Cột tổng giá &ndash;&gt;-->
-<!--                    <td class="total-price" data-product-id="${item.product.id}" data-price="${item.product.price}">-->
-<!--                        <span th:text="${item.product.price * item.quantity} + ' VND'"></span>-->
-<!--                    </td>-->
-<!--                    &lt;!&ndash; Cột thao tác xóa &ndash;&gt;-->
-<!--                    <td>-->
-<!--                        <form action="/cart/remove" method="post">-->
-<!--                            <input type="hidden" name="orderDetailId" th:value="${item.id}">-->
-<!--                            <button type="submit" class="btn btn-soft-danger btn-sm">-->
-<!--                                <i class="bi bi-trash"></i> Xóa-->
-<!--                            </button>-->
-<!--                        </form>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <div class="text-end">-->
-<!--        <h4>-->
-<!--            Tổng cộng:-->
-<!--            <span id="totalAmount" class="fw-bold text-danger" th:text="${totalAmount} + ' VNĐ'"></span>-->
-<!--        </h4>-->
-<!--        <input type="hidden" id="amount" name="amount" th:value="${totalAmount}" />-->
-<!--    </div>-->
-<!--    <div class="d-flex justify-content-end mt-3">-->
-<!--        <button type="submit" class="btn btn-success">-->
-<!--            Thanh toán với PayPal-->
-<!--        </button>-->
-<!--    </div>-->
-<!--</form>-->
 <form th:action="@{/payment/pay}" method="post">
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Chọn</th>
-                <th>Sản phẩm</th>
-                <th>Giá</th>
-                <th>Số lượng</th>
-                <th>Tổng</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${cartItems}">
-                <td>
-                    <input type="checkbox" name="productIds" th:value="${item.product.id}">
-                </td>
-                <td th:text="${item.product.name}"></td>
-                <td th:text="${item.product.price} + ' VND'"></td>
-                <td th:text="${item.quantity}"></td>
-                <td th:text="${item.product.price * item.quantity} + ' VND'"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="container py-5">
+        <h1 class="mb-4 text-center">Giỏ Hàng</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered cart-table">
+                <thead>
+                <tr>
+                    <th>Chọn</th>
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${cartItems}">
+                    <!-- Cột chọn -->
+                    <td>
+                        <input type="checkbox" class="form-check-input product-checkbox"
+                               th:data-price="${item.product.price}" th:data-quantity="${item.quantity}" name="productIds"
+                               th:value="${item.product.id}">
+                    </td>
+                    <!-- Cột sản phẩm với hình ảnh -->
+                    <td>
+                        <img th:src="@{${item.product.image}}" alt="Sản phẩm" class="me-2"
+                             style="width: 50px; height: 50px;">
+                        <span th:text="${item.product.name}"></span>
+                    </td>
+                    <!-- Cột giá -->
+                    <td th:text="${item.product.price} + ' VND'" th:data-price="${item.product.price}"></td>
+                    <!-- Cột số lượng với các nút tăng giảm -->
+                    <td>
+                        <div class="quantity-controls">
+                            <button type="button" class="btn btn-sm decrease-btn">−</button>
+                            <input type="number" class="quantity-input" name="quantities" th:value="${item.quantity}" min="1" th:data-price="${item.product.price}">
+                            <button type="button" class="btn btn-sm increase-btn">+</button>
+                        </div>
+                    </td>
+                    <!-- Cột tổng giá -->
+                    <td class="total-price" data-product-id="${item.product.id}" data-price="${item.product.price}">
+                        <span th:text="${item.product.price * item.quantity} + ' VND'"></span>
+                    </td>
+                    <!-- Cột thao tác xóa -->
+                    <td>
+                        <form action="/cart/remove" method="post">
+                            <input type="hidden" name="orderDetailId" th:value="${item.id}">
+                            <button type="submit" class="btn btn-soft-danger btn-sm">
+                                <i class="bi bi-trash"></i> Xóa
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <input type="hidden" name="amount" th:value="${totalAmount}">
-    <button type="submit" class="btn btn-success">Thanh toán với PayPal</button>
+
+    <div class="text-end">
+        <h4>
+            Tổng cộng:
+            <span id="totalAmount" class="fw-bold text-danger" th:text="${totalAmount} + ' VNĐ'"></span>
+        </h4>
+        <input type="hidden" id="amount" name="amount" th:value="${totalAmount}" />
+    </div>
+    <div class="d-flex justify-content-end mt-3">
+        <button type="submit" class="btn btn-success">
+            Thanh toán với PayPal
+        </button>
+    </div>
 </form>
 
 
