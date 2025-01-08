@@ -57,7 +57,7 @@
                        th:data-totalProductQuantity="${product.totalProductQuantity}"
                        th:data-remainProductQuantity="${product.remainProductQuantity}"
                        th:data-image="${product.image}"
-                       th:data-category="${product.category?.nameCategory}"
+                       th:data-category="${product.category?.id}"
                        th:onclick="updateModal(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-price'),
 this.getAttribute('data-description'), this.getAttribute('data-productPackagingDate'), this.getAttribute('data-totalProductQuantity'),
 this.getAttribute('data-image'), this.getAttribute('data-category'))">
@@ -138,7 +138,7 @@ this.getAttribute('data-image'), this.getAttribute('data-category'))">
         document.getElementById('productDescription').value = productDescription;
         document.getElementById('productPackagingDate').value = productPackagingDate;
         document.getElementById('totalProductQuantity').value = totalProductQuantity;
-        document.getElementById('category').value = category;
+        document.getElementById('updateCategory').value = category;
 
 
         const previewImage = document.getElementById("previewsImage");

@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,6 +24,31 @@ public class SecurityController {
 
     @Autowired
     private EmailService emailService;
+
+    @GetMapping("/custom-login")
+    public String loginUser(Model model, @RequestParam(value = "error", defaultValue = "") String error) {
+        if ("true".equals(error)) {
+            model.addAttribute("error", "Invalid username or password.");
+        }
+        return "fragment/login :: login";
+    }
+    @GetMapping("/register")
+    public String registerPage(Model model) {
+        model.addAttribute("user", new Account());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") Account user, RedirectAttributes redirectAttributes) {
+        try {
+            accountService.registerUser(user, "ROLE_USER");
+            redirectAttributes.addFlashAttribute("message", "Registration successful! You can now log in.");
+            return "redirect:/login";
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/register";
+        }
+    }
 
     @GetMapping(value = "/admins/login")
     public String loginPage(Model model, @RequestParam(value = "error", defaultValue = "") String error) {

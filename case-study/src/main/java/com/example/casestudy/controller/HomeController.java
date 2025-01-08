@@ -39,6 +39,6 @@ public class HomeController {
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("name", name);
 
-        return "home"; // Tên view
+        return "home";
     }
 }

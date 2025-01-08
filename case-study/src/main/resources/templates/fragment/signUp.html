@@ -1,0 +1,60 @@
+
+<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header justify-content-center border-0">
+                <h5 class="modal-title fw-bold" id="signUpModalLabel">Create Your Account</h5>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form id="signUpForm">
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Choose a username" required>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Create a strong password" required>
+                        <div id="passwordHelp" class="form-text">
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter your password" required>
+                        <div id="confirmPasswordHelp" class="form-text">
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            I agree to the <a href="#" class="text-primary text-decoration-none">Terms of Service</a>.
+                        </label>
+                    </div>
+
+                    <!-- Sign Up Button -->
+                    <button type="submit" class="btn btn-primary w-100 py-2">Sign Up</button>
+                </form>
+
+                <!-- Footer Section -->
+                <div class="text-center mt-3">
+                    <span class="text-muted">Already have an account? <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo">Sign In</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

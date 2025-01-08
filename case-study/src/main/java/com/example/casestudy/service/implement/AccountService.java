@@ -34,6 +34,15 @@ public class AccountService implements UserDetailsService, IAccountService {
         UserInfoUserDetails infoUserDetails = new UserInfoUserDetails(appUser);
         return infoUserDetails;
     }
+    public void registerUser(Account account, String role) {
+        if (iAccountRepository.findByResName(account.getResName()) != null) {
+            throw new IllegalArgumentException("Username already exists.");
+        }
+        account.setResPassword(passwordEncoder.encode(account.getResPassword()));
+        account.setRole(role);
+        iAccountRepository.save(account);
+        System.out.println(account);
+    }
 
     public Account findByUsername(String username) {
         return iAccountRepository.findByResName(username);
@@ -105,4 +114,5 @@ public class AccountService implements UserDetailsService, IAccountService {
     public List<Account> findAll() {
         return iAccountRepository.findAll();
     }
+
 }
