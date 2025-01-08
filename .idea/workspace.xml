@@ -4,14 +4,69 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43b5cc26-51af-4925-9a8c-f224dc3c8249" name="Changes" comment="" />
     <list default="true" id="43b5cc26-51af-4925-9a8c-f224dc3c8249" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/style-home.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/home1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/.run/Template Spring Boot.run.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid11516.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid11888.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid11908.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid12204.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid12524.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid12620.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid12644.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid13108.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid13268.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid13484.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid13648.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid13992.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid14496.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid14768.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid15460.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid16224.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid4276.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid5512.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid6876.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid7488.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid7996.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/hs_err_pid9600.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid11516.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid11908.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid12204.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid12524.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid12620.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid12644.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid13108.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid13268.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid13648.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid13992.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid14496.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid14768.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid15440.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid16224.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid4276.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid5512.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid6876.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid7488.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid7996.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/replay_pid9600.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/CheckoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/CheckoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/impl/PayPalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/impl/PayPalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/templates/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/templates/fragment/script.html" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/fragment/script.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/templates/product/fragment.html" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/product/fragment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/templates/product/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/product/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,10 +88,10 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.CaseStudyApplication.executor": "Run",
-    "git-widget-placeholder": "test",
+    "git-widget-placeholder": "phuongup",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Codegym/module4/case",
+    "last_opened_file_path": "D:/codegym/case_module_4/case-study/case-study/case-study",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -57,8 +112,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
       </set>
     </attachedChunks>
   </component>
@@ -75,6 +130,7 @@
       <workItem from="1735831131939" duration="281000" />
       <workItem from="1736201720785" duration="45000" />
       <workItem from="1736202521044" duration="23000" />
+      <workItem from="1736318133209" duration="116000" />
     </task>
     <servers />
   </component>

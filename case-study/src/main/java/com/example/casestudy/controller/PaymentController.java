@@ -1,6 +1,5 @@
 package com.example.casestudy.controller;
 
-
 import com.example.casestudy.dto.CartItem;
 import com.example.casestudy.model.Order;
 import com.example.casestudy.service.CartService;
@@ -56,7 +55,7 @@ public class PaymentController {
 
 
             double amountUSD = amount / 25000;
-            Payment payment = payPalService.createPaymentWithPayPal(
+            Payment payment = payPalService.createPayment(
                     amountUSD,
                     "USD",
                     "paypal",

@@ -16,7 +16,8 @@ public class PayPalService {
     @Autowired
     private APIContext apiContext;
 
-    public Payment createPaymentWithPayPal(
+
+    public Payment createPayment(
             Double total,
             String currency,
             String method,
@@ -60,5 +61,4 @@ public class PayPalService {
         paymentExecute.setPayerId(payerId);
         return payment.execute(apiContext, paymentExecute);
     }
-
 }
