@@ -5,6 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43b5cc26-51af-4925-9a8c-f224dc3c8249" name="Changes" comment="" />
+    <list default="true" id="43b5cc26-51af-4925-9a8c-f224dc3c8249" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/style-home.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/home1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/home.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,10 +32,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.CaseStudyApplication.executor": "Debug",
+    "Spring Boot.CaseStudyApplication.executor": "Run",
     "git-widget-placeholder": "test",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/codegym/case_module_4/case-study/case-study/case-study",
+    "last_opened_file_path": "C:/Codegym/module4/case",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -48,8 +57,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
@@ -64,7 +73,8 @@
       <workItem from="1735473837815" duration="136000" />
       <workItem from="1735830766355" duration="346000" />
       <workItem from="1735831131939" duration="281000" />
-      <workItem from="1736151636126" duration="351000" />
+      <workItem from="1736201720785" duration="45000" />
+      <workItem from="1736202521044" duration="23000" />
     </task>
     <servers />
   </component>
