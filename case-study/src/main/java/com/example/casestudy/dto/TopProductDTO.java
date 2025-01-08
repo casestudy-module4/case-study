@@ -17,7 +17,6 @@ public class TopProductDTO {
         this.img = img;
     }
 
-    // Getters và Setters
     public Product getProduct() {
         return product;
     }
