@@ -47,7 +47,7 @@ public class UserController {
     private IBannerService bannerService;
 
 
-    @GetMapping
+    @GetMapping("")
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
                        @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "false") String success, Principal principal) {

@@ -11,71 +11,220 @@
 </head>
 <body>
 <div th:fragment="header">
-    <nav class="navbar navbar-expand-lg bg-body-secondary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/products">Sản phẩm</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
+    <header id="header" class="header has-sticky sticky-jump sticky-hide-on-scroll">
+        <div class="header-wrapper">
+            <div id="top-bar" class="header-top hide-for-medium">
+                <div class="flex-row container">
+                    <div class="flex-col hide-for-medium flex-left">
+                        <ul class="nav nav-left medium-nav-center nav-small  nav-divided">
+                            <li class="html custom html_topbar_right"><p class="mona_html hotline">
+                                <strong>HOTLINE: </strong><a href="tel:0313728397">0313728397</a></p></li>
+                            <li class="html custom html_top_right_text"><p class="mona_html hotline">
+                                <strong>EMAIL: </strong><a href="mailto:info@themona.global">info@themona.global</a></p>
                             </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center ms-auto">
-                    <form class="d-flex me-3" role="search" method="get" action="/products">
-                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm"
-                               aria-label="Search"
-                               name="searchQuery">
-                        <button class="btn btn-outline-success bi bi-search" type="submit"></button>
-                    </form>
-                    <div class="dropdown me-3">
-                        <button class="btn dropdown-toggle bi bi-person btn-outline-tertiary" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false"></button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log
-                                In</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign
-                                Up</a></li>
                         </ul>
                     </div>
-                    <a href="/cart" class="btn position-relative bi bi-bag-fill btn-outline-tertiary">
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        <!-- Số lượng sản phẩm trong giỏ hàng -->
-                        <span th:text="${cartItemCount}">0</span>
-                        <span class="visually-hidden">items in cart</span>
-                        </span>
-                    </a>
+
+                    <div class="flex-col hide-for-medium flex-center">
+                        <ul class="nav nav-center nav-small  nav-divided">
+                        </ul>
+                    </div>
+
+                    <div class="flex-col hide-for-medium flex-right">
+                        <ul class="nav top-bar-nav nav-right nav-small  nav-divided">
+                            <li class="account-item has-icon
+    "
+                            >
+
+                                <a href="https://tetviet.monamedia.net/tai-khoan/"
+                                   class="nav-top-link nav-top-not-logged-in is-small"
+                                   data-open="#login-form-popup">
+    <span>
+    Đăng nhập      </span>
+
+                                </a>
+
+
+                            </li>
+                            <li class="cart-item has-icon has-dropdown">
+
+                                <a href="https://tetviet.monamedia.net/gio-hang/" title="Giỏ hàng"
+                                   class="header-cart-link is-small">
+
+
+<span class="header-cart-title">
+   Giỏ hàng   /      <span class="cart-price"><span class="woocommerce-Price-amount amount"><bdi>0&nbsp;<span
+        class="woocommerce-Price-currencySymbol">&#8363;</span></bdi></span></span>
+  </span>
+
+                                    <span class="cart-icon image-icon">
+    <strong>0</strong>
+  </span>
+                                </a>
+
+                                <ul class="nav-dropdown nav-dropdown-simple">
+                                    <li class="html widget_shopping_cart">
+                                        <div class="widget_shopping_cart_content">
+
+
+                                            <p class="woocommerce-mini-cart__empty-message">Chưa có sản phẩm trong giỏ
+                                                hàng.</p>
+
+
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </div>
+
+
                 </div>
             </div>
+            <div id="masthead" class="header-main nav-dark">
+                <div class="header-inner flex-row container logo-left medium-logo-center" role="navigation">
+
+                    <!-- Logo -->
+                    <div id="logo" class="flex-col logo">
+
+                        <!-- Header logo -->
+                        <a href="https://tetviet.monamedia.net/" title="Mona Tết Việt" rel="home">
+                            <img width="236" height="135"
+                                 src="https://tetviet.monamedia.net/wp-content/uploads/2023/12/Mona-4-e1703487245508.png"
+                                 class="header_logo header-logo" alt="Mona Tết Việt"/><img width="236" height="135"
+                                                                                           src="https://tetviet.monamedia.net/wp-content/uploads/2023/12/Mona-4-e1703487245508.png"
+                                                                                           class="header-logo-dark"
+                                                                                           alt="Mona Tết Việt"/></a>
+                    </div>
+
+                    <!-- Mobile Left Elements -->
+                    <div class="flex-col show-for-medium flex-left">
+                        <ul class="mobile-nav nav nav-left ">
+                            <li class="nav-icon has-icon">
+                                <a href="#" data-open="#main-menu" data-pos="left" data-bg="main-menu-overlay"
+                                   data-color="" class="is-small" aria-label="Menu" aria-controls="main-menu"
+                                   aria-expanded="false">
+
+                                    <i class="icon-menu"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Left Elements -->
+                    <div class="flex-col hide-for-medium flex-left
+            flex-grow">
+                        <ul class="header-nav header-nav-main nav nav-left  nav-size-xlarge nav-spacing-xlarge">
+                        </ul>
+                    </div>
+
+                    <!-- Right Elements -->
+                    <div class="flex-col hide-for-medium flex-right">
+                        <ul class="header-nav header-nav-main nav nav-right  nav-size-xlarge nav-spacing-xlarge">
+                            <li id="menu-item-448"
+                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-448 menu-item-design-default">
+                                <a href="/home" class="nav-top-link">Trang chủ</a></li>
+                            <li id="menu-item-450"
+                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-450 menu-item-design-default">
+                                <a href="https://tetviet.monamedia.net/gioi-thieu/" class="nav-top-link">Giới thiệu</a>
+                            </li>
+                            <li id="menu-item-449"
+                                class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-449 active menu-item-design-default">
+                                <a href="/products" aria-current="page"
+                                   class="nav-top-link">Cửa hàng</a></li>
+                            <li id="menu-item-698"
+                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-698 menu-item-design-default">
+                                <a href="https://tetviet.monamedia.net/blog/" class="nav-top-link">Blog</a></li>
+                            <li id="menu-item-451"
+                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-451 menu-item-design-default">
+                                <a href="https://tetviet.monamedia.net/lien-he/" class="nav-top-link">Liên hệ</a></li>
+                            <li class="header-search header-search-lightbox has-icon">
+                                <a href="#search-lightbox" aria-label="Tìm kiếm" data-open="#search-lightbox"
+                                   data-focus="input.search-field"
+                                   class="is-small">
+                                    <i class="icon-search" style="font-size:16px;"></i></a>
+
+                                <div id="search-lightbox" class="mfp-hide dark text-center">
+                                    <div class="searchform-wrapper ux-search-box relative form-flat is-large">
+                                        <form role="search" method="get" class="searchform"
+                                              action="https://tetviet.monamedia.net/">
+                                            <div class="flex-row relative">
+                                                <div class="flex-col flex-grow">
+                                                    <label class="screen-reader-text"
+                                                           for="woocommerce-product-search-field-0">Tìm kiếm:</label>
+                                                    <input type="search" id="woocommerce-product-search-field-0"
+                                                           class="search-field mb-0" placeholder="Tìm kiếm&hellip;"
+                                                           value="" name="s"/>
+                                                    <input type="hidden" name="post_type" value="product"/>
+                                                </div>
+                                                <div class="flex-col">
+                                                    <button type="submit" value="Tìm kiếm"
+                                                            class="ux-search-submit submit-button secondary button  icon mb-0"
+                                                            aria-label="Submit">
+                                                        <i class="icon-search"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="live-search-results text-left z-top"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Mobile Right Elements -->
+                    <div class="flex-col show-for-medium flex-right">
+                        <ul class="mobile-nav nav nav-right ">
+                            <li class="cart-item has-icon">
+
+                                <a href="https://tetviet.monamedia.net/gio-hang/"
+                                   class="header-cart-link off-canvas-toggle nav-top-link is-small"
+                                   data-open="#cart-popup" data-class="off-canvas-cart" title="Giỏ hàng"
+                                   data-pos="right">
+
+    <span class="cart-icon image-icon">
+    <strong>0</strong>
+  </span>
+                                </a>
+
+
+                                <!-- Cart Sidebar Popup -->
+                                <div id="cart-popup" class="mfp-hide widget_shopping_cart">
+                                    <div class="cart-popup-inner inner-padding">
+                                        <div class="cart-popup-title text-center">
+                                            <h4 class="uppercase">Giỏ hàng</h4>
+                                            <div class="is-divider"></div>
+                                        </div>
+                                        <div class="widget_shopping_cart_content">
+
+
+                                            <p class="woocommerce-mini-cart__empty-message">Chưa có sản phẩm trong giỏ
+                                                hàng.</p>
+
+
+                                        </div>
+                                        <div class="cart-sidebar-content relative"></div>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="container">
+                    <div class="top-divider full-width"></div>
+                </div>
+            </div>
+
+            <div class="header-bg-container fill">
+                <div class="header-bg-image fill"></div>
+                <div class="header-bg-color fill"></div>
+            </div>
         </div>
-    </nav>
+    </header>
 </div>
 </body>
 </html>
