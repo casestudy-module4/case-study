@@ -91,8 +91,4 @@ public class CartService {
             orderDetailsOptional.ifPresent(orderDetails -> orderDetailsRepository.delete(orderDetails));
         }
     }
-
-    public List<CartItem> getSelectedItems(List<Integer> productIds, List<Integer> quantities) {
-        return null;
-    }
 }

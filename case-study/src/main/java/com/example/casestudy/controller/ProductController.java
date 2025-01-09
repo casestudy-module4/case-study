@@ -1,13 +1,13 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.dto.CategoryDTO;
-import com.example.casestudy.model.Category;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.ICategoryService;
 import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +30,7 @@ public class ProductController {
     public String getProducts(@RequestParam(defaultValue = "") String name,
                               @RequestParam(name = "categoryId", required = false) Integer categoryId,
                               @RequestParam(name = "searchQuery", defaultValue = "") String searchQuery,
+                              @RequestParam(name = "orderby", defaultValue = "default") String orderby,
                               @RequestParam(defaultValue = "0") int page,
                               Model model) {
         List<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTOs();
@@ -41,7 +42,16 @@ public class ProductController {
         } else if (categoryId != null) {
             productPage = productService.getProductsByCategory(categoryId, PageRequest.of(page, 9));
         } else {
-            productPage = productService.getAllProducts(PageRequest.of(page, 9));
+            switch (orderby) {
+                case "price":
+                    productPage = productService.getAllProducts(PageRequest.of(page, 9, Sort.by("price").ascending()));
+                    break;
+                case "price-desc":
+                    productPage = productService.getAllProducts(PageRequest.of(page, 9, Sort.by("price").descending()));
+                    break;
+                default:
+                    productPage = productService.getAllProducts(PageRequest.of(page, 9));
+            }
         }
 
         model.addAttribute("products", productPage.getContent());
@@ -49,9 +59,11 @@ public class ProductController {
         model.addAttribute("currentPage", page);
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("searchQuery", searchQuery);
+        model.addAttribute("orderby", orderby);
 
-        return "test"; // Tên file HTML hiển thị kết quả
+        return "test";
     }
+
 
     @GetMapping("/details")
     @ResponseBody

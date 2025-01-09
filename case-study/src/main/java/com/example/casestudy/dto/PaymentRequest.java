@@ -41,4 +41,3 @@ public class PaymentRequest {
         this.paymentMethod = paymentMethod;
     }
 }
-

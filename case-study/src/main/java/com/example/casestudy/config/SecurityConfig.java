@@ -1,9 +1,11 @@
 package com.example.casestudy.config;
 
+import com.example.casestudy.exception.CustomAuthenticationFailureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -13,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -36,45 +39,69 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Order(2)
+    public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home", "/order-history").permitAll()
-                        .requestMatchers("/admins/forgot-password", "/admins/reset-password").permitAll()
-                        .requestMatchers("/admins/login", "/logoutSuccessful", "/403", "/style/**", "/img/**").permitAll()
-                        .requestMatchers("/admins/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/home", "/login", "/register","/forgot-password","/reset-password", "/style/**", "/img/**").permitAll()
+                        .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .loginPage("/admins/login")
-                        .failureUrl("/admins/login?error=true")
-                        .loginProcessingUrl("/admins/login")
-                        .defaultSuccessUrl("/admins/statistics", true)
-                        .permitAll()
+                                .usernameParameter("username")
+                                .passwordParameter("password")
+                                .loginPage("/custom-login")
+                                .loginProcessingUrl("/login")
+                                .failureHandler(new CustomAuthenticationFailureHandler())
+                                .successHandler((request, response, authentication) -> {
+                                    response.sendRedirect("/home?success=true");
+                                })
+                                .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout") // URL để logout
-                        .logoutSuccessUrl("/admins/login?logout=true") // URL sau khi logout thành công
-                        .addLogoutHandler((request, response, authentication) -> {
-                            // Thêm xử lý bổ sung nếu cần, ví dụ ghi log
-                            System.out.println("User logged out: " + (authentication != null ? authentication.getName() : "Anonymous"));
-                        })
-                        .logoutSuccessHandler((request, response, authentication) -> {
-                            // Xử lý sau khi logout thành công (nếu cần logic tùy chỉnh)
-                            response.sendRedirect("/admins/login?logout=true");
-                        })
-                        .deleteCookies("JSESSIONID") // Xóa cookie phiên làm việc
-                        .invalidateHttpSession(true) // Vô hiệu hóa session hiện tại
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/home?logout=true")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
                 .exceptionHandling(exception -> exception
                         .accessDeniedPage("/403")
                 );
-
         return http.build();
     }
 
+    @Bean
+    @Order(1)
+    public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .securityMatcher("/admins/**")
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admins/login", "/admins/forgot-password", "/admins/reset-password").permitAll()
+                        .anyRequest().hasAuthority("ROLE_ADMIN")
+                )
+                .formLogin(form -> form
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .loginPage("/admins/login")
+                        .loginProcessingUrl("/admins/login")
+                        .failureUrl("/admins/login?error=true")
+                        .successHandler((request, response, authentication) -> {
+                            System.out.println("Logged in as admin: " + authentication.getName());
+                            response.sendRedirect("/admins/statistics");
+                        })
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/admins/logout")
+                        .logoutSuccessUrl("/admins/login?logout=true")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                );
+
+        return http.build();
+    }
 }

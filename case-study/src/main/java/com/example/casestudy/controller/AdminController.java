@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @Controller
 @RequestMapping("/admins")
@@ -49,120 +50,120 @@ public class AdminController {
     private EmailService emailService;
     @Autowired
     private IOrderDetailsService orderDetailsService;
-
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/home")
-    public String showHomePage(@RequestParam(defaultValue = "") String name, Model model, @RequestParam(defaultValue = "0") int page) {
-        if(page < 0){
-            page = 0;
-        }
+    public String showHomePage(@RequestParam(defaultValue = "") String name,
+                               Model model,
+                               @RequestParam(defaultValue = "0") int page) {
+        if (page < 0) page = 0;
+
         Page<Product> products = productService.findByName(name, page);
         model.addAttribute("products", products);
-
         model.addAttribute("categories", categoryService.getAll());
-
         return "product/home";
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/home/create")
-    public String createProduct( @ModelAttribute("products") Product product,
-                                 @RequestParam("image1") MultipartFile image,
-                                 @RequestParam("category.id") Integer categoryId,
-                                 BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes, Model model) {
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("error", bindingResult.getAllErrors());
+    public String createProduct(@Validated @ModelAttribute("product") Product product,
+                                @RequestParam("image") MultipartFile image,
+                                BindingResult bindingResult,
+                                RedirectAttributes redirectAttributes,
+                                Model model) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.getAll());
-
+            model.addAttribute("errors", bindingResult.getAllErrors());
             return "product/home";
         }
-        String uploadDir = "D:\\JAVA FULL STACK\\Module4\\case_study\\case-study\\case-study\\src\\main\\resources\\static\\images";
-        File uploadDirPath = new File(uploadDir);
-        if (!uploadDirPath.exists()) {
-            uploadDirPath.mkdirs();
+
+        // Xử lý upload file ảnh
+        if (!image.isEmpty()) {
+            String uploadDir = "D:\\\\JAVA FULL STACK\\\\Module4\\\\case_study\\\\case-study\\\\case-study\\\\src\\\\main\\\\resources\\\\static\\\\images";
+            String fileName = image.getOriginalFilename();
+            File uploadFile = new File(uploadDir, fileName);
+
+            try {
+                image.transferTo(uploadFile);
+                product.setImage("/images/" + fileName);
+            } catch (IOException e) {
+                model.addAttribute("error", "Failed to upload image.");
+                return "product/home";
+            }
+        } else {
+            product.setImage(null);
         }
-        String fileName = image.getOriginalFilename();
-        File uploadFile = new File(uploadDirPath, fileName);
 
         try {
-            image.transferTo(uploadFile);
-            product.setImage("/images/" + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Error while uploading image");
-            model.addAttribute("categories", categoryService.getAll());
-            return "product/home";
-        }
-        if(product.getId()==null || productService.findById(product.getId()) == null) {
+            String imagePath = saveImage(image);
+            product.setImage(imagePath);
+            if (product.getRemainProductQuantity() == null) {
+                product.setRemainProductQuantity(product.getTotalProductQuantity());
+            }
             product.setRemainProductQuantity(product.getTotalProductQuantity());
             productService.addNew(product);
-        }else {
-            throw new DuplicateKeyException("Product already exists");
+            redirectAttributes.addFlashAttribute("message", "Thêm sản phẩm thành công!");
+        } catch (IOException e) {
+            model.addAttribute("categories", categoryService.getAll());
+            model.addAttribute("error", "Lỗi khi tải ảnh: " + e.getMessage());
+            return "product/home";
         }
-        redirectAttributes.addFlashAttribute("message", "Product created successfully");
         return "redirect:/admins/home";
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/home/{id}/update")
-    public String updateProduct( @PathVariable int id,
-                                @ModelAttribute("products") Product product,
-                                 @RequestParam("images") MultipartFile image,
-                                 BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes, Model model) {
+    public String updateProduct(@PathVariable int id,
+                                @Validated @ModelAttribute("product") Product product,
+                                @RequestParam("image") MultipartFile image,
+                                BindingResult bindingResult,
+                                RedirectAttributes redirectAttributes,
+                                Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("error", bindingResult.getAllErrors());
-            model.addAttribute("categories", product.getCategory());
+            model.addAttribute("categories", categoryService.getAll());
+            model.addAttribute("errors", bindingResult.getAllErrors());
             return "product/home";
         }
-        String uploadDir = "D:\\JAVA FULL STACK\\Module4\\case_study\\case-study\\case-study\\src\\main\\resources\\static\\images";
-        File uploadDirPath = new File(uploadDir);
-        if (!uploadDirPath.exists()) {
-            uploadDirPath.mkdirs();
-        }
-        String fileName = image.getOriginalFilename();
-        File uploadFile = new File(uploadDirPath, fileName);
 
         try {
-            image.transferTo(uploadFile);
-            product.setImage("/images/" + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Error while uploading image");
-            model.addAttribute("categories", categoryService.getAll());
-            return "product/fragment";
-        }
-
-        if (product.getId() != null && productService.findById(product.getId()) != null) {
-            product.setRemainProductQuantity(product.getTotalProductQuantity());
+            if (!image.isEmpty()) {
+                String imagePath = saveImage(image);
+                product.setImage(imagePath);
+            }
             productService.update(id, product);
-        } else {
-            throw new DuplicateKeyException("Product already exists");
+            redirectAttributes.addFlashAttribute("message", "Cập nhật sản phẩm thành công!");
+        } catch (IOException e) {
+            model.addAttribute("categories", categoryService.getAll());
+            model.addAttribute("error", "Lỗi khi tải ảnh: " + e.getMessage());
+            return "product/home";
         }
-        redirectAttributes.addFlashAttribute("message", "Product updated successfully");
         return "redirect:/admins/home";
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/home/{id}/delete")
     public String deleteProduct(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        if(productService.findById(id) == null) {
-            redirectAttributes.addFlashAttribute("message", "Product not found");
-            return "redirect:/admins/home";
+        if (productService.findById(id) == null) {
+            redirectAttributes.addFlashAttribute("error", "Sản phẩm không tồn tại");
+        } else {
+            productService.deleteById(id);
+            redirectAttributes.addFlashAttribute("message", "Xóa sản phẩm thành công");
         }
-        productService.deleteById(id);
-        redirectAttributes.addFlashAttribute("message", "Product deleted successfully");
         return "redirect:/admins/home";
     }
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/home/{id}")
-    public String detailProduct(@PathVariable int id, Model model) {
-        model.addAttribute("product", productService.findById(id));
-        model.addAttribute("remainQuantity", productService.remainProductCount(id));
-        return "product/fragment";
+
+    private String saveImage(MultipartFile image) throws IOException {
+        String uploadDir = "D:\\JAVA FULL STACK\\Module4\\case_study\\src\\main\\resources\\static\\images";
+        File uploadDirPath = new File(uploadDir);
+        if (!uploadDirPath.exists()) {
+            uploadDirPath.mkdirs();
+        }
+        String fileName = image.getOriginalFilename();
+        File uploadFile = new File(uploadDirPath, fileName);
+        image.transferTo(uploadFile);
+        return "/images/" + fileName;
     }
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/category")
     public String category(@RequestParam(defaultValue = "") String name, Model model, @RequestParam(defaultValue = "0") int page) {
-        if(page < 0){
+        if (page < 0) {
             page = 0;
         }
         Page<Category> categories = categoryService.findByName(name, page);
@@ -190,6 +191,7 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("message", "Category created successfully");
         return "redirect:/admins/category";
     }
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/category/{id}/update")
     public String updateProduct(@PathVariable int id, @ModelAttribute Category category, RedirectAttributes redirectAttributes) {
@@ -197,6 +199,7 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("message", "Updated category successfully");
         return "redirect:/admins/category";
     }
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/category/{id}/delete")
     public String deleteCategory(@PathVariable int id, RedirectAttributes redirectAttributes) {
@@ -260,6 +263,7 @@ public class AdminController {
         model.addAttribute("accountRegistrationData", accountService.getAccountRegistrationsByMonth());
         return "statistic";
     }
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/process-payment")
     public String processPayment(@RequestBody PaymentRequest paymentRequest, Model model) throws MessagingException {

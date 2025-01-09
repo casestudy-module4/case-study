@@ -31,6 +31,7 @@ public class ImageController {
 
             // Lưu file
             String filePath = UPLOAD_DIR + file.getOriginalFilename();
+            
             file.transferTo(new File(filePath));
 
             // Trả về đường dẫn file
