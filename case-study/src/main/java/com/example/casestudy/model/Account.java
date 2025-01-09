@@ -35,7 +35,7 @@ public class Account {
     @Column(name = "role_user", nullable = false)
     private String role;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = true)
     private Customer customer;
 

@@ -9,42 +9,35 @@
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form id="signUpForm">
+                    <form id="signUpForm" th:action="@{/register}" method="post">
                         <!-- Tên đăng nhập -->
                         <div class="mb-3">
                             <label for="username" class="form-label">Tên đăng nhập</label>
-                            <input type="text" class="form-control" id="username" placeholder="Nhập tên đăng nhập" required>
+                            <input type="text" id="username" name="resName" class="form-control" placeholder="Nhập tên đăng nhập" required>
                         </div>
 
-                        <!-- Địa chỉ Email -->
+                        <!-- Email -->
                         <div class="mb-3">
-                            <label for="email" class="form-label">Địa chỉ Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Nhập email của bạn" required>
+                            <label for="email" class="form-label">Email</label>
+                            <input class="form-control" type="email" id="email" name="customer.email" placeholder="Nhập email" required>
                         </div>
-
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="customer.phoneNumber" placeholder="Nhập số điện thoại" required>
+                        </div>
                         <!-- Mật khẩu -->
                         <div class="mb-3">
                             <label for="password" class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control" id="password" placeholder="Tạo mật khẩu mạnh" required>
-                            <div id="passwordHelp" class="form-text">Mật khẩu phải có ít nhất 8 ký tự.</div>
+                            <input type="password" class="form-control" id="password" name="resPassword" placeholder="Nhập mật khẩu" required>
                         </div>
 
                         <!-- Xác nhận mật khẩu -->
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Nhập lại mật khẩu" required>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required>
                         </div>
-
-                        <!-- Điều khoản dịch vụ -->
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="terms" required>
-                            <label class="form-check-label" for="terms">
-                                Tôi đồng ý với <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#termsOfServiceModal">Điều khoản dịch vụ</a>.
-                            </label>
-                        </div>
-
-                        <!-- Nút Đăng Ký -->
-                        <button type="submit" class="btn btn-primary w-100 py-2">Đăng Ký</button>
+                        <p th:if="${registerError}" th:text="${registerError}"></p>
+                        <button type="submit" class="btn btn-primary w-100">Đăng Ký</button>
                     </form>
 
                     <!-- Chuyển hướng đến Đăng Nhập -->

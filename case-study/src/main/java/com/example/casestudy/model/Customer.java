@@ -20,10 +20,8 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty(message = "Please enter the full name")
     @Column(columnDefinition = "VARCHAR(50)")
     private String fullName;
-    @NotNull(message = "Please enter the phone number")
     private String phoneNumber;
     @Column(columnDefinition = "VARCHAR(100)")
     private String address;
@@ -34,7 +32,6 @@ public class Customer {
     private Integer gender;
 
     private LocalDate birthdate;
-    @NotNull(message = "Please enter the email")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Invalid email format")
     private String email;
     private String image;

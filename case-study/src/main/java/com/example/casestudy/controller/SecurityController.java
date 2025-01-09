@@ -1,6 +1,7 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.model.Account;
+import com.example.casestudy.model.Customer;
 import com.example.casestudy.service.implement.AccountService;
 import com.example.casestudy.service.implement.EmailService;
 import jakarta.validation.ConstraintViolationException;
@@ -35,20 +36,30 @@ public class SecurityController {
     }
 
     @GetMapping("/register")
-    public String registerPage(Model model) {
-        model.addAttribute("user", new Account());
-        return "register";
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new Account()); // Đối tượng để binding form
+        return "home"; // Trang HTML cho đăng ký
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") Account user, RedirectAttributes redirectAttributes) {
+    public String registerUser(@ModelAttribute("user") Account user,
+                               @RequestParam("confirmPassword") String confirmPassword,
+                               RedirectAttributes redirectAttributes) {
         try {
+            // Kiểm tra mật khẩu khớp
+            if (!user.getResPassword().equals(confirmPassword)) {
+                redirectAttributes.addFlashAttribute("registerError", "Mật khẩu không khớp.");
+                return "redirect:/home";
+            }
+
+            // Đăng ký tài khoản với vai trò mặc định ROLE_USER
             accountService.registerUser(user, "ROLE_USER");
-            redirectAttributes.addFlashAttribute("message", "Registration successful! You can now log in.");
-            return "redirect:/login";
+
+            redirectAttributes.addFlashAttribute("message", "Đăng ký thành công!");
+            return "redirect:/home";
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/register";
+            return "redirect:/home";
         }
     }
 
