@@ -2117,4 +2117,14 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
         signUpModal.show();
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const errorMessage = document.getElementById("error-message");
+        if (errorMessage) {
+            setTimeout(() => {
+                errorMessage.style.display = "none";
+            }, 5000); // 5 giây
+        }
+    });
+</script>
 </html>

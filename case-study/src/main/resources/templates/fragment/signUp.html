@@ -36,7 +36,7 @@
                             </label>
                         </div>
                         <!-- Hiển thị lỗi nếu có -->
-                        <div th:if="${registerError}" class="text-danger text-center mb-3">
+                        <div th:if="${registerError}" class="text-danger text-center mb-3"  id="error-message">
                             <p th:text="${registerError}"></p>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Đăng Ký</button>
