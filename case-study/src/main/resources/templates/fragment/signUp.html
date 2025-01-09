@@ -1,22 +1,18 @@
 <div th:fragment="signUp">
-    <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+    <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel"
+         th:classappend="${showRegisterModal} ? 'show' : ''"
+         th:style="${showRegisterModal} ? 'display:block;' : 'display:none;'">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <!-- Modal Header -->
                 <div class="modal-header justify-content-center border-0">
                     <h5 class="modal-title fw-bold" id="signUpModalLabel">Tạo Tài Khoản Mới</h5>
                 </div>
-
-                <!-- Modal Body -->
                 <div class="modal-body">
                     <form id="signUpForm" th:action="@{/register}" method="post">
-                        <!-- Tên đăng nhập -->
                         <div class="mb-3">
                             <label for="username" class="form-label">Tên đăng nhập</label>
                             <input type="text" id="username" name="resName" class="form-control" placeholder="Nhập tên đăng nhập" required>
                         </div>
-
-                        <!-- Email -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input class="form-control" type="email" id="email" name="customer.email" placeholder="Nhập email" required>
@@ -25,24 +21,30 @@
                             <label for="phoneNumber" class="form-label">Số điện thoại</label>
                             <input type="text" class="form-control" id="phoneNumber" name="customer.phoneNumber" placeholder="Nhập số điện thoại" required>
                         </div>
-                        <!-- Mật khẩu -->
                         <div class="mb-3">
                             <label for="password" class="form-label">Mật khẩu</label>
                             <input type="password" class="form-control" id="password" name="resPassword" placeholder="Nhập mật khẩu" required>
                         </div>
-
-                        <!-- Xác nhận mật khẩu -->
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
                             <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required>
                         </div>
-                        <p th:if="${registerError}" th:text="${registerError}"></p>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="termsCheckbox" name="acceptTerms" required>
+                            <label class="form-check-label" for="termsCheckbox">
+                                Tôi đã đọc và đồng ý với <a href="#" data-bs-toggle="modal" data-bs-target="#termsOfServiceModal">Điều khoản dịch vụ</a>.
+                            </label>
+                        </div>
+                        <!-- Hiển thị lỗi nếu có -->
+                        <div th:if="${registerError}" class="text-danger text-center mb-3">
+                            <p th:text="${registerError}"></p>
+                        </div>
                         <button type="submit" class="btn btn-primary w-100">Đăng Ký</button>
                     </form>
-
-                    <!-- Chuyển hướng đến Đăng Nhập -->
                     <div class="text-center mt-3">
-                        <span class="text-muted">Đã có tài khoản? <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo">Đăng Nhập</a></span>
+                        <span class="text-muted">Đã có tài khoản?
+                            <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo">Đăng Nhập</a>
+                        </span>
                     </div>
                 </div>
             </div>
