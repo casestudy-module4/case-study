@@ -1,7 +1,6 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.dto.CategoryDTO;
-import com.example.casestudy.model.Category;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.ICategoryService;
 import com.example.casestudy.service.IProductService;
