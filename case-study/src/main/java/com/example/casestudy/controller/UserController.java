@@ -1,6 +1,7 @@
 package com.example.casestudy.controller;
 
-import org.springframework.security.core.Authentication;
+import com.example.casestudy.dto.OrderHistoryDTO;
+import com.example.casestudy.service.impl.OrderHistoryService;
 import com.example.casestudy.dto.CategoryDTO;
 import com.example.casestudy.dto.TopProductDTO;
 import com.example.casestudy.model.Banner;
@@ -12,7 +13,8 @@ import com.example.casestudy.service.implement.EmailService;
 import com.example.casestudy.service.implement.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +26,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-@PreAuthorize("hasAuthority('ROLE_USER')")
+//@PreAuthorize("hasAuthority('ROLE_USER')")
 @Controller
 @RequestMapping("/home")
 public class UserController {
@@ -47,7 +49,8 @@ public class UserController {
     private IOrderDetailsService orderDetailsService;
     @Autowired
     private IBannerService bannerService;
-
+    @Autowired
+    private OrderHistoryService orderHistoryService;
     @GetMapping("")
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
@@ -139,7 +142,36 @@ public class UserController {
 
         return "redirect:/home/profile"; // Chuyển về trang thông tin người dùng
     }
+    /*---- đây la phuong thuc order-history-----*/
+    @GetMapping("/order-history")
+    public String viewOrderHistory(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        Customer customer = customerService.findByUsername(userDetails.getUsername());
+        List<OrderHistoryDTO> orders = orderHistoryService.getOrderHistory(customer);
+        model.addAttribute("orders", orders);
+        return "user/order-history";
+    }
 
+    @GetMapping("/filter")
+    public String filterOrders(@RequestParam Integer statusOrder, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        Customer customer = customerService.findByUsername(userDetails.getUsername());
+        List<OrderHistoryDTO> orders = orderHistoryService.getOrderHistoryByStatus(customer, statusOrder);
+        model.addAttribute("orders", orders);
+        return "user/order-history";
+    }
+
+    @PostMapping("/reorder/{orderId}")
+    public String reorder(@PathVariable Integer orderId, @AuthenticationPrincipal UserDetails userDetails) {
+        Customer customer = customerService.findByUsername(userDetails.getUsername());
+        orderHistoryService.reorder(orderId, customer);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/review/{orderId}")
+    public String addReview(@PathVariable Integer orderId, @RequestParam String review, @AuthenticationPrincipal UserDetails userDetails) {
+        Customer customer = customerService.findByUsername(userDetails.getUsername());
+        orderHistoryService.addReview(orderId, review, customer);
+        return "redirect:/user/order-history";
+    }
 
 
 }
