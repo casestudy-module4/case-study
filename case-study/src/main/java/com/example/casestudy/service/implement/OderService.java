@@ -1,5 +1,7 @@
 package com.example.casestudy.service.implement;
 
+import com.example.casestudy.dto.OrderHistoryDTO;
+import com.example.casestudy.dto.OrderItemDTO;
 import com.example.casestudy.model.Order;
 import com.example.casestudy.repository.OrderRepository;
 import com.example.casestudy.service.IOrderService;
@@ -51,7 +53,20 @@ public class OderService implements IOrderService {
     public List<Order> findAll() {
         return orderRepository.findAll();
     }
+
+    @Override
+    public List<OrderHistoryDTO> getOrderHistoryWithItems(Integer customerId) {
+        List<OrderHistoryDTO> orderHistory = orderRepository.findOrderHistoryByCustomerId(customerId);
+        for (OrderHistoryDTO order : orderHistory) {
+            List<OrderItemDTO> items = orderRepository.findOrderItemsByOrderId(order.getId());
+            order.setOrderItems(items);
+        }
+        return orderHistory;
+    }
+
     public Order createOrder(Order order) {
         return orderRepository.save(order);
     }
+
+
 }

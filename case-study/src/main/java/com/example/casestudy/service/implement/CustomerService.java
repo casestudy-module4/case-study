@@ -1,11 +1,14 @@
 package com.example.casestudy.service.implement;
 
+import com.example.casestudy.model.Account;
 import com.example.casestudy.model.Customer;
+import com.example.casestudy.repository.AccountRepository;
 import com.example.casestudy.repository.CustomerRepository;
 import com.example.casestudy.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -14,6 +17,9 @@ import java.util.Map;
 
 @Service
 public class CustomerService implements ICustomerService {
+    @Autowired
+    private AccountRepository accountRepository;
+
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -34,6 +40,15 @@ public class CustomerService implements ICustomerService {
     }
     public Customer findById(int id) {
         return customerRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Customer findByUsername(String username) {
+        Account account = accountRepository.findByResName(username);
+        if (account == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+        return account.getCustomer();
     }
 
 
