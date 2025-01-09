@@ -14,14 +14,20 @@ public class CustomerServicee implements ICustomerServicee {
     @Autowired
     private ICustomerRepository customerRepository;
 
+
     @Override
-    public Customer findById(int id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        return customer.orElse(null);
+    public Customer findById(Integer id) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(id);
+        return optionalCustomer.orElse(null);
     }
 
     @Override
-    public void save(Customer customer) {
+    public void update(Customer customer) {
         customerRepository.save(customer);
+    }
+
+    @Override
+    public Object findByName(String fullName, int page) {
+        return null;
     }
 }
