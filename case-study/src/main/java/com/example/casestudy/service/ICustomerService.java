@@ -11,4 +11,6 @@ public interface ICustomerService {
     Page<Customer> findByTitle(String fullName, Integer page);
     Customer findById(int id);
 
+
+    Customer findByUsername(String username);
 }
