@@ -1,6 +1,7 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.model.Account;
+import com.example.casestudy.model.Customer;
 import com.example.casestudy.service.implement.AccountService;
 import com.example.casestudy.service.implement.EmailService;
 import jakarta.validation.ConstraintViolationException;
@@ -9,10 +10,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.Random;
 
 @Controller
@@ -23,6 +26,42 @@ public class SecurityController {
 
     @Autowired
     private EmailService emailService;
+
+    @GetMapping("/custom-login")
+    public String loginUser(Model model, @RequestParam(value = "error", defaultValue = "false") String error) {
+        model.addAttribute("errorLogin", "true".equals(error) ? "Sai Tên Tài Khoản Hoặc Mật Khẩu." : null);
+        model.addAttribute("showModal", "true".equals(error)); // Hiển thị modal khi có lỗi
+        return "home";
+
+    }
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new Account()); // Đối tượng để binding form
+        return "home"; // Trang HTML cho đăng ký
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") Account user,
+                               @RequestParam("confirmPassword") String confirmPassword,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            // Kiểm tra mật khẩu khớp
+            if (!user.getResPassword().equals(confirmPassword)) {
+                redirectAttributes.addFlashAttribute("registerError", "Mật khẩu không khớp.");
+                return "redirect:/home";
+            }
+
+            // Đăng ký tài khoản với vai trò mặc định ROLE_USER
+            accountService.registerUser(user, "ROLE_USER");
+
+            redirectAttributes.addFlashAttribute("message", "Đăng ký thành công!");
+            return "redirect:/home";
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/home";
+        }
+    }
 
     @GetMapping(value = "/admins/login")
     public String loginPage(Model model, @RequestParam(value = "error", defaultValue = "") String error) {
@@ -84,6 +123,7 @@ public class SecurityController {
             return "redirect:/admins/reset-password?email=" + email;
         }
     }
+
     @PostMapping("/admins/change-password")
     public String changePassword(@RequestParam("currentPassword") String currentPassword,
                                  @RequestParam("newPassword") String newPassword,

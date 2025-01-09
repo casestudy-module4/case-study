@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class HomeController {
     @GetMapping
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
-                       @RequestParam(defaultValue = "0") int page) {
+                       @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "false") String success, Principal principal) {
 
         Page<Product> productPage = productService.findAll(name.trim(), page);
         List<Product> products = productPage.getContent();
@@ -57,7 +58,14 @@ public class HomeController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("name", name);
-
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        } else {
+            model.addAttribute("username", null);
+        }
+        if ("true".equals(success)) {
+            model.addAttribute("message", "Đăng nhập thành công!");
+        }
         return "home";
     }
 }

@@ -1,0 +1,35 @@
+<div th:fragment="login">
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
+       th:classappend="${showModal} ? 'show' : ''"
+       th:style="${showModal} ? 'display:block;' : 'display:none;'">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center border-0">
+          <h5 class="modal-title fw-bold" id="signInModalLabel">Đăng Nhập</h5>
+        </div>
+        <div class="modal-body">
+          <form id="signInForm" th:action="@{/login}" method="post">
+            <div class="mb-3">
+              <label for="signInUserName" class="form-label">Tên đăng nhập</label>
+              <input type="text" class="form-control" id="signInUserName" placeholder="Nhập tên đăng nhập" name="username" required>
+            </div>
+            <div class="mb-3">
+              <label for="signInPassword" class="form-label">Mật khẩu</label>
+              <input type="password" class="form-control" id="signInPassword" placeholder="Nhập mật khẩu" name="password" required>
+            </div>
+            <div class="mb-3 d-flex justify-content-end">
+              <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#forgotModal" data-bs-whatever="@mdo">Quên mật khẩu?</a>
+            </div>
+            <div th:if="${errorLogin}" class="text-danger text-center mb-3">
+              <p th:text="${errorLogin}"></p>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 py-2">Đăng Nhập</button>
+            <div class="text-center mt-3">
+              <span>Bạn chưa có tài khoản? <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#signUpModal" data-bs-whatever="@mdo">Đăng ký</a></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
