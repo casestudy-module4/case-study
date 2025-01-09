@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -44,20 +45,25 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home", "/login", "/register","/forgot-password","/reset-password", "/style/**", "/img/**").permitAll()
+                        .requestMatchers("/home", "/login", "/products", "/register", "/forgot-password", "/reset-password", "/style/**", "/img/**").permitAll()
                         .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                                .usernameParameter("username")
-                                .passwordParameter("password")
-                                .loginPage("/custom-login")
-                                .loginProcessingUrl("/login")
-                                .failureHandler(new CustomAuthenticationFailureHandler())
-                                .successHandler((request, response, authentication) -> {
-                                    response.sendRedirect("/home?success=true");
-                                })
-                                .permitAll()
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .failureHandler(new CustomAuthenticationFailureHandler())
+                        .successHandler((request, response, authentication) -> {
+                            String referer = request.getHeader("Referer");
+                            if (referer != null && (referer.contains("/home") || referer.contains("/products"))) {
+                                response.sendRedirect(referer);
+                            } else {
+                                response.sendRedirect("/home");
+                            }
+                        })
+                        .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
