@@ -18,9 +18,9 @@
               <input type="password" class="form-control" id="signInPassword" placeholder="Nhập mật khẩu" name="password" required>
             </div>
             <div class="mb-3 d-flex justify-content-end">
-              <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#forgotModal" data-bs-whatever="@mdo">Quên mật khẩu?</a>
+              <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" data-bs-whatever="@mdo">Quên mật khẩu?</a>
             </div>
-            <div th:if="${errorLogin}" class="text-danger text-center mb-3">
+            <div th:if="${errorLogin}" class="text-danger text-center mb-3"  id="error-message">
               <p th:text="${errorLogin}"></p>
             </div>
             <button type="submit" class="btn btn-primary w-100 py-2">Đăng Nhập</button>

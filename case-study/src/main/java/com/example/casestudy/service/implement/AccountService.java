@@ -76,7 +76,7 @@ public void registerUser(Account account, String role) {
     public void generateOtp(Account account) {
         String otp = String.valueOf((int) (Math.random() * 900000) + 100000); // Tạo OTP 6 chữ số
         account.setOtp(otp);
-        account.setOtpExpiry(LocalDateTime.now().plusMinutes(5)); // Thời gian hết hạn 5 phút
+        account.setOtpExpiry(LocalDateTime.now().plusMinutes(5));
         iAccountRepository.save(account);
     }
 
@@ -99,10 +99,10 @@ public void registerUser(Account account, String role) {
     public boolean resetPassword(String email, String newPassword) {
         Account account = findByEmail(email);
         if (account == null) {
-            throw new IllegalArgumentException("Account not found.");
+            throw new IllegalArgumentException("Tài Khoản Không Tồn Tại");
         }
         if (!newPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\\$%\\^&\\*])(?=\\S+$).{8,20}$")) {
-            throw new IllegalArgumentException("Password must meet security criteria.");
+            throw new IllegalArgumentException("Mật khẩu không đáp ứng tiêu chuẩn bảo mật.");
         }
         account.setResPassword(passwordEncoder.encode(newPassword));
         iAccountRepository.save(account);
