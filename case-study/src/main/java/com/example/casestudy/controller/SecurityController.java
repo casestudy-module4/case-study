@@ -4,6 +4,7 @@ import com.example.casestudy.model.Account;
 import com.example.casestudy.model.Customer;
 import com.example.casestudy.service.implement.AccountService;
 import com.example.casestudy.service.implement.EmailService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,41 +28,6 @@ public class SecurityController {
     @Autowired
     private EmailService emailService;
 
-    @GetMapping("/custom-login")
-    public String loginUser(Model model, @RequestParam(value = "error", defaultValue = "false") String error) {
-        model.addAttribute("errorLogin", "true".equals(error) ? "Sai Tên Tài Khoản Hoặc Mật Khẩu." : null);
-        model.addAttribute("showModal", "true".equals(error)); // Hiển thị modal khi có lỗi
-        return "home";
-
-    }
-
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new Account()); // Đối tượng để binding form
-        return "home"; // Trang HTML cho đăng ký
-    }
-
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") Account user,
-                               @RequestParam("confirmPassword") String confirmPassword,
-                               RedirectAttributes redirectAttributes) {
-        try {
-            // Kiểm tra mật khẩu khớp
-            if (!user.getResPassword().equals(confirmPassword)) {
-                redirectAttributes.addFlashAttribute("registerError", "Mật khẩu không khớp.");
-                return "redirect:/home";
-            }
-
-            // Đăng ký tài khoản với vai trò mặc định ROLE_USER
-            accountService.registerUser(user, "ROLE_USER");
-
-            redirectAttributes.addFlashAttribute("message", "Đăng ký thành công!");
-            return "redirect:/home";
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/home";
-        }
-    }
 
     @GetMapping(value = "/admins/login")
     public String loginPage(Model model, @RequestParam(value = "error", defaultValue = "") String error) {
@@ -143,5 +109,124 @@ public class SecurityController {
         }
 
         return "redirect:/admins/customers";
+    }
+
+    @GetMapping("/custom-login")
+    public String loginUser(HttpServletRequest request, Model model) {
+        // Lấy giá trị từ Session
+        Object errorLogin = request.getSession().getAttribute("errorLogin");
+        Object showModal = request.getSession().getAttribute("showModal");
+
+        // Xóa giá trị khỏi Session sau khi đọc
+        request.getSession().removeAttribute("errorLogin");
+        request.getSession().removeAttribute("showModal");
+
+        // Gán giá trị vào Model để truyền cho view
+        model.addAttribute("errorLogin", errorLogin);
+        model.addAttribute("showModal", showModal);
+
+        return "home"; // Trả về trang home
+    }
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new Account()); // Đối tượng để binding form
+        return "home";
+    }
+
+//    @PostMapping("/register")
+//    public String registerUser(@ModelAttribute("user") Account user,
+//                               @RequestParam("confirmPassword") String confirmPassword,
+//                               RedirectAttributes redirectAttributes) {
+//        try {
+//            if (!user.getResPassword().equals(confirmPassword)) {
+//                redirectAttributes.addFlashAttribute("registerError", "Mật khẩu không khớp.");
+//                return "redirect:/home";
+//            }
+//            accountService.registerUser(user, "ROLE_USER");
+//
+//            redirectAttributes.addFlashAttribute("message", "Đăng ký thành công!");
+//            return "redirect:/home";
+//        } catch (IllegalArgumentException e) {
+//            redirectAttributes.addFlashAttribute("error", e.getMessage());
+//            return "redirect:/home";
+//        }
+//    }
+@PostMapping("/register")
+public String registerUser(@ModelAttribute("user") Account user,
+                           @RequestParam("confirmPassword") String confirmPassword,
+                           @RequestParam(value = "acceptTerms", defaultValue = "false") boolean acceptTerms,
+                           Model model) {
+    try {
+        // Kiểm tra mật khẩu và xác nhận mật khẩu
+        if (!user.getResPassword().equals(confirmPassword)) {
+            model.addAttribute("registerError", "Mật khẩu không khớp.");
+            model.addAttribute("showRegisterModal", true);
+            return "home"; // Giữ nguyên trang hiện tại
+        }
+
+        // Kiểm tra điều khoản dịch vụ
+        if (!acceptTerms) {
+            model.addAttribute("registerError", "Bạn phải đồng ý với Điều khoản dịch vụ.");
+            model.addAttribute("showRegisterModal", true);
+            return "home";
+        }
+
+        // Xử lý đăng ký
+        accountService.registerUser(user, "ROLE_USER");
+
+        // Thành công: Hiển thị thông báo thành công
+        model.addAttribute("message", "Đăng ký thành công!");
+        return "redirect:/home";
+    } catch (IllegalArgumentException e) {
+        model.addAttribute("registerError", e.getMessage());
+        model.addAttribute("showRegisterModal", true);
+        return "home";
+    }
+}
+    @PostMapping("/forgot-password")
+    public String processUserForgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
+        try {
+            Account account = accountService.findByEmail(email);
+            if (account == null) {
+                throw new IllegalArgumentException("Email không tồn tại.");
+            }
+            accountService.generateOtp(account);
+            emailService.sendOtpEmail(email, account.getOtp());
+
+            // Hiển thị thông báo thành công bằng Toast và mở modal Reset Password
+            redirectAttributes.addFlashAttribute("message", "OTP đã gửi tới email của bạn.");
+            redirectAttributes.addFlashAttribute("showResetModal", true);
+        } catch (Exception e) {
+            // Hiển thị thông báo lỗi bằng Toast và mở lại modal Forgot Password
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            redirectAttributes.addFlashAttribute("showForgotModal", true);
+        }
+        return "redirect:/home";
+    }
+    @PostMapping("/reset-password")
+    public String precessUserResetPassword(@RequestParam("email") String email,
+                                           @RequestParam("otp") String otp,
+                                           @RequestParam("password") String password,
+                                           @RequestParam("confirmPassword") String confirmPassword,
+                                           RedirectAttributes redirectAttributes) {
+        try {
+            if (!password.equals(confirmPassword)) {
+                throw new IllegalArgumentException("Mật khẩu và xác nhận mật khẩu không khớp.");
+            }
+            Account account = accountService.findByEmail(email);
+            if (account == null) {
+                throw new IllegalArgumentException("OTP Bị sai");
+            }
+            accountService.validateOtp(account, otp);
+            accountService.resetPassword(email, password);
+            accountService.clearOtp(account);
+
+            redirectAttributes.addFlashAttribute("message", "Đặt lại mật khẩu thành công.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            redirectAttributes.addFlashAttribute("showResetModal", true);
+        }
+        return "redirect:/home";
     }
 }

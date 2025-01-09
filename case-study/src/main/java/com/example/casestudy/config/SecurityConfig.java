@@ -1,5 +1,6 @@
 package com.example.casestudy.config;
 
+import com.example.casestudy.exception.CustomAuthenticationFailureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,66 +38,14 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
-    //    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/home","/login","/register").permitAll()
-//                        .requestMatchers("/admins/forgot-password", "/admins/reset-password").permitAll()
-//                        .requestMatchers("/admins/login", "/logoutSuccessful", "/403", "/style/**", "/img/**").permitAll()
-//                        .requestMatchers("/admins/**").hasAuthority("ROLE_ADMIN")
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(form -> form
-//                        .usernameParameter("username") // Tên trường username trong form
-//                        .passwordParameter("password") // Tên trường password trong form
-//                        .loginPage("/custom-login") // URL hiển thị trang login (do Controller xử lý)
-//                        .loginProcessingUrl("/login") // URL xử lý logic đăng nhập (do Spring Security xử lý)
-//                        .failureUrl("/custom-login?error=true") // URL khi đăng nhập thất bại
-//                        .defaultSuccessUrl("/home", true)
-//                        .requestMatcher(new AntPathRequestMatcher("/custom-login"))// URL khi đăng nhập thành công
-//                        .permitAll()
-//                )
-//                .formLogin(form -> form
-//                        .usernameParameter("username")
-//                        .passwordParameter("password")
-//                        .loginPage("/admins/login")
-//                        .failureUrl("/admins/login?error=true")
-//                        .loginProcessingUrl("/admins/login")
-//                        .defaultSuccessUrl("/admins/statistics", true)
-//                        .requestMatcher(new AntPathRequestMatcher("/admins/login"))
-//                        .permitAll()
-//                )
-//                .logout(logout -> logout
-//                        .logoutUrl("/logout") // URL để logout
-//                        .logoutSuccessUrl("/admins/login?logout=true") // URL sau khi logout thành công
-//                        .addLogoutHandler((request, response, authentication) -> {
-//                            // Thêm xử lý bổ sung nếu cần, ví dụ ghi log
-//                            System.out.println("User logged out: " + (authentication != null ? authentication.getName() : "Anonymous"));
-//                        })
-//                        .logoutSuccessHandler((request, response, authentication) -> {
-//                            // Xử lý sau khi logout thành công (nếu cần logic tùy chỉnh)
-//                            response.sendRedirect("/admins/login?logout=true");
-//                        })
-//                        .deleteCookies("JSESSIONID") // Xóa cookie phiên làm việc
-//                        .invalidateHttpSession(true) // Vô hiệu hóa session hiện tại
-//                        .permitAll()
-//                )
-//                .exceptionHandling(exception -> exception
-//                        .accessDeniedPage("/403")
-//                );
-//
-//        return http.build();
-//    }
     @Bean
     @Order(2)
     public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home", "/login", "/register", "/style/**", "/img/**").permitAll()
-                        .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                        .requestMatchers("/home", "/login", "/register","/forgot-password","/reset-password", "/style/**", "/img/**").permitAll()
+                        .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -104,11 +53,10 @@ public class SecurityConfig {
                                 .passwordParameter("password")
                                 .loginPage("/custom-login")
                                 .loginProcessingUrl("/login")
-                                .failureUrl("/home?error=true")
+                                .failureHandler(new CustomAuthenticationFailureHandler())
                                 .successHandler((request, response, authentication) -> {
                                     response.sendRedirect("/home?success=true");
                                 })
-//                                .defaultSuccessUrl("/home", true)
                                 .permitAll()
                 )
                 .logout(logout -> logout
@@ -117,8 +65,10 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/403")
                 );
-
         return http.build();
     }
 
@@ -126,6 +76,7 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())
                 .securityMatcher("/admins/**")
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admins/login", "/admins/forgot-password", "/admins/reset-password").permitAll()
@@ -137,7 +88,10 @@ public class SecurityConfig {
                         .loginPage("/admins/login")
                         .loginProcessingUrl("/admins/login")
                         .failureUrl("/admins/login?error=true")
-                        .defaultSuccessUrl("/admins/statistics", true)
+                        .successHandler((request, response, authentication) -> {
+                            System.out.println("Logged in as admin: " + authentication.getName());
+                            response.sendRedirect("/admins/statistics");
+                        })
                         .permitAll()
                 )
                 .logout(logout -> logout
