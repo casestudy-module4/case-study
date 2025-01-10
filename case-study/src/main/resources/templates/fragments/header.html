@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -32,20 +32,33 @@
 
                     <div class="flex-col hide-for-medium flex-right">
                         <ul class="nav top-bar-nav nav-right nav-small  nav-divided">
-                            <li class="account-item has-icon
-    "
-                            >
+                            <li class="account-item has-icon">
+                                <!-- Hiển thị khi người dùng đã đăng nhập -->
+                                <div sec:authorize="isAuthenticated()">
+                                    <a href="#" class="nav-top-link nav-top-not-logged-in is-small dropdown-toggle"
+                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                        <b th:text="${#authentication.name}"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="/home/profile">Hồ sơ của tôi</a></li>
+                                        <li>
+                                            <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changePasswordUserModal">
+                                                Thay Đổi Mật Khẩu
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
 
-                                <a href=""
-                                   class="nav-top-link nav-top-not-logged-in is-small"
-                                   data-open="#login-form-popup">
-    <span>
-    Đăng nhập      </span>
-
-                                </a>
-
-
-                            </li>
+                                <!-- Hiển thị khi người dùng chưa đăng nhập -->
+                                <div sec:authorize="!isAuthenticated()">
+                                    <a href="#" class="nav-top-link nav-top-not-logged-in is-small"
+                                       data-bs-toggle="modal" data-bs-target="#loginModal"
+                                       data-bs-whatever="@mdo">
+                                        <span>Đăng nhập</span>
+                                    </a>
+                                </div>
                             <li class="cart-item has-icon has-dropdown">
 
                                 <a href="cart" title="Giỏ hàng"
