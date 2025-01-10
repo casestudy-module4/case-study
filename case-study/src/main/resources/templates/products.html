@@ -263,13 +263,13 @@
 
         // Tạo đối tượng chứa đầy đủ thông tin của sản phẩm
         const orderDetails = {
-            productId: product.id,
-            quantity: quantity,
-            priceDetailOrder: product.price, // Giá của sản phẩm
-            productName: product.name,      // (tuỳ chọn) Thêm tên sản phẩm nếu cần
-            image: product.image            // (tuỳ chọn) Thêm hình ảnh nếu cần
+            product: {
+                id: product.id
+            },
+            quantity: quantity
+                // (tuỳ chọn) Thêm hình ảnh nếu cần
         };
-
+        console.log(orderDetails)
         // Gửi thông tin tới server
         fetch('/cart/add', {
             method: 'POST',

@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -129,11 +131,19 @@ public class UserController {
     public @ResponseBody
     UserController.Response addToCart(@RequestBody CartItem cartItemDTO, HttpSession session) {
         try {
+
             // Kiểm tra nếu có session với đơn hàng (order)
+
             Order order = (Order) session.getAttribute("order");
             if (order == null) {
                 order = new Order();  // Nếu chưa có order, tạo một order mới
-                orderRepository.save(order);  // Lưu order vào DB
+                String username = SecurityContextHolder.getContext().getAuthentication().getName();
+                Customer customer = accountService.findByUsername(username).getCustomer();
+                order.setCustomer(customer);
+                order.setStatusOrder(0);
+                order.setTimeOrder(null);
+                order.setTotalPrice(0.0);
+                order = orderRepository.save(order);  // Lưu order vào DB
                 session.setAttribute("order", order);  // Lưu vào session
             }
 
@@ -143,11 +153,14 @@ public class UserController {
                 return new UserController.Response(false, "Sản phẩm không tồn tại");
             }
 
+
+
             // Kiểm tra xem sản phẩm có trong giỏ hàng chưa, nếu chưa thì tạo mới OrderDetails
             OrderDetails orderDetails = new OrderDetails();
             orderDetails.setProduct(product);
             orderDetails.setQuantity(cartItemDTO.getQuantity());
             orderDetails.setPriceDetailOrder(product.getPrice());
+            orderDetails.setOrder(order);
 
             // Lưu vào cơ sở dữ liệu
             orderDetailsRepository.save(orderDetails);
@@ -161,10 +174,11 @@ public class UserController {
 
     @GetMapping("/cart")
     public String showCart(Model model) {
-        Integer customerId = 1;  // Giả sử bạn lấy customerId = 1
+       String username = SecurityContextHolder.getContext().getAuthentication().getName();
+       Customer customer = accountService.findByUsername(username).getCustomer();
 
         // Lấy danh sách chi tiết đơn hàng (orderDetails) từ cơ sở dữ liệu
-        List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customerId);
+        List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
 
         // Tính tổng giá trị giỏ hàng
         double cartTotal = cartItems.stream()
@@ -199,6 +213,8 @@ public class UserController {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new RuntimeException("Khách hàng không tồn tại"));
 
+//        // Lưu giỏ hàng thành đơn hàng
+//        cartService.saveCartToOrder(customerId);
 
         // Lấy tất cả thông tin đơn hàng của khách hàng từ cơ sở dữ liệu
         List<OrderDetails> orderDetailsList = orderDetailsRepository.findAllByOrderCustomerId(customerId);
