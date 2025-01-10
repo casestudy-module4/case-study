@@ -1,10 +1,13 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.model.Account;
+import com.example.casestudy.model.Customer;
 import com.example.casestudy.service.implement.AccountService;
 import com.example.casestudy.service.implement.EmailService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,31 +29,6 @@ public class SecurityController {
     @Autowired
     private EmailService emailService;
 
-    @GetMapping("/custom-login")
-    public String loginUser(Model model, @RequestParam(value = "error", defaultValue = "false") String error) {
-        model.addAttribute("errorLogin", "true".equals(error) ? "Sai Tên Tài Khoản Hoặc Mật Khẩu." : null);
-        model.addAttribute("showModal", "true".equals(error)); // Hiển thị modal khi có lỗi
-        return "home";
-
-    }
-
-    @GetMapping("/register")
-    public String registerPage(Model model) {
-        model.addAttribute("user", new Account());
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") Account user, RedirectAttributes redirectAttributes) {
-        try {
-            accountService.registerUser(user, "ROLE_USER");
-            redirectAttributes.addFlashAttribute("message", "Registration successful! You can now log in.");
-            return "redirect:/login";
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/register";
-        }
-    }
 
     @GetMapping(value = "/admins/login")
     public String loginPage(Model model, @RequestParam(value = "error", defaultValue = "") String error) {
@@ -133,4 +111,132 @@ public class SecurityController {
 
         return "redirect:/admins/customers";
     }
+
+    @GetMapping("/login")
+    public String loginPage(HttpServletRequest request, Model model) {
+        Object errorLogin = request.getSession().getAttribute("errorLogin");
+        Object showModal = request.getSession().getAttribute("showModal");
+        request.getSession().removeAttribute("errorLogin");
+        request.getSession().removeAttribute("showModal");
+        model.addAttribute("errorLogin", errorLogin);
+        model.addAttribute("showModal", showModal);
+        System.out.println("Controller: errorLogin=" + errorLogin + ", showModal=" + showModal);
+        String referer = request.getHeader("Referer");
+        if (referer != null && referer.contains("/products")) {
+            return "test";
+        }
+        return "home";
+    }
+
+//    @GetMapping("/register")
+//    public String showRegistrationForm(Model model) {
+//        model.addAttribute("user", new Account());
+//        return "home";
+//    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") Account user,
+                               @RequestParam("confirmPassword") String confirmPassword,
+                               @RequestParam(value = "acceptTerms", defaultValue = "false") boolean acceptTerms,
+                               HttpServletRequest request,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            if (!user.getResPassword().equals(confirmPassword)) {
+                request.getSession().setAttribute("registerError", "Mật khẩu không khớp.");
+                request.getSession().setAttribute("showRegisterModal", true);
+                return "redirect:" + request.getHeader("Referer");
+            }
+            if (!acceptTerms) {
+                request.getSession().setAttribute("registerError", "Bạn phải đồng ý với Điều khoản dịch vụ.");
+                request.getSession().setAttribute("showRegisterModal", true);
+                return "redirect:" + request.getHeader("Referer");
+            }
+            accountService.registerUser(user, "ROLE_USER");
+            redirectAttributes.addFlashAttribute("message", "Đăng ký thành công!");
+            return "redirect:/home";
+        } catch (IllegalArgumentException e) {
+            request.getSession().setAttribute("registerError", e.getMessage());
+            request.getSession().setAttribute("showRegisterModal", true);
+            return "redirect:" + request.getHeader("Referer");
+        }
+    }
+
+    @PostMapping("/forgot-password")
+    public String processUserForgotPassword(@RequestParam("email") String email, HttpServletRequest request) {
+        try {
+            Account account = accountService.findByEmail(email);
+            if (account == null) {
+                throw new IllegalArgumentException("Email không tồn tại.");
+            }
+            accountService.generateOtp(account);
+            emailService.sendOtpEmail(email, account.getOtp());
+
+            request.getSession().setAttribute("email", email);
+            request.getSession().setAttribute("showResetModal", true); // Mở modal đặt lại mật khẩu
+        } catch (Exception e) {
+            request.getSession().setAttribute("error", e.getMessage());
+            request.getSession().setAttribute("showForgotModal", true); // Mở modal quên mật khẩu
+        }
+        return "redirect:/home"; // Hoặc redirect về trang phù hợp
+    }
+    @PostMapping("/reset-password")
+    public String precessUserResetPassword(@RequestParam("email") String email,
+                                           @RequestParam("otp") String otp,
+                                           @RequestParam("password") String password,
+                                           @RequestParam("confirmPassword") String confirmPassword,
+                                           HttpServletRequest request) {
+        try {
+            if (!password.equals(confirmPassword)) {
+                throw new IllegalArgumentException("Mật khẩu và xác nhận mật khẩu không khớp.");
+            }
+            Account account = accountService.findByEmail(email);
+            if (account == null) {
+                throw new IllegalArgumentException("OTP không đúng.");
+            }
+            accountService.validateOtp(account, otp);
+            accountService.resetPassword(email, password);
+            accountService.clearOtp(account);
+
+            request.getSession().setAttribute("message", "Đặt lại mật khẩu thành công.");
+        } catch (Exception e) {
+            request.getSession().setAttribute("error", e.getMessage());
+            request.getSession().setAttribute("showResetModal", true); // Mở modal đặt lại mật khẩu
+        }
+        return "redirect:/home";
+    }
+
+    @PostMapping("/change-password")
+    public String changePasswordUser(@RequestParam("currentPassword") String currentPassword,
+                                     @RequestParam("newPassword") String newPassword,
+                                     @RequestParam("confirmPassword") String confirmPassword,
+                                     HttpServletRequest request,
+                                     RedirectAttributes redirectAttributes) {
+        String referer = request.getHeader("Referer");
+
+        try {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            if (!newPassword.equals(confirmPassword)) {
+                redirectAttributes.addFlashAttribute("error", "Mật khẩu mới và xác nhận mật khẩu không khớp!");
+                redirectAttributes.addFlashAttribute("showChangePasswordModal", true); // Hiển thị lại modal
+                if (referer != null && referer.contains("/products")) {
+                    return "redirect:/products";
+                }
+                return "redirect:/home";
+            }
+            accountService.changePassword(username, currentPassword, newPassword);
+            redirectAttributes.addFlashAttribute("message", "Thay đổi mật khẩu thành công!");
+        } catch (IllegalArgumentException e) {
+            if ("Current password is incorrect.".equals(e.getMessage())) {
+                redirectAttributes.addFlashAttribute("error", "Mật khẩu cũ không đúng.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", e.getMessage());
+            }
+            redirectAttributes.addFlashAttribute("showChangePasswordModal", true); // Hiển thị lại modal
+            if (referer != null && referer.contains("/products")) {
+                return "redirect:/products";
+            }
+        }
+        return "redirect:/home";
+    }
+
 }

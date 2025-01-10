@@ -5,6 +5,7 @@ import com.example.casestudy.model.Category;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.ICategoryService;
 import com.example.casestudy.service.IProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,7 +34,8 @@ public class ProductController {
                               @RequestParam(name = "searchQuery", defaultValue = "") String searchQuery,
                               @RequestParam(name = "orderby", defaultValue = "default") String orderby,
                               @RequestParam(defaultValue = "0") int page,
-                              Model model) {
+                              Model model, HttpServletRequest request) {
+        // Lấy danh sách danh mục và thêm vào model
         List<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTOs();
         model.addAttribute("categories", categoryDTOs);
 
@@ -62,9 +64,20 @@ public class ProductController {
         model.addAttribute("searchQuery", searchQuery);
         model.addAttribute("orderby", orderby);
 
-        return "cart/product";
-    }
+        // Thêm thuộc tính liên quan đến lỗi đăng nhập
+        Object errorLogin = request.getSession().getAttribute("errorLogin");
+        Object showModal = request.getSession().getAttribute("showModal");
 
+        request.getSession().removeAttribute("errorLogin");
+        request.getSession().removeAttribute("showModal");
+
+        model.addAttribute("errorLogin", errorLogin);
+        model.addAttribute("showModal", showModal);
+
+        addRegisterAttributes(request, model);
+        addPasswordResetAttributes(request, model);
+        return "test";
+    }
 
     @GetMapping("/details")
     @ResponseBody
@@ -79,8 +92,35 @@ public class ProductController {
         for (int i = 0; i < quantity; i++) {
             cart.add(product);
         }
-
         return "redirect:/cart";
+    }
+
+    private void addRegisterAttributes(HttpServletRequest request, Model model) {
+        Object registerError = request.getSession().getAttribute("registerError");
+        Object showRegisterModal = request.getSession().getAttribute("showRegisterModal");
+
+        request.getSession().removeAttribute("registerError");
+        request.getSession().removeAttribute("showRegisterModal");
+
+        model.addAttribute("registerError", registerError);
+        model.addAttribute("showRegisterModal", showRegisterModal);
+    }
+
+    private void addPasswordResetAttributes(HttpServletRequest request, Model model) {
+        Object error = request.getSession().getAttribute("error");
+        Object email = request.getSession().getAttribute("email");
+        Object showForgotModal = request.getSession().getAttribute("showForgotModal");
+        Object showResetModal = request.getSession().getAttribute("showResetModal");
+
+        request.getSession().removeAttribute("error");
+        request.getSession().removeAttribute("email");
+        request.getSession().removeAttribute("showForgotModal");
+        request.getSession().removeAttribute("showResetModal");
+
+        model.addAttribute("error", error);
+        model.addAttribute("email", email);
+        model.addAttribute("showForgotModal", showForgotModal);
+        model.addAttribute("showResetModal", showResetModal);
     }
 
 }
