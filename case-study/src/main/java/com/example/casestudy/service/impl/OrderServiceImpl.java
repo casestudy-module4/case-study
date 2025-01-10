@@ -1,13 +1,9 @@
 package com.example.casestudy.service.impl;
 
-import com.example.casestudy.dto.CartItem;
-
 import com.example.casestudy.model.Order;
 import com.example.casestudy.repository.OrderPayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class OrderServiceImpl {
@@ -37,9 +33,4 @@ public class OrderServiceImpl {
         Order order = getOrderById(orderId);
         return order.getTotalPrice();
     }
-
-//    public Order saveOrder(Order order, List<CartItem> selectedItems) {
-//        return null;
-//    }
-
 }

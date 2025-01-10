@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="account">
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const loginModalElement = document.getElementById('loginModal');
+                if (loginModalElement && loginModalElement.style.display === "block") {
+                    const loginModal = new bootstrap.Modal(loginModalElement);
+                    loginModal.show();
+                }
+            });
+            document.addEventListener("DOMContentLoaded", function () {
+                // Initialize Bootstrap Toasts
+                const toastElements = document.querySelectorAll('.toast');
+                toastElements.forEach(toastElement => {
+                    const toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                });
+            });
+        </script>
+        <script th:if="${showForgotModal}" type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                const forgotPasswordModal = new bootstrap.Modal(document.getElementById('forgotPasswordModal'));
+                forgotPasswordModal.show();
+            });
+        </script>
+
+        <script th:if="${showResetModal}" type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                const resetPasswordModal = new bootstrap.Modal(document.getElementById('resetPasswordModal'));
+                resetPasswordModal.show();
+            });
+        </script>
+        <script th:if="${showModal}" type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                const loginModalElement = document.getElementById('loginModal');
+                const loginModal = new bootstrap.Modal(loginModalElement);
+                loginModal.show();
+            });
+        </script>
+        <script th:if="${showChangePasswordModal}" type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                const changePasswordModalElement = document.getElementById('changePasswordUserModal');
+                const changePasswordModal = new bootstrap.Modal(changePasswordModalElement);
+                changePasswordModal.show();
+            });
+        </script>
+
+        <script th:if="${showRegisterModal}" type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                const signUpModalElement = document.getElementById('signUpModal');
+                const signUpModal = new bootstrap.Modal(signUpModalElement);
+                signUpModal.show();
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const errorMessage = document.getElementById("error-message");
+                if (errorMessage) {
+                    setTimeout(() => {
+                        errorMessage.style.display = "none";
+                    }, 5000); // 5 giây
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

@@ -15,10 +15,8 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         request.getSession().setAttribute("errorLogin", "Tên đăng nhập hoặc mật khẩu không đúng.");
 
-        // Hiển thị lại modal
         request.getSession().setAttribute("showModal", true);
         System.out.println("FailureHandler: errorLogin=" + request.getSession().getAttribute("errorLogin"));
-        // Quay lại trang trước đó
         String referer = request.getHeader("Referer");
         if (referer != null) {
             response.sendRedirect(referer);

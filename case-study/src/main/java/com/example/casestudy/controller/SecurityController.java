@@ -4,6 +4,7 @@ import com.example.casestudy.model.Account;
 import com.example.casestudy.model.Customer;
 import com.example.casestudy.service.implement.AccountService;
 import com.example.casestudy.service.implement.EmailService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class SecurityController {
     }
 
     @PostMapping("/admins/forgot-password")
-    public String processForgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
+    public String processForgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes) throws MessagingException {
         Account account = accountService.findByEmail(email);
         if (account == null || !account.getRole().equals("ROLE_ADMIN")) {
             redirectAttributes.addFlashAttribute("error", "Email not found or not an admin.");
