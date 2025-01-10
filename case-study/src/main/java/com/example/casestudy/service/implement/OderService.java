@@ -1,10 +1,14 @@
 package com.example.casestudy.service.implement;
 
+import com.example.casestudy.dto.CartItem;
 import com.example.casestudy.model.Order;
 import com.example.casestudy.model.OrderDetails;
+import com.example.casestudy.model.Product;
 import com.example.casestudy.repository.OrderDetailsRepository;
 import com.example.casestudy.repository.OrderRepository;
+import com.example.casestudy.service.CartService;
 import com.example.casestudy.service.IOrderService;
+import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +32,6 @@ public class OderService implements IOrderService {
     private OrderDetailsService orderDetailsService;
     @Autowired
     private CartService cartService;
-
-    @Autowired
-    private OrderDetailsRepository orderDetailsRepository;
 
     public Map<String, Object> getCustomerWithMostOrders() {
         List<Object[]> results = orderRepository.findCustomerWithMostOrders();
@@ -71,7 +72,7 @@ public class OderService implements IOrderService {
 
     public Order createOrder(Order order) {
         return orderRepository.save(order);
-
+    }
     @Override
     public Order saveOrder(Order order, List<OrderDetails> orderDetails) {
         Order savedOrder = orderRepository.save(order);
@@ -93,7 +94,7 @@ public class OderService implements IOrderService {
 
         // Tạo OrderDetails và tính tổng tiền
         for (int i = 0; i < productIds.size(); i++) {
-            Product product = productService.getById(productIds.get(i));
+            Product product = productService.getProductById(productIds.get(i));
             int quantity = quantities.get(i);
 
             if (product.getRemainProductQuantity() < quantity) {
@@ -131,13 +132,13 @@ public class OderService implements IOrderService {
             cartService.removeFromCart(details.getId());
         }
     }
-    public List<CartItem> convertOrderDetailsToCartItems(List<OrderDetails> orderDetailsList) {
-        List<CartItem> cartItems = new ArrayList<>();
-        for (OrderDetails details : orderDetailsList) {
-            cartItems.add(new CartItem(details.getProduct(), details.getQuantity()));
-        }
-        return cartItems;
-    }
+//    public List<CartItem> convertOrderDetailsToCartItems(List<OrderDetails> orderDetailsList) {
+//        List<CartItem> cartItems = new ArrayList<>();
+//        for (OrderDetails details : orderDetailsList) {
+//            cartItems.add(new CartItem(details., details.getQuantity()));
+//        }
+//        return cartItems;
+//    }
 
     @Override
     public List<Order> getActiveOrderByCustomerId(Integer customerId, Integer status) {

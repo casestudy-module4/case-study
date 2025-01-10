@@ -33,7 +33,7 @@ public class HomeController {
     @Autowired
     private IBannerService bannerService;
 
-    @GetMapping("/home")
+    @GetMapping
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
                        @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "false") String success, Principal principal, HttpServletRequest request) {
@@ -58,6 +58,7 @@ public class HomeController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("name", name);
+
         if (principal != null) {
             model.addAttribute("username", principal.getName());
         } else {
@@ -79,11 +80,6 @@ public class HomeController {
         addRegisterAttributes(request, model);
         addPasswordResetAttributes(request, model);
         return "home";
-    }
-
-    @GetMapping("/introduction")
-    public String introduction() {
-        return "introduction";
     }
     private void addRegisterAttributes(HttpServletRequest request, Model model) {
         Object registerError = request.getSession().getAttribute("registerError");

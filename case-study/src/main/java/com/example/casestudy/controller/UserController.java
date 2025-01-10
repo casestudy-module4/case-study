@@ -1,26 +1,29 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.dto.CategoryDTO;
-import com.example.casestudy.dto.OrderDetailsDTO;
+import com.example.casestudy.dto.CartItem;
 import com.example.casestudy.model.Customer;
 import com.example.casestudy.model.Order;
 import com.example.casestudy.model.OrderDetails;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.repository.*;
 import com.example.casestudy.service.*;
+import com.example.casestudy.service.CartService;
 import com.example.casestudy.service.implement.AccountService;
+
 import com.example.casestudy.service.implement.EmailService;
 import com.example.casestudy.service.implement.PaymentService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -61,7 +64,8 @@ public class UserController {
                               @RequestParam(name = "searchQuery", defaultValue = "") String searchQuery,
                               @RequestParam(name = "orderby", defaultValue = "default") String orderby,
                               @RequestParam(defaultValue = "0") int page,
-                              Model model) {
+                              Model model,
+                              @RequestParam(defaultValue = "false") String success, Principal principal, HttpServletRequest request) {
         List<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTOs();
         model.addAttribute("categories", categoryDTOs);
 
@@ -90,6 +94,27 @@ public class UserController {
         model.addAttribute("searchQuery", searchQuery);
         model.addAttribute("orderby", orderby);
 
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        } else {
+            model.addAttribute("username", null);
+        }
+        if ("true".equals(success)) {
+            model.addAttribute("message", "Đăng nhập thành công!");
+        }
+        Object errorLogin = request.getSession().getAttribute("errorLogin");
+        Object showModal = request.getSession().getAttribute("showModal");
+
+        // Xóa giá trị sau khi lấy
+        request.getSession().removeAttribute("errorLogin");
+        request.getSession().removeAttribute("showModal");
+
+        // Truyền vào model
+        model.addAttribute("errorLogin", errorLogin);
+        model.addAttribute("showModal", showModal);
+        addRegisterAttributes(request, model);
+        addPasswordResetAttributes(request, model);
+
         return "products";
     }
 
@@ -102,7 +127,7 @@ public class UserController {
 
     @PostMapping("/cart/add")
     public @ResponseBody
-    UserController.Response addToCart(@RequestBody OrderDetailsDTO cartItemDTO, HttpSession session) {
+    UserController.Response addToCart(@RequestBody CartItem cartItemDTO, HttpSession session) {
         try {
             // Kiểm tra nếu có session với đơn hàng (order)
             Order order = (Order) session.getAttribute("order");
@@ -113,7 +138,7 @@ public class UserController {
             }
 
             // Lấy sản phẩm từ service
-            Product product = productService.getProductById(cartItemDTO.getProductId());
+            Product product = productService.getProductById(cartItemDTO.getProduct().getId());
             if (product == null) {
                 return new UserController.Response(false, "Sản phẩm không tồn tại");
             }
@@ -174,8 +199,6 @@ public class UserController {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new RuntimeException("Khách hàng không tồn tại"));
 
-        // Lưu giỏ hàng thành đơn hàng
-        cartService.saveCartToOrder(customerId);
 
         // Lấy tất cả thông tin đơn hàng của khách hàng từ cơ sở dữ liệu
         List<OrderDetails> orderDetailsList = orderDetailsRepository.findAllByOrderCustomerId(customerId);
@@ -229,6 +252,59 @@ public class UserController {
         return selectedItems.stream()
                 .mapToDouble(item -> item.getQuantity() * item.getPriceDetailOrder())
                 .sum();
+    }
+
+    @GetMapping("/introduction")
+    public String introduction(Model model,
+                               @RequestParam(defaultValue = "false") String success, Principal principal, HttpServletRequest request) {
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        } else {
+            model.addAttribute("username", null);
+        }
+        if ("true".equals(success)) {
+            model.addAttribute("message", "Đăng nhập thành công!");
+        }
+        Object errorLogin = request.getSession().getAttribute("errorLogin");
+        Object showModal = request.getSession().getAttribute("showModal");
+
+        // Xóa giá trị sau khi lấy
+        request.getSession().removeAttribute("errorLogin");
+        request.getSession().removeAttribute("showModal");
+
+        // Truyền vào model
+        model.addAttribute("errorLogin", errorLogin);
+        model.addAttribute("showModal", showModal);
+        addRegisterAttributes(request, model);
+        addPasswordResetAttributes(request, model);
+        return "introduction";
+    }
+
+    private void addRegisterAttributes(HttpServletRequest request, Model model) {
+        Object registerError = request.getSession().getAttribute("registerError");
+        Object showRegisterModal = request.getSession().getAttribute("showRegisterModal");
+
+        request.getSession().removeAttribute("registerError");
+        request.getSession().removeAttribute("showRegisterModal");
+
+        model.addAttribute("registerError", registerError);
+        model.addAttribute("showRegisterModal", showRegisterModal);
+    }
+    private void addPasswordResetAttributes(HttpServletRequest request, Model model) {
+        Object error = request.getSession().getAttribute("error");
+        Object email = request.getSession().getAttribute("email");
+        Object showForgotModal = request.getSession().getAttribute("showForgotModal");
+        Object showResetModal = request.getSession().getAttribute("showResetModal");
+
+        request.getSession().removeAttribute("error");
+        request.getSession().removeAttribute("email");
+        request.getSession().removeAttribute("showForgotModal");
+        request.getSession().removeAttribute("showResetModal");
+
+        model.addAttribute("error", error);
+        model.addAttribute("email", email);
+        model.addAttribute("showForgotModal", showForgotModal);
+        model.addAttribute("showResetModal", showResetModal);
     }
 
 }
