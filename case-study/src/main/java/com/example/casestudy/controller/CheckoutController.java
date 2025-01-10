@@ -102,7 +102,7 @@ public class CheckoutController {
     }
     @GetMapping("/success")
     public String paySuccess(@RequestParam("paymentId") String paymentId,
-                                  @RequestParam("payerId") String payerId, Model model) {
+                             @RequestParam("payerId") String payerId, Model model) {
         try{
             Payment payment = payService.executePayment(paymentId, payerId);
             model.addAttribute("payment", payment);
