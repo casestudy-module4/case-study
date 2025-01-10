@@ -66,8 +66,7 @@ public class ProductController {
 
         addRegisterAttributes(request, model);
         addPasswordResetAttributes(request, model);
-
-        return "test"; // Trả về tên view
+        return "test";
     }
 
     @GetMapping("/details")
@@ -115,4 +114,5 @@ public class ProductController {
         model.addAttribute("showForgotModal", showForgotModal);
         model.addAttribute("showResetModal", showResetModal);
     }
+
 }

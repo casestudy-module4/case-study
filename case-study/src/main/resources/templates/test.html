@@ -1114,7 +1114,7 @@
 <div th:replace="fragment/termOfService.html::termOfService"></div>
 <div th:insert="~{fragment/forgotPasswordModal.html :: forgotPasswordModal}"></div>
 <div th:insert="~{fragment/resetPasswordModal.html :: resetPasswordModal}"></div>
-<div th:replace="fragment/changePasswordUserModal.html::change-password-user-modal"></div>
+<div th:insert="~{fragment/changePasswordUserModal.html::change-password-user-modal}"></div>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {

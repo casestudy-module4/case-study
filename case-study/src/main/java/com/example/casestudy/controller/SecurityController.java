@@ -202,32 +202,40 @@ public class SecurityController {
             request.getSession().setAttribute("error", e.getMessage());
             request.getSession().setAttribute("showResetModal", true); // Mở modal đặt lại mật khẩu
         }
-        return "redirect:/home"; // Hoặc redirect về trang phù hợp
+        return "redirect:/home";
     }
 
     @PostMapping("/change-password")
     public String changePasswordUser(@RequestParam("currentPassword") String currentPassword,
                                      @RequestParam("newPassword") String newPassword,
                                      @RequestParam("confirmPassword") String confirmPassword,
+                                     HttpServletRequest request,
                                      RedirectAttributes redirectAttributes) {
+        String referer = request.getHeader("Referer");
+
         try {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             if (!newPassword.equals(confirmPassword)) {
                 redirectAttributes.addFlashAttribute("error", "Mật khẩu mới và xác nhận mật khẩu không khớp!");
                 redirectAttributes.addFlashAttribute("showChangePasswordModal", true); // Hiển thị lại modal
+                if (referer != null && referer.contains("/products")) {
+                    return "redirect:/products";
+                }
                 return "redirect:/home";
             }
             accountService.changePassword(username, currentPassword, newPassword);
             redirectAttributes.addFlashAttribute("message", "Thay đổi mật khẩu thành công!");
         } catch (IllegalArgumentException e) {
-            if (e.getMessage().equals("Current password is incorrect.")) {
+            if ("Current password is incorrect.".equals(e.getMessage())) {
                 redirectAttributes.addFlashAttribute("error", "Mật khẩu cũ không đúng.");
             } else {
                 redirectAttributes.addFlashAttribute("error", e.getMessage());
             }
             redirectAttributes.addFlashAttribute("showChangePasswordModal", true); // Hiển thị lại modal
+            if (referer != null && referer.contains("/products")) {
+                return "redirect:/products";
+            }
         }
-
         return "redirect:/home";
     }
 
