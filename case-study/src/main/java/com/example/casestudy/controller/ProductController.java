@@ -76,7 +76,7 @@ public class ProductController {
 
         addRegisterAttributes(request, model);
         addPasswordResetAttributes(request, model);
-        return "test";
+        return "cart/cart";
     }
 
     @GetMapping("/details")
