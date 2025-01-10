@@ -107,4 +107,5 @@ public class HomeController {
         model.addAttribute("showForgotModal", showForgotModal);
         model.addAttribute("showResetModal", showResetModal);
     }
+
 }
