@@ -33,7 +33,7 @@ public class HomeController {
     @Autowired
     private IBannerService bannerService;
 
-    @GetMapping
+    @GetMapping("/home")
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
                        @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "false") String success, Principal principal, HttpServletRequest request) {
@@ -80,6 +80,11 @@ public class HomeController {
         addRegisterAttributes(request, model);
         addPasswordResetAttributes(request, model);
         return "home";
+    }
+
+    @GetMapping("/introduction")
+    public String introduction() {
+        return "introduction";
     }
     private void addRegisterAttributes(HttpServletRequest request, Model model) {
         Object registerError = request.getSession().getAttribute("registerError");

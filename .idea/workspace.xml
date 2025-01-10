@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43b5cc26-51af-4925-9a8c-f224dc3c8249" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/style-home.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/home1.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/CheckoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/CheckoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/dto/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/dto/CartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/java/com/example/casestudy/service/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/static/style/style-products.css" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/static/style/style-products.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/templates/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/case-study/src/main/resources/templates/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/case-study/src/main/resources/templates/test.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +23,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DaiHoang0910&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/casestudy-module4/case-study.git&quot;,
+    &quot;accountId&quot;: &quot;e78d24b7-2766-4aa4-a14e-fe773eec0306&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -28,22 +43,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.CaseStudyApplication.executor": "Run",
-    "git-widget-placeholder": "test",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Codegym/module4/case",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CaseStudyApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dai&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Codegym/module4/case/case-study/case-study&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="CaseStudyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="case-study" />
@@ -74,6 +89,8 @@
       <workItem from="1735831131939" duration="281000" />
       <workItem from="1736201720785" duration="45000" />
       <workItem from="1736202521044" duration="23000" />
+      <workItem from="1736372998643" duration="32000" />
+      <workItem from="1736403995705" duration="36000" />
     </task>
     <servers />
   </component>

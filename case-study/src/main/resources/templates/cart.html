@@ -1,57 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" class="loading-site no-js">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ hàng</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/style.css">
-    <style>
-        .navbar {
-            padding: 1rem;
-        }
+    <meta charset="UTF-8"/>
+    <link rel="profile" href="http://gmpg.org/xfn/11"/>
+    <link rel="pingback" href="https://tetviet.monamedia.net/xmlrpc.php"/>
+    <link rel="stylesheet" href="/style/style-products.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        .card-img {
-            max-height: 200px;
-            object-fit: cover;
-        }
+    <title>Giỏ hàng &#8211; Finest Dana Tết Việt</title>
+    <meta name='robots' content='max-image-preview:large'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-        .card-title {
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .card-text {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-
-        footer {
-            background-color: #f8f9fa;
-            padding: 2rem 0;
-        }
-
-        .breadcrumb {
-            background-color: transparent;
-            padding: 0;
-            margin-bottom: 1rem;
-        }
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-    </style>
+    <th:block th:replace="fragments/link1 :: link1"></th:block>
 </head>
-<body>
-<div th:replace="fragments/header :: header"></div>
-<form th:action="@{/checkout/add-to-checkout}" method="post">
-    <div class="container py-5">
-        <h1 class="mb-4 text-center">Giỏ Hàng</h1>
-        <div class="table-responsive">
-            <table class="table table-bordered cart-table">
+
+<body class="archive paged post-type-archive post-type-archive-product paged-2 post-type-paged-2 theme-flatsome ot-vertical-menu woocommerce-shop woocommerce woocommerce-page woocommerce-no-js translatepress-vi lightbox nav-dropdown-has-arrow nav-dropdown-has-shadow nav-dropdown-has-border">
+
+<a class="skip-link screen-reader-text" href="#main">Skip to content</a>
+
+<div id="wrapper">
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="shop-page-title category-page-title page-title ">
+        <div class="page-title-inner flex-row  medium-flex-wrap container">
+            <div class="flex-col flex-grow medium-text-center">
+                <div class="is-large">
+                    <nav class="woocommerce-breadcrumb breadcrumbs uppercase"><a href="/home">Trang chủ</a> <span
+                            class="divider">&#47;</span> <a href="/">Giỏ hàng</a>
+                    </nav>
+                </div>
+                <div class="category-filtering category-filter-row show-for-medium">
+                    <a href="#" data-open="#shop-sidebar" data-visible-after="true" data-pos="left"
+                       class="filter-button uppercase plain">
+                        <i class="icon-equalizer"></i>
+                        <strong>Lọc</strong>
+                    </a>
+                    <div class="inline-block">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main id="main">
+        <div class="container mt-4">
+            <h2>Giỏ hàng của bạn</h2>
+            <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th>Chọn</th>
@@ -59,162 +54,103 @@
                     <th>Giá</th>
                     <th>Số lượng</th>
                     <th>Tổng</th>
-                    <th>Thao tác</th>
+                    <th>Hành động</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="item : ${cartItems}">
-                    <!-- Cột chọn -->
                     <td>
-                        <input type="checkbox" class="form-check-input product-checkbox" name="productIds" th:value="${item.product.id}">
+                        <input type="checkbox" class="select-item" data-id="${item.id}" data-price="${item.quantity * item.priceDetailOrder}">
                     </td>
-
-                    <!-- Cột sản phẩm với hình ảnh -->
-                    <td>
-                        <img th:src="@{${item.product.image}}" alt="Sản phẩm" class="me-2" style="width: 50px; height: 50px;">
-                        <span th:text="${item.product.name}"></span>
-                    </td>
-
-                    <!-- Cột giá -->
+                    <td th:text="${item.product.name}"></td>
                     <td th:text="${item.product.price} + ' VND'"></td>
-
-                    <!-- Cột số lượng với các nút tăng giảm -->
                     <td>
-                        <div class="quantity-controls">
-                            <button type="button" class="btn btn-sm decrease-btn">−</button>
-                            <input type="number" class="quantity-input" name="quantities" th:value="${item.quantity}" min="1">
-                            <button type="button" class="btn btn-sm increase-btn">+</button>
-                        </div>
+                        <form action="/cart/update" method="post">
+                            <input type="hidden" name="orderDetailId" th:value="${item.id}">
+                            <input type="number" name="quantity" th:value="${item.quantity}" class="form-control" min="1">
+                            <button type="submit" class="btn btn-primary btn-sm mt-2">Cập nhật</button>
+                        </form>
                     </td>
-
-                    <!-- Cột tổng giá -->
-                    <td th:text="${item.product.price * item.quantity} + ' VND'"></td>
-
-                    <!-- Cột thao tác xóa -->
+                    <td th:text="${item.quantity * item.priceDetailOrder} + ' VND'"></td>
                     <td>
                         <form action="/cart/remove" method="post">
                             <input type="hidden" name="orderDetailId" th:value="${item.id}">
-                            <button type="submit" class="btn btn-soft-danger btn-sm">
-                                <i class="bi bi-trash"></i> Xóa
-                            </button>
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                         </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
+
+            <div class="text-end">
+                <h4>
+                    Tổng sản phẩm được chọn: <span id="selected-total">0 VND</span>
+                </h4>
+                <a href="/cart/checkout" class="btn btn-success">Thanh toán</a>
+            </div>
+
         </div>
 
-        <!-- Tổng cộng và nút thanh toán -->
-        <div class="text-end">
-            <h4>Tổng cộng: <span th:text="${cartTotal} + ' VND'"></span></h4>
-            <button type="submit" class="btn btn-success">Thanh toán</button>
-        </div>
+    </main>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+</div>
+
+<template id="tp-language" data-tp-language="vi"></template>
+<div id="main-menu" class="mobile-sidebar no-scrollbar mfp-hide">
+
+
+    <div class="sidebar-menu no-scrollbar ">
+
+
+        <ul class="nav nav-sidebar nav-vertical nav-uppercase" data-tab="1">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-448"><a
+                    href="/home">Trang chủ</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-450"><a
+                    href="#">Giới thiệu</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-449">
+                <a href="/products" aria-current="page">Cửa hàng</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-698"><a
+                    href="#">Blog</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-451"><a
+                    href="#">Liên hệ</a></li>
+            <li class="account-item has-icon menu-item">
+                <a href="#"
+                   class="nav-top-link nav-top-not-logged-in">
+    <span class="header-account-title">
+    Đăng nhập  </span>
+                </a>
+
+            </li>
+        </ul>
+
+
     </div>
-</form>
-<div th:replace="fragments/footer :: footer"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</div>
+<div th:replace="fragments/link2 :: link2"></div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const cartTableBody = document.querySelector('table tbody');
-        const cartTotalElement = document.querySelector('.text-end h4 span');
-        const checkoutButton = document.querySelector('.btn-success'); // Nút thanh toán
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkboxes = document.querySelectorAll(".select-item");
+        const selectedTotal = document.getElementById("selected-total");
 
-        // Giả sử giỏ hàng được lưu trữ trong localStorage
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let totalAmount = 0;
-
-        // Hiển thị giỏ hàng
-        cart.forEach(item => {
-            const totalPrice = item.price * item.quantity;
-            totalAmount += totalPrice;
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-            <td><input type="checkbox" class="form-check-input product-checkbox" name="productIds" value="${item.id}"></td>
-            <td>
-                <img src="${item.image}" alt="Sản phẩm" class="me-2" style="width: 50px; height: 50px;">
-                <span>${item.name}</span>
-            </td>
-            <td>${item.price} VND</td>
-            <td>
-                <div class="quantity-controls">
-                    <button type="button" class="btn btn-sm decrease-btn">−</button>
-                    <input type="number" class="quantity-input" name="quantities[]" value="${item.quantity}" min="1">
-                    <button type="button" class="btn btn-sm increase-btn">+</button>
-                </div>
-            </td>
-            <td>${totalPrice} VND</td>
-            <td><button class="btn btn-danger btn-sm remove-btn">Xóa</button></td>
-        `;
-            cartTableBody.appendChild(row);
-
-            // Cập nhật số lượng sản phẩm
-            row.querySelector('.quantity-input').addEventListener('change', (event) => {
-                const newQuantity = parseInt(event.target.value);
-                updateCartItem(item.id, newQuantity);
-            });
-
-            // Xóa sản phẩm khỏi giỏ hàng
-            row.querySelector('.remove-btn').addEventListener('click', () => {
-                removeCartItem(item.id);
-                row.remove(); // Xóa dòng trong giao diện
-            });
-        });
-
-        // Cập nhật tổng giá trị giỏ hàng
-        cartTotalElement.textContent = `${totalAmount} VND`;
-
-        // Kiểm tra khi nhấn nút thanh toán
-        checkoutButton.addEventListener('click', (event) => {
-            // Kiểm tra xem có ít nhất 1 sản phẩm được chọn trong giỏ hàng không
-            const selectedCheckboxes = document.querySelectorAll('.product-checkbox:checked');
-            if (selectedCheckboxes.length === 0) {
-                event.preventDefault(); // Ngừng việc gửi form nếu không có sản phẩm nào được chọn
-                alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
-            }
-        });
-
-        // Giảm số lượng sản phẩm
-        document.querySelectorAll('.decrease-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const input = this.nextElementSibling;
-                const value = parseInt(input.value);
-                if (value > 1) {
-                    input.value = value - 1;
-                    // Gọi lại để cập nhật giỏ hàng
-                }
-            });
-        });
-
-        // Tăng số lượng sản phẩm
-        document.querySelectorAll('.increase-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const input = this.previousElementSibling;
-                const value = parseInt(input.value);
-                input.value = value + 1;
-                // Gọi lại để cập nhật giỏ hàng
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", function () {
+                let total = 0;
+                checkboxes.forEach(item => {
+                    if (item.checked) {
+                        total += parseFloat(item.dataset.price);
+                    }
+                });
+                selectedTotal.textContent = total.toLocaleString('vi-VN') + ' VND';
             });
         });
     });
-
-    // Cập nhật sản phẩm trong giỏ hàng
-    function updateCartItem(productId, quantity) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const product = cart.find(item => item.id === productId);
-        if (product) {
-            product.quantity = quantity;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            // Có thể gửi thông báo hoặc gọi API để cập nhật giỏ hàng ở backend
-        }
-    }
-
-    // Xóa sản phẩm khỏi giỏ hàng
-    function removeCartItem(productId) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.filter(item => item.id !== productId);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        // Có thể gọi API để xóa sản phẩm ở backend
-    }
 </script>
+
 </html>
