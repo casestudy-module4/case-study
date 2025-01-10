@@ -112,13 +112,10 @@
             <h2>Tài Khoản</h2>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Thông tin cá nhân</a>
+                    <a class="nav-link active" href="/profile">Thông tin cá nhân</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/home/order-history">Đơn hàng của bạn</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Địa chỉ giao hàng</a>
+                    <a class="nav-link" href="/order-history">Đơn hàng của bạn</a>
                 </li>
             </ul>
         </div>
@@ -127,7 +124,7 @@
             <div class="row">
                 <!-- Form Container -->
                 <div class="col-md-8 form-container">
-                    <form action="/home/update" method="POST" th:object="${user}">
+                    <form action="/profile/update" method="POST" th:object="${user}">
                         <div class="form-group">
                             <h1>Thông Tin Tài Khoản</h1>
                         </div>
@@ -169,7 +166,7 @@
                 </div>
                 <!-- Image Section -->
                 <div class="col-md-4 d-flex align-items-center justify-content-center">
-                    <img src="https://inkythuatso.com/uploads/thumbnails/800/2022/06/hinh-nen-tom-and-jerry-3d-cho-dien-thoai-2-02-15-46-19.jpg" alt="Ảnh minh họa" class="img-fluid rounded">
+                    <img src="" alt="Ảnh minh họa" class="img-fluid rounded">
                 </div>
             </div>
         </div>

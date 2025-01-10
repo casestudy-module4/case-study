@@ -80,6 +80,7 @@
     <link rel="stylesheet" href="../../static/style.css">
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
@@ -87,14 +88,12 @@
             <h2>Tài Khoản</h2>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="/home/profile">Thông tin cá nhân</a>
+                    <a class="nav-link" href="/profile">Thông tin cá nhân</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/home/order-history">Đơn hàng của bạn</a>
+                    <a class="nav-link active" href="/order-history">Đơn hàng của bạn</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Địa chỉ giao hàng</a>
-                </li>
+
             </ul>
         </div>
         <div class="col-md-9 main-content">
@@ -140,10 +139,10 @@
                 </table>
 
                 <div class="d-flex justify-content-between mt-3">
-                    <form th:action="@{/home/reorder/{orderId}(orderId=${order.orderId})}" method="post">
+                    <form th:action="@{/reorder/{orderId}(orderId=${order.orderId})}" method="post">
                         <button type="submit" class="btn btn-primary">Đặt lại</button>
                     </form>
-                    <form th:action="@{/home/review/{orderId}(orderId=${order.orderId})}" method="post"
+                    <form th:action="@{/review/{orderId}(orderId=${order.orderId})}" method="post"
                           class="w-50">
                         <div class="input-group">
                             <textarea name="review" class="form-control" rows="1"

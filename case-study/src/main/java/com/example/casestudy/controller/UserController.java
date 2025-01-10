@@ -1,16 +1,13 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.dto.OrderHistoryDTO;
-import com.example.casestudy.service.impl.OrderHistoryService;
 import com.example.casestudy.dto.CategoryDTO;
 import com.example.casestudy.dto.TopProductDTO;
 import com.example.casestudy.model.Banner;
 import com.example.casestudy.model.Customer;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.service.*;
-import com.example.casestudy.service.implement.AccountService;
-import com.example.casestudy.service.implement.EmailService;
-import com.example.casestudy.service.implement.PaymentService;
+import com.example.casestudy.service.implement.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,7 +25,7 @@ import java.util.List;
 
 //@PreAuthorize("hasAuthority('ROLE_USER')")
 @Controller
-@RequestMapping("/home")
+@RequestMapping("")
 public class UserController {
 
     @Autowired
@@ -53,7 +50,7 @@ public class UserController {
     private OrderHistoryService orderHistoryService;
     @Autowired
     private CartService cartService;
-    @GetMapping("")
+    @GetMapping("home")
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
                        @RequestParam(defaultValue = "0") int page,
@@ -101,20 +98,7 @@ public class UserController {
         return "user/profile"; // Trang hiển thị thông tin người dùng
     }
 
-    @GetMapping("/edit")
-    public String editUserProfile(Model model) {
-        try {
-            Customer currentUser = customerService.getCurrentUser();
-            model.addAttribute("user", currentUser);
-            model.addAttribute("messege", "messege");
-            return "user/edit-profile"; // Trang chỉnh sửa thông tin
-        } catch (Exception e) {
-            model.addAttribute("error", "Không thể tải thông tin người dùng.");
-            return "error/404"; // Trang lỗi nếu xảy ra lỗi
-        }
-    }
-
-    @PostMapping("/update")
+    @PostMapping("profile/update")
     public String updateUserProfile(
             @Validated @ModelAttribute("user") Customer customer,
             BindingResult bindingResult,
@@ -139,10 +123,10 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message", "Cập nhật thông tin thành công!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi cập nhật thông tin!");
-            return "redirect:/home/edit"; // Quay lại trang chỉnh sửa nếu lỗi
+            return "redirect:/profile/edit"; // Quay lại trang chỉnh sửa nếu lỗi
         }
 
-        return "redirect:/home/profile"; // Chuyển về trang thông tin người dùng
+        return "redirect:/profile"; // Chuyển về trang thông tin người dùng
     }
     /*---- đây la phuong thuc order-history-----*/
     @GetMapping("/order-history")
