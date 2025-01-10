@@ -1,220 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ hàng</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/style.css">
-    <style>
-        .navbar {
-            padding: 1rem;
-        }
-
-        .card-img {
-            max-height: 200px;
-            object-fit: cover;
-        }
-
-        .card-title {
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .card-text {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-
-        footer {
-            background-color: #f8f9fa;
-            padding: 2rem 0;
-        }
-
-        .breadcrumb {
-            background-color: transparent;
-            padding: 0;
-            margin-bottom: 1rem;
-        }
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-    </style>
-</head>
-<body>
-<div th:replace="fragments/header :: header"></div>
-<form th:action="@{/checkout/add-to-checkout}" method="post">
-    <div class="container py-5">
-        <h1 class="mb-4 text-center">Giỏ Hàng</h1>
-        <div class="table-responsive">
-            <table class="table table-bordered cart-table">
-                <thead>
-                <tr>
-                    <th>Chọn</th>
-                    <th>Sản phẩm</th>
-                    <th>Giá</th>
-                    <th>Số lượng</th>
-                    <th>Tổng</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item : ${cartItems}">
-                    <!-- Cột chọn -->
-                    <td>
-                        <input type="checkbox" class="form-check-input product-checkbox" name="productIds" th:value="${item.product.id}">
-                    </td>
-
-                    <!-- Cột sản phẩm với hình ảnh -->
-                    <td>
-                        <img th:src="@{${item.product.image}}" alt="Sản phẩm" class="me-2" style="width: 50px; height: 50px;">
-                        <span th:text="${item.product.name}"></span>
-                    </td>
-
-                    <!-- Cột giá -->
-                    <td th:text="${item.product.price} + ' VND'"></td>
-
-                    <!-- Cột số lượng với các nút tăng giảm -->
-                    <td>
-                        <div class="quantity-controls">
-                            <button type="button" class="btn btn-sm decrease-btn">−</button>
-                            <input type="number" class="quantity-input" name="quantities" th:value="${item.quantity}" min="1">
-                            <button type="button" class="btn btn-sm increase-btn">+</button>
-                        </div>
-                    </td>
-
-                    <!-- Cột tổng giá -->
-                    <td th:text="${item.product.price * item.quantity} + ' VND'"></td>
-
-                    <!-- Cột thao tác xóa -->
-                    <td>
-                        <form action="/cart/remove" method="post">
-                            <input type="hidden" name="orderDetailId" th:value="${item.id}">
-                            <button type="submit" class="btn btn-soft-danger btn-sm">
-                                <i class="bi bi-trash"></i> Xóa
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Tổng cộng và nút thanh toán -->
-        <div class="text-end">
-            <h4>Tổng cộng: <span th:text="${cartTotal} + ' VND'"></span></h4>
-            <button type="submit" class="btn btn-success">Thanh toán</button>
-        </div>
-    </div>
-</form>
-<div th:replace="fragments/footer :: footer"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const cartTableBody = document.querySelector('table tbody');
-        const cartTotalElement = document.querySelector('.text-end h4 span');
-        const checkoutButton = document.querySelector('.btn-success'); // Nút thanh toán
-
-        // Giả sử giỏ hàng được lưu trữ trong localStorage
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let totalAmount = 0;
-
-        // Hiển thị giỏ hàng
-        cart.forEach(item => {
-            const totalPrice = item.price * item.quantity;
-            totalAmount += totalPrice;
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-            <td><input type="checkbox" class="form-check-input product-checkbox" name="productIds" value="${item.id}"></td>
-            <td>
-                <img src="${item.image}" alt="Sản phẩm" class="me-2" style="width: 50px; height: 50px;">
-                <span>${item.name}</span>
-            </td>
-            <td>${item.price} VND</td>
-            <td>
-                <div class="quantity-controls">
-                    <button type="button" class="btn btn-sm decrease-btn">−</button>
-                    <input type="number" class="quantity-input" name="quantities[]" value="${item.quantity}" min="1">
-                    <button type="button" class="btn btn-sm increase-btn">+</button>
-                </div>
-            </td>
-            <td>${totalPrice} VND</td>
-            <td><button class="btn btn-danger btn-sm remove-btn">Xóa</button></td>
-        `;
-            cartTableBody.appendChild(row);
-
-            // Cập nhật số lượng sản phẩm
-            row.querySelector('.quantity-input').addEventListener('change', (event) => {
-                const newQuantity = parseInt(event.target.value);
-                updateCartItem(item.id, newQuantity);
-            });
-
-            // Xóa sản phẩm khỏi giỏ hàng
-            row.querySelector('.remove-btn').addEventListener('click', () => {
-                removeCartItem(item.id);
-                row.remove(); // Xóa dòng trong giao diện
-            });
-        });
-
-        // Cập nhật tổng giá trị giỏ hàng
-        cartTotalElement.textContent = `${totalAmount} VND`;
-
-        // Kiểm tra khi nhấn nút thanh toán
-        checkoutButton.addEventListener('click', (event) => {
-            // Kiểm tra xem có ít nhất 1 sản phẩm được chọn trong giỏ hàng không
-            const selectedCheckboxes = document.querySelectorAll('.product-checkbox:checked');
-            if (selectedCheckboxes.length === 0) {
-                event.preventDefault(); // Ngừng việc gửi form nếu không có sản phẩm nào được chọn
-                alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
-            }
-        });
-
-        // Giảm số lượng sản phẩm
-        document.querySelectorAll('.decrease-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const input = this.nextElementSibling;
-                const value = parseInt(input.value);
-                if (value > 1) {
-                    input.value = value - 1;
-                    // Gọi lại để cập nhật giỏ hàng
-                }
-            });
-        });
-
-        // Tăng số lượng sản phẩm
-        document.querySelectorAll('.increase-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const input = this.previousElementSibling;
-                const value = parseInt(input.value);
-                input.value = value + 1;
-                // Gọi lại để cập nhật giỏ hàng
-            });
-        });
-    });
-
-    // Cập nhật sản phẩm trong giỏ hàng
-    function updateCartItem(productId, quantity) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const product = cart.find(item => item.id === productId);
-        if (product) {
-            product.quantity = quantity;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            // Có thể gửi thông báo hoặc gọi API để cập nhật giỏ hàng ở backend
-        }
-    }
-
-    // Xóa sản phẩm khỏi giỏ hàng
-    function removeCartItem(productId) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.filter(item => item.id !== productId);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        // Có thể gọi API để xóa sản phẩm ở backend
-    }
-</script>
-</html>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Giỏ hàng</title>-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"-->
+<!--          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">-->
+<!--    <link rel="stylesheet" href="../../css/style.css">-->
+<!--    <style>-->
+<!--        .navbar {-->
+<!--            padding: 1rem;-->
+<!--        }-->
+<!--        .card-img {-->
+<!--            max-height: 200px;-->
+<!--            object-fit: cover;-->
+<!--        }-->
+<!--        .card-title {-->
+<!--            font-weight: bold;-->
+<!--            font-size: 1.2rem;-->
+<!--        }-->
+<!--        .card-text {-->
+<!--            font-size: 0.9rem;-->
+<!--            color: #6C757D;-->
+<!--        }-->
+<!--        footer {-->
+<!--            background-color: #F8F9FA;-->
+<!--            padding: 2rem 0;-->
+<!--        }-->
+<!--        .breadcrumb {-->
+<!--            background-color: transparent;-->
+<!--            padding: 0;-->
+<!--            margin-bottom: 1rem;-->
+<!--        }-->
+<!--        input[type="number"]::-webkit-inner-spin-button,-->
+<!--        input[type="number"]::-webkit-outer-spin-button {-->
+<!--            -webkit-appearance: none;-->
+<!--            margin: 0;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:replace="fragments/header :: header"></div>-->
+<!--<form th:action="@{/checkout/add-to-checkout}" method="post">-->
+<!--    <div class="container py-5">-->
+<!--        <h1 class="mb-4 text-center">Giỏ Hàng</h1>-->
+<!--        <div class="table-responsive">-->
+<!--            <table class="table table-bordered cart-table">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>Chọn</th>-->
+<!--                    <th>Sản phẩm</th>-->
+<!--                    <th>Giá</th>-->
+<!--                    <th>Số lượng</th>-->
+<!--                    <th>Tổng</th>-->
+<!--                    <th>Thao tác</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="item : ${cartItems}">-->
+<!--                    <td>-->
+<!--                        <input type="checkbox" class="form-check-input product-checkbox"-->
+<!--                               th:data-price="${item.product.price}" th:data-quantity="${item.quantity}" name="productIds"-->
+<!--                               th:value="${item.product.id}">-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <img th:src="@{${item.product.image}}" alt="Sản phẩm" class="me-2"-->
+<!--                             style="width: 50px; height: 50px;">-->
+<!--                        <span th:text="${item.product.name}"></span>-->
+<!--                    </td>-->
+<!--                    <td th:text="${item.product.price} + ' VND'" th:data-price="${item.product.price}"></td>-->
+<!--                    <td>-->
+<!--                        <div class="quantity-controls">-->
+<!--                            <button type="button" class="btn btn-sm decrease-btn">−</button>-->
+<!--                            <input type="number" class="quantity-input" name="quantities" th:value="${item.quantity}" min="1" th:data-price="${item.product.price}">-->
+<!--                            <button type="button" class="btn btn-sm increase-btn">+</button>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                    <td class="total-price" data-product-id="${item.product.id}" data-price="${item.product.price}">-->
+<!--                        <span th:text="${item.product.price * item.quantity} + ' VND'"></span>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <form action="/cart/remove" method="post">-->
+<!--                            <input type="hidden" name="orderDetailId" th:value="${item.id}">-->
+<!--                            <button type="submit" class="btn btn-soft-danger btn-sm">-->
+<!--                                <i class="bi bi-trash"></i> Xóa-->
+<!--                            </button>-->
+<!--                        </form>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="text-end">-->
+<!--        <h4>-->
+<!--            Tổng cộng:-->
+<!--            <span id="totalAmount" class="fw-bold text-danger" th:text="${totalAmount} + ' VNĐ'"></span>-->
+<!--        </h4>-->
+<!--        <input type="hidden" id="amount" name="amount" th:value="${totalAmount}" />-->
+<!--    </div>-->
+<!--    <div class="d-flex justify-content-end mt-3">-->
+<!--        <button type="submit" class="btn btn-success">-->
+<!--            Đặt hàng-->
+<!--        </button>-->
+<!--    </div>-->
+<!--</form>-->
+<!--<div th:replace="fragments/footer :: footer"></div>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', () => {-->
+<!--        const checkboxes = document.querySelectorAll(".product-checkbox");-->
+<!--        const totalAmountSpan = document.getElementById("totalAmount");-->
+<!--        const quantityInputs = document.querySelectorAll('.quantity-input');-->
+<!--        const decreaseBtns = document.querySelectorAll('.decrease-btn');-->
+<!--        const increaseBtns = document.querySelectorAll('.increase-btn');-->
+<!--        function updateTotalPrice(input) {-->
+<!--            const price = parseFloat(input.getAttribute('data-price'));-->
+<!--            const quantity = parseInt(input.value, 10);-->
+<!--            const totalPrice = price * quantity;-->
+<!--            const totalPriceElement = input.closest('tr').querySelector('.total-price span');-->
+<!--            totalPriceElement.textContent = totalPrice.toLocaleString() + ' VND';-->
+<!--            const checkbox = input.closest('tr').querySelector('.product-checkbox');-->
+<!--            checkbox.setAttribute('data-quantity', quantity);-->
+<!--        }-->
+<!--        function calculateTotal() {-->
+<!--            let total = 0;-->
+<!--            checkboxes.forEach(checkbox => {-->
+<!--                if (checkbox.checked) {-->
+<!--                    const price = parseFloat(checkbox.getAttribute("data-price"));-->
+<!--                    const quantity = parseInt(checkbox.getAttribute("data-quantity"));-->
+<!--                    if (!isNaN(price) && !isNaN(quantity)) {-->
+<!--                        total += price * quantity;-->
+<!--                    }-->
+<!--                }-->
+<!--            });-->
+<!--            totalAmountSpan.textContent = total.toLocaleString() + ' VND';-->
+<!--        }-->
+<!--        checkboxes.forEach(checkbox => {-->
+<!--            checkbox.addEventListener("change", calculateTotal);-->
+<!--        });-->
+<!--        quantityInputs.forEach(input => {-->
+<!--            input.addEventListener('input', function() {-->
+<!--                updateTotalPrice(this);-->
+<!--                calculateTotal();-->
+<!--            });-->
+<!--        });-->
+<!--        decreaseBtns.forEach(btn => {-->
+<!--            btn.addEventListener('click', function() {-->
+<!--                const input = this.nextElementSibling;-->
+<!--                if (input.value > 1) {-->
+<!--                    input.value = parseInt(input.value) - 1;-->
+<!--                    updateTotalPrice(input);-->
+<!--                    calculateTotal();-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--        increaseBtns.forEach(btn => {-->
+<!--            btn.addEventListener('click', function() {-->
+<!--                const input = this.previousElementSibling;-->
+<!--                input.value = parseInt(input.value) + 1;-->
+<!--                updateTotalPrice(input);-->
+<!--                calculateTotal();-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--</html>-->

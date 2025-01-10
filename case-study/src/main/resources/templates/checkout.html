@@ -121,73 +121,43 @@
   </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-secondary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="products">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="bt n btn-outline-secondary bi bi-search" type="submit"></button>
-      </form>
+  <div class="container py-5">
+    <h1 class="mb-4 text-center">Kiểm tra đơn hàng</h1>
+    <h3>Thông tin sản phẩm</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Giá</th>
+        <th>Tổng</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item : ${selectedItems}">
+        <td th:text="${item.product.name}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td th:text="${item.product.price} + ' VND'"></td>
+        <td th:text="${item.quantity * item.product.price} + ' VND'"></td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="text-end">
+      <h4>Tổng cộng: <span th:text="${cartTotal} + ' VND'" class="text-danger" ></span></h4>
     </div>
-  </div>
-</nav>
-
-<div class="container my-5">
-  <h1 class="text-center mb-4">Thanh Toán</h1>
-
-  <div class="fs-5 mb-4">
-    <strong>Tổng cộng:</strong> <span th:text="${totalPrice}">0</span> VND
-  </div>
-
-  <!--  <div th:if="${message}" class="alert alert-info" th:text="${message}"></div>-->
-  <!--  <table class="table table-bordered table-hover">-->
-  <!--    <thead class="table-secondary">-->
-  <!--    <tr>-->
-  <!--      <th>Sản phẩm</th>-->
-  <!--      <th>Giá</th>-->
-  <!--      <th>Số lượng</th>-->
-  <!--      <th>Tổng</th>-->
-  <!--    </tr>-->
-  <!--    </thead>-->
-  <!--    <tbody>-->
-  <!--    <tr th:each="item : ${cartItems}">-->
-  <!--      <td th:text="${item.product.name}"></td>-->
-  <!--      <td th:text="${item.product.price}" class="text-end"></td>-->
-  <!--      <td th:text="${item.quantity}" class="text-center"></td>-->
-  <!--      <td th:text="${item.product.price * item.quantity}" class="text-end"></td>-->
-  <!--    </tr>-->
-  <!--    </tbody>-->
-  <!--  </table>-->
-
-  <!--  <div class="text-end fs-5" th:if="${totalPrice}">-->
-  <!--    <strong>Tổng cộng:</strong> <span th:text="${totalPrice}"></span>-->
-  <!--  </div>-->
-
-  <form id="checkoutForm" th:action="@{/process-payment}" method="post" class="mt-4">
+  <form id="checkoutForm" th:action="@{/checkout/process-payment}" method="post" class="mt-4">
     <h3>Thông tin khách hàng</h3>
     <div class="mb-3">
       <label for="name" class="form-label">Họ và tên</label>
-      <input type="text" class="form-control" id="name" name="name" required>
+      <input type="text" class="form-control" id="name" name="name" required placeholder="Nhập họ và tên">
     </div>
     <div class="mb-3">
       <label for="phone" class="form-label">Số điện thoại</label>
-      <input type="tel" class="form-control" id="phone" name="phone" required>
+      <input type="text" class="form-control" id="phone" name="phone" required pattern="^[0-9]{10,11}$" placeholder="Nhập số điện thoại">
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" name="email" required>
+      <input type="email" class="form-control" id="email" name="email" required placeholder="Nhập email">
     </div>
 
     <h3>Chọn cách thức nhận hàng</h3>
@@ -336,29 +306,45 @@
   });
 
   document.addEventListener('DOMContentLoaded', () => {
-    const paymentMethodSelect = document.getElementById('paymentMethod');
-    const paypalInfo = document.getElementById('paypalInfo');
     const proceedToPayPalButton = document.getElementById('proceedToPayPal');
 
-    // Lắng nghe sự kiện thay đổi giá trị của dropdown
-    paymentMethodSelect.addEventListener('change', (event) => {
-      const selectedValue = event.target.value;
-
-      if (selectedValue === 'PayPal') {
-        paypalInfo.style.display = 'block'; // Hiển thị thông tin PayPal
+    // Xử lý khi người dùng nhấn nút "Thanh toán với PayPal"
+    proceedToPayPalButton.addEventListener('click', async function (e) {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const total = parseFloat(document.getElementById('amount').value);
+      if (!name || !email) {
+        alert("Vui lòng điền đầy đủ thông tin trước khi thanh toán qua PayPal.");
+        e.preventDefault();
+      } else if (!total || total <= 0) {
+        alert("Vui lòng nhập số tiền hợp lệ.");
+        e.preventDefault();
       } else {
-        paypalInfo.style.display = 'none'; // Ẩn thông tin PayPal
+        try {
+          const response = await fetch('/checkout/process-payment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+              total: total,
+            }),
+          });
+          if (response.redirected) {
+            // Điều hướng đến URL PayPal được trả về từ backend
+            window.location.href = response.url;
+          } else {
+            const result = await response.text();
+            alert("Không thể xử lý thanh toán: " + result);
+          }
+        } catch (error) {
+          console.error("Lỗi khi gửi yêu cầu thanh toán PayPal:", error);
+          alert("Đã xảy ra lỗi khi kết nối với server. Vui lòng thử lại sau.");
+        }
       }
     });
-
-    // Xử lý khi người dùng nhấn nút "Thanh toán với PayPal"
-    proceedToPayPalButton.addEventListener('click', () => {
-      // Thực hiện các hành động cần thiết để chuyển sang thanh toán qua PayPal
-      alert('Chuyển hướng đến PayPal để thanh toán.');
-      // Ví dụ: Chuyển hướng người dùng tới trang thanh toán PayPal
-      window.location.href = 'https://www.paypal.com';
-    });
   });
+
 </script>
 </body>
 </html>

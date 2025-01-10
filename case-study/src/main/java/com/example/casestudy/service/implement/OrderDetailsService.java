@@ -18,7 +18,7 @@ public class OrderDetailsService  implements IOrderDetailsService {
 
     @Autowired
     private OrderRepository orderRepository;
-
+    @Override
     public List<OrderDetails> getOrderDetailsByCustomerId(Integer customerId) {
         List<Order> orders = orderRepository.findByCustomerIdAndStatusOrder(customerId, 0);
         List<OrderDetails> allOrderDetails = new ArrayList<>();
@@ -27,7 +27,7 @@ public class OrderDetailsService  implements IOrderDetailsService {
         }
         return allOrderDetails;
     }
-
+    @Override
     public int getCartItemCount(List<OrderDetails> orderDetailsList) {
         int count = 0;
         if (orderDetailsList != null) {
@@ -36,6 +36,12 @@ public class OrderDetailsService  implements IOrderDetailsService {
             }
         }
         return count;
+    }
+    public void saveAllOrderDetails(List<OrderDetails> orderDetailsList, Order order) {
+        for (OrderDetails details : orderDetailsList) {
+            details.setOrder(order);
+            orderDetailsRepository.save(details);
+        }
     }
     @Override
     public List<OrderDetails> findAll() {

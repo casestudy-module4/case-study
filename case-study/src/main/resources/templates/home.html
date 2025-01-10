@@ -2074,8 +2074,10 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const loginModalElement = document.getElementById('loginModal');
-        if (loginModalElement && loginModalElement.style.display === "block") {
+        console.log(loginModalElement);
+         if (loginModalElement && loginModalElement.style.display === "block") {
             const loginModal = new bootstrap.Modal(loginModalElement);
+             console.log(loginModal);
             loginModal.show();
         }
     });

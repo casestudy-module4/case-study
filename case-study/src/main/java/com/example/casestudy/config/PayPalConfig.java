@@ -8,17 +8,17 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PayPalConfig {
-    @Value("${paypal.client.id}")
+    @Value("${paypal.client-id}")
     private String clientId;
 
-    @Value("${paypal.client.secret}")
+    @Value("${paypal.secret}")
     private String clientSecret;
 
     @Value("${paypal.mode}")
     private String mode;
 
     @Bean
-    public APIContext apiContext() throws PayPalRESTException {
+    public APIContext apiContext(){
         return new APIContext(clientId, clientSecret, mode);
     }
 }
