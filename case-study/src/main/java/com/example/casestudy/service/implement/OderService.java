@@ -1,6 +1,8 @@
 package com.example.casestudy.service.implement;
 
 import com.example.casestudy.model.Order;
+import com.example.casestudy.model.OrderDetails;
+import com.example.casestudy.repository.OrderDetailsRepository;
 import com.example.casestudy.repository.OrderRepository;
 import com.example.casestudy.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import java.util.Map;
 public class OderService implements IOrderService {
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
 
     public Map<String, Object> getCustomerWithMostOrders() {
         List<Object[]> results = orderRepository.findCustomerWithMostOrders();
@@ -51,7 +56,33 @@ public class OderService implements IOrderService {
     public List<Order> findAll() {
         return orderRepository.findAll();
     }
+
     public Order createOrder(Order order) {
         return orderRepository.save(order);
+    }
+
+    @Override
+    public List<Order> getActiveOrderByCustomerId(Integer customerId, Integer status) {
+        return orderRepository.findByCustomerIdAndStatusOrder(customerId, 1); // 1 là trạng thái giỏ hàng chưa hoàn thành
+    }
+
+    // Lưu đơn hàng
+    @Override
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
+
+    // Thêm OrderDetails
+    @Override
+    public void addOrderDetail(OrderDetails orderDetails) {
+        orderDetailsRepository.save(orderDetails);
+    }
+
+    // Cập nhật tổng giá đơn hàng
+    @Override
+    public void updateTotalPrice(Order order) {
+        double totalPrice = orderDetailsRepository.calculateTotalPriceByOrderId(order.getId());
+        order.setTotalPrice(totalPrice);
+        orderRepository.save(order);
     }
 }
