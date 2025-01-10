@@ -58,6 +58,7 @@ public class HomeController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("name", name);
+
         if (principal != null) {
             model.addAttribute("username", principal.getName());
         } else {

@@ -62,37 +62,19 @@ public class CategoryService implements ICategoryService {
         categoryRepository.deleteById(categoryId);
     return true;
     }
+
     @Override
     public Category findById(int id) {
         return categoryRepository.findById(id).orElse(null);
     }
+
     @Override
     public Page<Category> findByName(String name, Integer page) {
         return categoryRepository.findAllByNameCategoryContainingIgnoreCase(name, PageRequest.of(page, 5));
     }
+
     @Override
     public List<CategoryDTO> getAllCategoryDTOs() {
-        return categoryRepository.findAll().stream()
-                .map(category -> new CategoryDTO(
-                        category.getId(),
-                        category.getNameCategory(),
-                        generateImageUrl(category.getNameCategory())
-                ))
-                .collect(Collectors.toList());
+        return categoryRepository.findAllCategoryDTOs();
     }
-    private String generateImageUrl(String nameCategory) {
-        switch (nameCategory.toLowerCase()) {
-            case "hiện đại":
-                return "/img/hien-dai/mau-hop-qua-tet-HQT2025-1.jpg";
-            case "truyền thống":
-                return "/img/truyen-thong/mau-hop-dung-qua-tet-2023-1.jpg";
-            case "linh vật":
-                return "/img/linh-vat/mau-hop-dung-qua-tet-co-san-song-hac-do.jpg";
-            case "chibi":
-                return "/img/chibi/mau-hop-dung-qua-tet-2022-3.jpg";
-            default:
-                return "null";
-        }
-    }
-
 }
