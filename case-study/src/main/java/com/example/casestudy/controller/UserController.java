@@ -96,19 +96,6 @@ public class UserController {
         return "user/profile"; // Trang hiển thị thông tin người dùng
     }
 
-    @GetMapping("/edit")
-    public String editUserProfile(Model model) {
-        try {
-            Customer currentUser = customerService.getCurrentUser();
-            model.addAttribute("user", currentUser);
-            model.addAttribute("messege", "messege");
-            return "user/edit-profile"; // Trang chỉnh sửa thông tin
-        } catch (Exception e) {
-            model.addAttribute("error", "Không thể tải thông tin người dùng.");
-            return "error/404"; // Trang lỗi nếu xảy ra lỗi
-        }
-    }
-
     @PostMapping("/update")
     public String updateUserProfile(
             @Validated @ModelAttribute("user") Customer customer,
