@@ -73,6 +73,7 @@ public class CategoryService implements ICategoryService {
         return categoryRepository.findAllByNameCategoryContainingIgnoreCase(name, PageRequest.of(page, 5));
     }
 
+    @Override
     public List<CategoryDTO> getAllCategoryDTOs() {
         return categoryRepository.findAllCategoryDTOs();
     }

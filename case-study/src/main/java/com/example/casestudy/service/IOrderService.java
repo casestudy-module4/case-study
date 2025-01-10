@@ -21,4 +21,6 @@ public interface IOrderService {
 
     void updateTotalPrice(Order order);
 
+    Order saveOrder(Order order, List<OrderDetails> orderDetails);
+    void processCheckout(List<Integer> productIds, List<Integer> quantities, String name, String phone, String email);
 }
