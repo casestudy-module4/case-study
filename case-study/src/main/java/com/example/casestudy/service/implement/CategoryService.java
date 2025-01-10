@@ -62,19 +62,14 @@ public class CategoryService implements ICategoryService {
         categoryRepository.deleteById(categoryId);
     return true;
     }
-
     @Override
     public Category findById(int id) {
         return categoryRepository.findById(id).orElse(null);
     }
-
     @Override
     public Page<Category> findByName(String name, Integer page) {
         return categoryRepository.findAllByNameCategoryContainingIgnoreCase(name, PageRequest.of(page, 5));
     }
-
-
-
     @Override
     public List<CategoryDTO> getAllCategoryDTOs() {
         return categoryRepository.findAll().stream()

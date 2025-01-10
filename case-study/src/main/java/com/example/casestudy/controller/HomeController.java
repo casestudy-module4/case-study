@@ -41,7 +41,6 @@ public class HomeController {
         Page<Product> productPage = productService.findAll(name.trim(), page);
         List<Product> products = productPage.getContent();
         List<TopProductDTO> bestSellers = productService.getTopSellingOrDefaultProducts();
-
         List<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTOs();
         model.addAttribute("categories", categoryDTOs);
 

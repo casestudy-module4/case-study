@@ -2075,7 +2075,15 @@ tưởng nhớ tổ tiên và chia sẻ niềm vui với nhau.&#8221;</i></stron
 <div th:insert="~{fragment/resetPasswordModal.html :: resetPasswordModal}"></div>
 <div th:insert="~{fragment/changePasswordUserModal.html::change-password-user-modal}"></div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loginModalElement = document.getElementById('loginModal');
+        if (loginModalElement && loginModalElement.style.display === "block") {
+            const loginModal = new bootstrap.Modal(loginModalElement);
+            loginModal.show();
+        }
+    });
     document.addEventListener("DOMContentLoaded", function () {
         // Initialize Bootstrap Toasts
         const toastElements = document.querySelectorAll('.toast');
