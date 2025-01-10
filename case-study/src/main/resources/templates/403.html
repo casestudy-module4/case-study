@@ -3,9 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>403 Forbidden</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* CSS tuỳ chỉnh */
+        #header {
+            background-color: #a10000; /* Đỏ đậm */
+        }
+
+        #top-bar {
+            background-color: #870000;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        #top-bar .hotline a,
+        #top-bar .hotline strong {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #masthead {
+            background-color: #a10000;
+        }
+
+        .nav-top-link {
+            color: #fff !important;
+            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: 600;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .nav-top-link:hover {
+            color: #f0c040 !important; /* Vàng nhạt khi hover */
+        }
+
+        .header-logo {
+            max-width: 150px;
+        }
+
+        .cart-price {
+            color: #fff;
+        }
+
+        .header-cart-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .cart-icon {
+            color: #fff;
+        }
+    </style>
+    <title>Header</title>
 </head>
 <body>
-<h1>403</h1>
+<header id="header" class="header">
+    <div id="top-bar" class="header-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex">
+                <p class="mona_html hotline me-4">
+                    <strong>HOTLINE: </strong><a href="tel:0357423273">0357423273</a>
+                </p>
+                <p class="mona_html hotline">
+                    <strong>EMAIL: </strong><a href="mailto:finestdana@gmail.com">finestdana@gmail.com</a>
+                </p>
+            </div>
+            <div>
+                <ul class="d-flex list-unstyled m-0">
+                    <li class="me-3">
+                        <a href="#" class="text-white">Đăng nhập</a>
+                    </li>
+                    <li>
+                        <a href="/home/cart" class="text-white">
+                            <span class="header-cart-title">Giỏ hàng / <span class="cart-price">0&nbsp;₫</span></span>
+                            <span class="cart-icon image-icon"><strong>0</strong></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="masthead" class="header-main">
+        <div class="container d-flex justify-content-between align-items-center py-3">
+            <!-- Logo -->
+            <a href="https://tetviet.monamedia.net/" title="Mona Tết Việt" class="d-block">
+                <img src="https://tetviet.monamedia.net/wp-content/uploads/2023/12/Mona-4-e1703487245508.png" class="header-logo" alt="Mona Tết Việt">
+            </a>
+
+            <!-- Navigation -->
+            <nav>
+                <ul class="d-flex list-unstyled m-0">
+                    <li><a href="/home" class="nav-top-link">Trang chủ</a></li>
+                    <li><a href="https://tetviet.monamedia.net/gioi-thieu/" class="nav-top-link">Giới thiệu</a></li>
+                    <li><a href="/products" class="nav-top-link">Cửa hàng</a></li>
+                    <li><a href="https://tetviet.monamedia.net/blog/" class="nav-top-link">Blog</a></li>
+                    <li><a href="https://tetviet.monamedia.net/lien-he/" class="nav-top-link">Liên hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
 </body>
 </html>
