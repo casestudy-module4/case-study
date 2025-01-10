@@ -51,6 +51,8 @@ public class UserController {
     private IBannerService bannerService;
     @Autowired
     private OrderHistoryService orderHistoryService;
+    @Autowired
+    private CartService cartService;
     @GetMapping("")
     public String home(Model model,
                        @RequestParam(defaultValue = "") String name,
@@ -172,6 +174,5 @@ public class UserController {
         orderHistoryService.addReview(orderId, review, customer);
         return "redirect:/user/order-history";
     }
-
 
 }

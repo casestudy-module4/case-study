@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
     @Autowired
     private CartService cartService;
-    
+
 
     @GetMapping
     public String viewCart(Model model) {
@@ -37,7 +37,5 @@ public class CartController {
         cartService.removeFromCart(orderDetailId);
         return "redirect:/cart";
     }
-
-
 
 }
