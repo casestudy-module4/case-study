@@ -1,37 +1,48 @@
 package com.example.casestudy.service;
 
-import com.example.casestudy.dto.CartItem;
+import com.example.casestudy.model.Customer;
+import com.example.casestudy.model.Order;
 import com.example.casestudy.model.OrderDetails;
 import com.example.casestudy.model.Product;
+import com.example.casestudy.repository.CustomerRepository;
 import com.example.casestudy.repository.OrderDetailsRepository;
+import com.example.casestudy.repository.OrderRepository;
 import com.example.casestudy.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CartService {
-    private final ProductRepository productRepository;
-    private final OrderDetailsRepository orderDetailsRepository;
 
-    public CartService(ProductRepository productRepository, OrderDetailsRepository orderDetailsRepository) {
-        this.productRepository = productRepository;
-        this.orderDetailsRepository = orderDetailsRepository;
-    }
+    @Autowired
+    private ProductRepository productRepository;
 
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    // Lấy danh sách các sản phẩm trong giỏ hàng
     public List<OrderDetails> getCartItems() {
         return orderDetailsRepository.findAll();
     }
 
+    // Tính tổng giá trị giỏ hàng
     public double getCartTotal() {
         return getCartItems().stream()
                 .mapToDouble(orderDetails -> orderDetails.getQuantity() * orderDetails.getPriceDetailOrder())
                 .sum();
     }
 
+    // Thêm sản phẩm vào giỏ hàng
     public void addToCart(Integer productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Sản phẩm không tồn tại"));
@@ -50,6 +61,7 @@ public class CartService {
         }
     }
 
+    // Cập nhật giỏ hàng
     public void updateCart(Integer orderDetailId, int quantity) {
         OrderDetails orderDetails = orderDetailsRepository.findById(orderDetailId)
                 .orElseThrow(() -> new RuntimeException("Chi tiết đơn hàng không tồn tại"));
@@ -57,38 +69,32 @@ public class CartService {
         orderDetailsRepository.save(orderDetails);
     }
 
+    // Xóa sản phẩm khỏi giỏ hàng
     public void removeFromCart(Integer orderDetailId) {
         orderDetailsRepository.deleteById(orderDetailId);
     }
 
-    public List<CartItem> getSelectedItems(List<Integer> productIds) {
-        if (productIds == null || productIds.isEmpty()) {
-            return getAllCartItems();
+    // Lưu giỏ hàng thành đơn hàng
+    public void saveCartToOrder(Integer customerId) {
+        // Lấy thông tin khách hàng
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Khách hàng không tồn tại"));
+
+        // Tạo đơn hàng mới
+        Order order = new Order();
+        order.setCustomer(customer);
+        order.setTimeOrder(LocalDateTime.now());
+        order.setStatusOrder(0); // Giả sử 0 là trạng thái chờ xử lý
+        order.setTotalPrice(getCartTotal()); // Tính tổng giá trị giỏ hàng
+        orderRepository.save(order); // Lưu đơn hàng vào cơ sở dữ liệu
+
+        // Lưu các chi tiết đơn hàng (OrderDetails)
+        for (OrderDetails orderDetails : getCartItems()) {
+            orderDetails.setOrder(order); // Liên kết OrderDetails với Order mới
+            orderDetailsRepository.save(orderDetails); // Lưu mỗi chi tiết đơn hàng
         }
 
-        return getAllCartItems().stream()
-                .filter(cartItem -> productIds.contains(cartItem.getProduct().getId()))
-                .collect(Collectors.toList());
-    }
-
-    public List<CartItem> getAllCartItems() {
-        List<OrderDetails> orderDetailsList = orderDetailsRepository.findAll();
-        List<CartItem> cartItems = new ArrayList<>();
-
-        for (OrderDetails orderDetails : orderDetailsList) {
-            CartItem cartItem = new CartItem(orderDetails.getProduct(), orderDetails.getQuantity());
-            cartItems.add(cartItem);
-        }
-
-        return cartItems;
-    }
-
-    public void removeItems(List<CartItem> selectedItems) {
-        for (CartItem cartItem : selectedItems) {
-            Product product = cartItem.getProduct();
-            // Tìm OrderDetails tương ứng với sản phẩm
-            Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByProduct(product);
-            orderDetailsOptional.ifPresent(orderDetails -> orderDetailsRepository.delete(orderDetails));
-        }
+        // Xóa giỏ hàng sau khi lưu vào đơn hàng
+        orderDetailsRepository.deleteAll(); // Xóa tất cả các chi tiết giỏ hàng sau khi thanh toán
     }
 }

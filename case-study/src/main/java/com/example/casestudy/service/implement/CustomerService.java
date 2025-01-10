@@ -24,7 +24,6 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private AccountRepository accountRepository;
 
-
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -42,6 +41,7 @@ public class CustomerService implements ICustomerService {
     public Page<Customer> findByTitle(String fullName, Integer page) {
         return customerRepository.findAllByFullNameContainingIgnoreCase(fullName, PageRequest.of(page, 5));
     }
+
     public Customer findById(int id) {
         return customerRepository.findById(id).orElse(null);
     }
@@ -54,6 +54,11 @@ public class CustomerService implements ICustomerService {
         }
         return account.getCustomer();
     }
+
+//    @Override
+//    public Customer getCurrentUser() {
+//        return null;
+//    }
 
     @Override
     public void updateCustomer(Customer customer) {

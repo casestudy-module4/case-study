@@ -26,4 +26,6 @@ public interface IProductService extends IBaseService<Product> {
     Page<Product> getAllProducts(Pageable pageable);
 
     List<TopProductDTO> getTopSellingOrDefaultProducts();
+
+    Product getProductById(Integer productId);
 }

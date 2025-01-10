@@ -128,4 +128,9 @@ public class ProductService implements IProductService {
 
         return topSellingProducts;
     }
+
+    public Product getProductById(Integer productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
+    }
 }

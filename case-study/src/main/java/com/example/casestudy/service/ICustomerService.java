@@ -14,4 +14,5 @@ public interface ICustomerService {
     Customer findByUsername(String username);
     Customer getCurrentUser();
     void updateCustomer(Customer currentUser);
+
 }
