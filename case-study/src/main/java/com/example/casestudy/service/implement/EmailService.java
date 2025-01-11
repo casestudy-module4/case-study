@@ -49,7 +49,7 @@ public void sendOtpEmail(String to, String otp) throws MessagingException {
     mailSender.send(message);
 }
     @Async
-    public void sendPaymentSuccessEmail(String to, String customerName, String orderId, String amount) throws MessagingException {
+    public void sendPaymentSuccessEmail(String to, String customerName, String orderId, Double amount) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
@@ -64,10 +64,12 @@ public void sendOtpEmail(String to, String otp) throws MessagingException {
                 + "<p>Dear " + customerName + ",</p>"
                 + "<p>We are pleased to inform you that your payment has been successfully processed.</p>"
                 + "<p><strong>Order ID:</strong> " + orderId + "</p>"
-                + "<p><strong>Total Amount:</strong> $" + amount + "</p>"
+                + "<p><strong>Total Amount:</strong> " + amount + " VND" + "</p>"
                 + "<p>If you have any questions, feel free to contact us.</p>"
                 + "<br>"
-                + "<p style='color: #888;'>Best regards,<br>Your Company Name</p>"
+                + "<p style='color: #888;'>Best regards,<br>FINEST DANA Company</p>"
+                + "<p style='color: #888;'>Telephone: 0988962712</p>"
+                + "<p style='color: #888;'>Address: 295 Nguyễn Tất Thành, Thanh Bình, Hải Châu, Đà Nẵng 550000, Việt Nam</p>"
                 + "</body>"
                 + "</html>";
 

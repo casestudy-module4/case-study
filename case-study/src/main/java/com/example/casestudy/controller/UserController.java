@@ -1,42 +1,43 @@
 package com.example.casestudy.controller;
-
 import com.example.casestudy.dto.CategoryDTO;
 import com.example.casestudy.dto.CartItem;
-import com.example.casestudy.model.Customer;
-import com.example.casestudy.model.Order;
-import com.example.casestudy.model.OrderDetails;
-import com.example.casestudy.model.Product;
+import com.example.casestudy.dto.PaymentRequest;
+import com.example.casestudy.model.*;
 import com.example.casestudy.repository.*;
 import com.example.casestudy.service.*;
-import com.example.casestudy.service.CartService;
 import com.example.casestudy.service.implement.AccountService;
 
+import com.example.casestudy.service.implement.CartService;
 import com.example.casestudy.service.implement.EmailService;
 import com.example.casestudy.service.implement.PaymentService;
+import com.paypal.api.payments.Links;
+import com.paypal.base.rest.PayPalRESTException;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.json.JSONObject;
+import com.paypal.api.payments.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContext;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping
 public class UserController {
-    @Autowired
-    private ICustomerService customerService;
-    @Autowired
-    private IOrderService orderService;
-    @Autowired
-    private PaymentService paymentService;
     @Autowired
     private IProductService productService;
     @Autowired
@@ -44,21 +45,25 @@ public class UserController {
     @Autowired
     private ICategoryService categoryService;
     @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
+    @Autowired
+    private CartService cartService;
+    @Autowired
+    private IPayService payService;
+    @Autowired
+    private IOrderService orderService;
+    @Autowired
     private EmailService emailService;
     @Autowired
     private IOrderDetailsService orderDetailsService;
-
+    private static final String EXCHANGE_RATE_API = "https://open.er-api.com/v6/latest/USD";
+    private static final String SUCCESS_URL = "http://localhost:8080/success";
+    private static final String CANCEL_URL = "http://localhost:8080/cancel";
     @Autowired
-    private OrderRepository orderRepository;
+    private JavaMailSenderImpl mailSender;
 
-    @Autowired
-    private OrderDetailsRepository orderDetailsRepository;
-
-    @Autowired
-    private CartService cartService;
-
-    @Autowired
-    private CustomerRepository customerRepository;
 
     @GetMapping("/products")
     public String getProducts(@RequestParam(defaultValue = "") String name,
@@ -131,196 +136,265 @@ public class UserController {
     public @ResponseBody
     UserController.Response addToCart(@RequestBody CartItem cartItemDTO, HttpSession session) {
         try {
-
-            // Kiểm tra nếu có session với đơn hàng (order)
-
             Order order = (Order) session.getAttribute("order");
             if (order == null) {
-                order = new Order();  // Nếu chưa có order, tạo một order mới
+                order = new Order();
                 String username = SecurityContextHolder.getContext().getAuthentication().getName();
                 Customer customer = accountService.findByUsername(username).getCustomer();
                 order.setCustomer(customer);
                 order.setStatusOrder(0);
                 order.setTimeOrder(null);
                 order.setTotalPrice(0.0);
-                order = orderRepository.save(order);  // Lưu order vào DB
-                session.setAttribute("order", order);  // Lưu vào session
+                order = orderRepository.save(order);
+                session.setAttribute("order", order);
             }
-
-            // Lấy sản phẩm từ service
             Product product = productService.getProductById(cartItemDTO.getProduct().getId());
             if (product == null) {
                 return new UserController.Response(false, "Sản phẩm không tồn tại");
             }
-
-
-
-            // Kiểm tra xem sản phẩm có trong giỏ hàng chưa, nếu chưa thì tạo mới OrderDetails
             OrderDetails orderDetails = new OrderDetails();
             orderDetails.setProduct(product);
             orderDetails.setQuantity(cartItemDTO.getQuantity());
             orderDetails.setPriceDetailOrder(product.getPrice());
             orderDetails.setOrder(order);
+            orderDetails.setPriceDetailOrder(product.getPrice());
 
-            // Lưu vào cơ sở dữ liệu
             orderDetailsRepository.save(orderDetails);
 
             return new UserController.Response(true, "Sản phẩm đã được thêm vào giỏ hàng");
         } catch (Exception e) {
-            e.printStackTrace();  // In ra thông báo lỗi để kiểm tra
+            e.printStackTrace();
             return new UserController.Response(false, "Đã có lỗi xảy ra");
         }
     }
+        @GetMapping("/cart")
+        public String showCart (Model model){
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            Customer customer = accountService.findByUsername(username).getCustomer();
 
-    @GetMapping("/cart")
-    public String showCart(Model model) {
-       String username = SecurityContextHolder.getContext().getAuthentication().getName();
-       Customer customer = accountService.findByUsername(username).getCustomer();
+            List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
 
-        // Lấy danh sách chi tiết đơn hàng (orderDetails) từ cơ sở dữ liệu
-        List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
+            double cartTotal = cartService.getCartTotal();
 
-        // Tính tổng giá trị giỏ hàng
-        double cartTotal = cartItems.stream()
-                .mapToDouble(item -> item.getQuantity() * item.getPriceDetailOrder())
-                .sum();
+            model.addAttribute("cartItems", cartItems);
+            model.addAttribute("cartTotal", cartTotal);
 
-        // Gửi dữ liệu vào model để hiển thị trên trang giỏ hàng
-        model.addAttribute("cartItems", cartItems);
-        model.addAttribute("cartTotal", cartTotal);
-
-        return "cart";
-    }
+            return "cart";
+        }
 
 
-    @PostMapping("/cart/update")
-    public String updateCart(@RequestParam Integer orderDetailId, @RequestParam int quantity) {
-        cartService.updateCart(orderDetailId, quantity);
-        return "redirect:/cart";
-    }
+        @PostMapping("/cart/update")
+        public String updateCart(@RequestParam Integer orderDetailId,@RequestParam int quantity){
+            cartService.updateCart(orderDetailId, quantity);
+            return "redirect:/cart";
+        }
 
-    @PostMapping("/cart/remove")
-    public String removeFromCart(@RequestParam Integer orderDetailId) {
-        cartService.removeFromCart(orderDetailId);
-        return "redirect:/cart";
-    }
+        @PostMapping("/cart/remove")
+        public String removeFromCart (@RequestParam Integer orderDetailId){
+            cartService.removeFromCart(orderDetailId);
+            return "redirect:/cart";
+        }
+        public class Response {
+            private boolean success;
+            private String message;
 
+            public Response(boolean success, String message) {
+                this.success = success;
+                this.message = message;
+            }
+
+            public boolean isSuccess() {
+                return success;
+            }
+
+            public void setSuccess(boolean success) {
+                this.success = success;
+            }
+
+            public String getMessage() {
+                return message;
+            }
+
+            public void setMessage(String message) {
+                this.message = message;
+            }
+        }
+
+        @PostMapping("/cart/select")
+        @ResponseBody
+        public double calculateSelectedTotal(@RequestParam List<Integer> selectedIds) {
+            // Lấy danh sách sản phẩm từ cơ sở dữ liệu dựa trên ID được chọn
+            List<OrderDetails> selectedItems = orderDetailsRepository.findAllById(selectedIds);
+
+            // Tính tổng giá trị các sản phẩm được chọn
+            return selectedItems.stream()
+                    .mapToDouble(item -> item.getQuantity() * item.getPriceDetailOrder())
+                    .sum();
+        }
     @GetMapping("/cart/checkout")
-    public String checkoutPage(Model model) {
-        Integer customerId = 1; // Gán customerId mặc định là 1
-
-        // Kiểm tra khách hàng hợp lệ
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException("Khách hàng không tồn tại"));
-
-//        // Lưu giỏ hàng thành đơn hàng
-//        cartService.saveCartToOrder(customerId);
-
-        // Lấy tất cả thông tin đơn hàng của khách hàng từ cơ sở dữ liệu
-        List<OrderDetails> orderDetailsList = orderDetailsRepository.findAllByOrderCustomerId(customerId);
-
-        // Tính tổng giá trị đơn hàng
-        double orderTotal = orderDetailsList.stream()
-                .mapToDouble(detail -> detail.getQuantity() * detail.getPriceDetailOrder())
-                .sum();
-
-        // Thêm thông tin vào model để hiển thị trong view
-        model.addAttribute("orderDetails", orderDetailsList);
-        model.addAttribute("orderTotal", orderTotal);
-        model.addAttribute("customerId", customerId);
-
-        return "test1"; // Tên view là checkout.html
-    }
-
-    public class Response {
-        private boolean success;
-        private String message;
-
-        public Response(boolean success, String message) {
-            this.success = success;
-            this.message = message;
-        }
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
+    public String checkoutPage(Model model, Principal principal) {
+        try {
+            String username = principal.getName();
+            Account account = accountService.findByUsername(username);
+            if (account == null) {
+                throw new RuntimeException("Không tìm thấy tài khoản của người dùng");
+            }
+            Customer customer = account.getCustomer();
+            model.addAttribute("customer", customer);
+            model.addAttribute("customerId", customer.getId());
+            model.addAttribute("customerName", customer.getFullName());
+            model.addAttribute("customerPhoneNumber", customer.getPhoneNumber());
+            model.addAttribute("customerEmail", customer.getEmail());
+            model.addAttribute("customerAddress", customer.getAddress());
+            List<OrderDetails> orderDetailsList = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
+            double orderTotal = orderDetailsList.stream()
+                    .mapToDouble(detail -> detail.getQuantity() * detail.getPriceDetailOrder())
+                    .sum();
+            model.addAttribute("orderDetails", orderDetailsList);
+            model.addAttribute("orderTotal", orderTotal);
+                return "payment/checkout";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Đã có lỗi xảy ra khi tải trang thanh toán");
+            return "error";
         }
     }
+    @PostMapping("/checkout/process-payment")
+    public String processPayment( @RequestParam("total") Double total, HttpSession session){
+        try{
+            session.setAttribute("totalAmount", total);
+            RestTemplate restTemplate = new RestTemplate();
+            String response = restTemplate.getForObject(EXCHANGE_RATE_API, String.class);
+            System.out.println("Response từ API: " + response);
+            JSONObject jsonResponse = new JSONObject(response);
+            if (jsonResponse.has("rates")) {
+                JSONObject rates = jsonResponse.getJSONObject("rates");
+                if (rates.has("VND")) {
+                    double exchangeRate = rates.getDouble("VND");
+                    double convertedAmount = total / exchangeRate;
+                    Payment payment = payService.createPaymentWithPaypal(
+                            convertedAmount,
+                            "USD",
+                            "paypal",
+                            "sale",
+                            CANCEL_URL,
+                            SUCCESS_URL);
 
-    @PostMapping("/cart/select")
-    @ResponseBody
-    public double calculateSelectedTotal(@RequestParam List<Integer> selectedIds) {
-        // Lấy danh sách sản phẩm từ cơ sở dữ liệu dựa trên ID được chọn
-        List<OrderDetails> selectedItems = orderDetailsRepository.findAllById(selectedIds);
-
-        // Tính tổng giá trị các sản phẩm được chọn
-        return selectedItems.stream()
-                .mapToDouble(item -> item.getQuantity() * item.getPriceDetailOrder())
-                .sum();
+                    for (Links link : payment.getLinks()) {
+                        if (link.getRel().equals("approval_url")) {
+                            return "redirect:" + link.getHref();
+                        }
+                    }
+                } else {
+                    throw new RuntimeException("Tỷ giá VND không tồn tại trong phản hồi API.");
+                }
+            } else {
+                throw new RuntimeException("Phản hồi từ API không chứa trường 'rates'.");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Đã xảy ra lỗi khi xử lý API: " + e.getMessage());
+        }
+        return "redirect:/";
     }
+    @GetMapping("/success")
+    public String paySuccess(@RequestParam("paymentId") String paymentId,
+                             @RequestParam("PayerID") String payerId,
+                             Principal principal,
+                             HttpSession session,
+                             Model model) {
+        try{
+            Payment payment = payService.executePayment(paymentId, payerId);
+            model.addAttribute("payment", payment);
+//            Integer productId = orderDetailsRepository.findProductIdByPaymentId(Integer.valueOf(paymentId))
+//                    .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm liên quan đến thanh toán"));
+//            paymentService.sendPaymentSuccessEmails();
+//            cartService.removeProductFromCart(productId);
 
+            String username = principal.getName();
+            Account account = accountService.findByUsername(username);
+            if (account == null) {
+                throw new RuntimeException("Không tìm thấy tài khoản của người dùng");
+            }
+            Customer customer = account.getCustomer();
+            model.addAttribute("id", customer.getId());
+            model.addAttribute("names", customer.getFullName());
+            model.addAttribute("emails", customer.getEmail());
+            Double total = (Double) session.getAttribute("totalAmount");
+            if (total != null) {
+                model.addAttribute("totalAmount", total);
+            }
+            emailService.sendPaymentSuccessEmail(customer.getEmail(), customer.getFullName(), paymentId, total);
+            return "payment/success";
+        } catch (PayPalRESTException  e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/checkout/add-to-checkout";
+    }
+    @GetMapping("/cancle")
+    public String payCancle(){
+        return "payment/cancle";
+    }
+    public Integer extractPaymentId(String paymentId) {
+        try {
+            String idStr = paymentId.replace("PAYID-", "").trim();
+            return Integer.parseInt(idStr);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Invalid paymentId format: " + paymentId, e);
+        }
+    }
     @GetMapping("/introduction")
-    public String introduction(Model model,
-                               @RequestParam(defaultValue = "false") String success, Principal principal, HttpServletRequest request) {
-        if (principal != null) {
-            model.addAttribute("username", principal.getName());
-        } else {
-            model.addAttribute("username", null);
+        public String introduction(Model model,
+                @RequestParam(defaultValue = "false") String success, Principal principal, HttpServletRequest request) {
+            if (principal != null) {
+                model.addAttribute("username", principal.getName());
+            } else {
+                model.addAttribute("username", null);
+            }
+            if ("true".equals(success)) {
+                model.addAttribute("message", "Đăng nhập thành công!");
+            }
+            Object errorLogin = request.getSession().getAttribute("errorLogin");
+            Object showModal = request.getSession().getAttribute("showModal");
+
+            // Xóa giá trị sau khi lấy
+            request.getSession().removeAttribute("errorLogin");
+            request.getSession().removeAttribute("showModal");
+
+            // Truyền vào model
+            model.addAttribute("errorLogin", errorLogin);
+            model.addAttribute("showModal", showModal);
+            addRegisterAttributes(request, model);
+            addPasswordResetAttributes(request, model);
+            return "introduction";
         }
-        if ("true".equals(success)) {
-            model.addAttribute("message", "Đăng nhập thành công!");
+
+        private void addRegisterAttributes(HttpServletRequest request, Model model) {
+            Object registerError = request.getSession().getAttribute("registerError");
+            Object showRegisterModal = request.getSession().getAttribute("showRegisterModal");
+
+            request.getSession().removeAttribute("registerError");
+            request.getSession().removeAttribute("showRegisterModal");
+
+            model.addAttribute("registerError", registerError);
+            model.addAttribute("showRegisterModal", showRegisterModal);
         }
-        Object errorLogin = request.getSession().getAttribute("errorLogin");
-        Object showModal = request.getSession().getAttribute("showModal");
+        private void addPasswordResetAttributes(HttpServletRequest request, Model model) {
+            Object error = request.getSession().getAttribute("error");
+            Object email = request.getSession().getAttribute("email");
+            Object showForgotModal = request.getSession().getAttribute("showForgotModal");
+            Object showResetModal = request.getSession().getAttribute("showResetModal");
 
-        // Xóa giá trị sau khi lấy
-        request.getSession().removeAttribute("errorLogin");
-        request.getSession().removeAttribute("showModal");
+            request.getSession().removeAttribute("error");
+            request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("showForgotModal");
+            request.getSession().removeAttribute("showResetModal");
 
-        // Truyền vào model
-        model.addAttribute("errorLogin", errorLogin);
-        model.addAttribute("showModal", showModal);
-        addRegisterAttributes(request, model);
-        addPasswordResetAttributes(request, model);
-        return "introduction";
+            model.addAttribute("error", error);
+            model.addAttribute("email", email);
+            model.addAttribute("showForgotModal", showForgotModal);
+            model.addAttribute("showResetModal", showResetModal);
+        }
+
     }
-
-    private void addRegisterAttributes(HttpServletRequest request, Model model) {
-        Object registerError = request.getSession().getAttribute("registerError");
-        Object showRegisterModal = request.getSession().getAttribute("showRegisterModal");
-
-        request.getSession().removeAttribute("registerError");
-        request.getSession().removeAttribute("showRegisterModal");
-
-        model.addAttribute("registerError", registerError);
-        model.addAttribute("showRegisterModal", showRegisterModal);
-    }
-    private void addPasswordResetAttributes(HttpServletRequest request, Model model) {
-        Object error = request.getSession().getAttribute("error");
-        Object email = request.getSession().getAttribute("email");
-        Object showForgotModal = request.getSession().getAttribute("showForgotModal");
-        Object showResetModal = request.getSession().getAttribute("showResetModal");
-
-        request.getSession().removeAttribute("error");
-        request.getSession().removeAttribute("email");
-        request.getSession().removeAttribute("showForgotModal");
-        request.getSession().removeAttribute("showResetModal");
-
-        model.addAttribute("error", error);
-        model.addAttribute("email", email);
-        model.addAttribute("showForgotModal", showForgotModal);
-        model.addAttribute("showResetModal", showResetModal);
-    }
-
-}

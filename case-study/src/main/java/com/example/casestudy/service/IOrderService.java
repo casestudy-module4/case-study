@@ -5,6 +5,7 @@ import com.example.casestudy.model.OrderDetails;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface IOrderService {
     Map<String, Object> getCustomerWithMostOrders();
@@ -20,7 +21,4 @@ public interface IOrderService {
     void addOrderDetail(OrderDetails orderDetails);
 
     void updateTotalPrice(Order order);
-
-    Order saveOrder(Order order, List<OrderDetails> orderDetails);
-    void processCheckout(List<Integer> productIds, List<Integer> quantities, String name, String phone, String email);
 }
