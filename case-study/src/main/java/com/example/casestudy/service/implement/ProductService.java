@@ -3,7 +3,6 @@ package com.example.casestudy.service.implement;
 import com.example.casestudy.dto.ProductSalesDTO;
 import com.example.casestudy.dto.TopProductDTO;
 import com.example.casestudy.model.Product;
-import com.example.casestudy.repository.OrderDetailRepository;
 import com.example.casestudy.repository.ProductRepository;
 import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,6 @@ import java.util.stream.Collectors;
 public class ProductService implements IProductService {
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
-    public Integer soldQuantityProduct(int idProduct){
-        return orderDetailRepository.calculateTotalSoldByProductWithCompletedPayments(idProduct);
-    }
     @Override
     public Page<Product> findAll(String name, Integer pageable) {
         return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 8));

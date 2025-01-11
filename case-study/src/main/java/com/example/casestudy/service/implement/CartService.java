@@ -1,5 +1,4 @@
-package com.example.casestudy.service;
-
+package com.example.casestudy.service.implement;
 import com.example.casestudy.model.OrderDetails;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.repository.OrderDetailsRepository;
@@ -7,10 +6,8 @@ import com.example.casestudy.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CartService {
@@ -61,5 +58,14 @@ public class CartService {
     public void removeFromCart(Integer orderDetailId) {
         orderDetailsRepository.deleteById(orderDetailId);
     }
+    public void removeProductFromCart(Integer productId) {
+        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByProductId(productId);
 
+        if (orderDetailsOptional.isPresent()) {
+            OrderDetails orderDetails = orderDetailsOptional.get();
+            orderDetailsRepository.delete(orderDetails);
+        } else {
+            throw new RuntimeException("Không tìm thấy sản phẩm có id: " + productId + " trong giỏ hàng.");
+        }
+    }
 }

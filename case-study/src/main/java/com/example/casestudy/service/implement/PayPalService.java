@@ -1,5 +1,6 @@
 package com.example.casestudy.service.implement;
 
+import com.example.casestudy.repository.OrderRepository;
 import com.example.casestudy.service.IPayService;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
@@ -14,19 +15,20 @@ import java.util.List;
 public class PayPalService implements IPayService {
     @Autowired
     private APIContext apiContext;
-    @Override
-    public Payment createPaymentWithPaypal(Double total, String currency, String method, String intent, String cancelUrl, String successUrl) throws PayPalRESTException {
+    @Autowired
+    private OrderRepository orderRepository;
+
+    public Payment createPaymentWithPaypal(Double total, String currency, String method,
+                                           String intent, String cancelUrl, String successUrl) throws PayPalRESTException {
+
         Amount amount = new Amount();
         amount.setCurrency(currency);
-        total = total/24000;
         amount.setTotal(String.format("%.2f", total));
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
-
         Payer payer = new Payer();
         payer.setPaymentMethod(method);
 
@@ -34,7 +36,6 @@ public class PayPalService implements IPayService {
         payment.setIntent(intent.toUpperCase());
         payment.setPayer(payer);
         payment.setTransactions(transactions);
-
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl(cancelUrl);
         redirectUrls.setReturnUrl(successUrl);
@@ -42,7 +43,7 @@ public class PayPalService implements IPayService {
 
         return payment.create(apiContext);
     }
-    @Override
+
     public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
         Payment payment = new Payment();
         payment.setId(paymentId);

@@ -1,5 +1,6 @@
 package com.example.casestudy.repository;
 
+import com.example.casestudy.model.Customer;
 import com.example.casestudy.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("SELECT c.fullName, SUM(o.totalPrice) FROM orders o JOIN o.customer c GROUP BY c.id, c.fullName ORDER BY SUM(o.totalPrice) DESC")
     List<Object[]> findCustomerWithHighestSpending();
+
 }

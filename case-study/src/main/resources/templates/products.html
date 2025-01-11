@@ -254,6 +254,16 @@
             .catch(error => {
                 // Xử lý lỗi
                 document.getElementById('modal-product-name').textContent = "Không thể tải chi tiết sản phẩm";
+                console.error("Lỗi chi tiết:", error);
+                if (error.response) {
+                    console.error("Status Code:", error.response.status);
+                    console.error("Response Data:", error.response.data);
+                    console.error("Headers:", error.response.headers);
+                } else if (error.request) {
+                    console.error("Không nhận được phản hồi từ server:", error.request);
+                } else {
+                    console.error("Thông tin lỗi:", error.message);
+                }
             });
     });
 });

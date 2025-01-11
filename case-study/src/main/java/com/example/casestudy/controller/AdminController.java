@@ -264,18 +264,4 @@ public class AdminController {
         return "statistic";
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/process-payment")
-    public String processPayment(@RequestBody PaymentRequest paymentRequest, Model model) throws MessagingException {
-        boolean isPaymentSuccessful = paymentService.processPayment(paymentRequest);
-
-        if (isPaymentSuccessful) {
-            model.addAttribute("message", "Payment successful! Email sent to customer.");
-            return "success-page";
-        } else {
-            model.addAttribute("error", "Payment failed.");
-            return "error-page";
-        }
-    }
-
 }
