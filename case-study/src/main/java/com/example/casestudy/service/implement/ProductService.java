@@ -56,10 +56,12 @@ public class ProductService implements IProductService {
 
     @Override
     public boolean update(int id, Product product) {
+        if(product.getRemainProductQuantity() == null){
+            product.setRemainProductQuantity(product.getTotalProductQuantity());
+        }
         productRepository.save(product);
         return true;
     }
-
     @Override
     public List<Product> getAll() {
         return productRepository.findAll();
