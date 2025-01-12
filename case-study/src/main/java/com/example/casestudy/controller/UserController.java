@@ -32,8 +32,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.casestudy.model.Payment.PaymentMethod.PAYPAL;
+import static com.example.casestudy.model.Payment.PaymentStatus.COMPLETED;
 
 @Controller
 @RequestMapping
@@ -63,6 +67,12 @@ public class UserController {
     private static final String CANCEL_URL = "http://localhost:8080/cancel";
     @Autowired
     private JavaMailSenderImpl mailSender;
+    @Autowired
+    private PaymentService paymentService;
+    @Autowired
+    private PaymentRepository paymentRepository;
+    @Autowired
+    private HttpSession httpSession;
 
 
     @GetMapping("/products")
@@ -168,21 +178,23 @@ public class UserController {
         }
     }
         @GetMapping("/cart")
-        public String showCart (Model model){
+        public String showCart (Model model, HttpSession session) {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Customer customer = accountService.findByUsername(username).getCustomer();
-
-            List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
-
-            double cartTotal = cartService.getCartTotal();
-
-            model.addAttribute("cartItems", cartItems);
-            model.addAttribute("cartTotal", cartTotal);
-
+            //lay  order từ session kểm tra tồn tại trong payment DB
+            Order order = (Order) session.getAttribute("order");
+            paymentRepository.findByOrderId(order.getId());
+            if(paymentRepository.findByOrderId(order.getId()) == null){
+                List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
+                double cartTotal = cartService.getCartTotal();
+                model.addAttribute("cartItems", cartItems);
+                model.addAttribute("cartTotal", cartTotal);
+            } else {
+                model.addAttribute("cartItems", null);
+                model.addAttribute("cartTotal", null);
+            }
             return "cart";
         }
-
-
         @PostMapping("/cart/update")
         public String updateCart(@RequestParam Integer orderDetailId,@RequestParam int quantity){
             cartService.updateCart(orderDetailId, quantity);
@@ -305,11 +317,13 @@ public class UserController {
         try{
             Payment payment = payService.executePayment(paymentId, payerId);
             model.addAttribute("payment", payment);
-//            Integer productId = orderDetailsRepository.findProductIdByPaymentId(Integer.valueOf(paymentId))
-//                    .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm liên quan đến thanh toán"));
-//            paymentService.sendPaymentSuccessEmails();
-//            cartService.removeProductFromCart(productId);
-
+            com.example.casestudy.model.Payment paymentSuccess = new com.example.casestudy.model.Payment();
+            paymentSuccess.setPaymentDate(LocalDateTime.now());
+            paymentSuccess.setPaymentMethod(PAYPAL);
+            paymentSuccess.setStatus(COMPLETED);
+            paymentSuccess.setOrder((Order) session.getAttribute("order"));
+            paymentSuccess.setAmount((Double) session.getAttribute("totalAmount"));
+            paymentService.savePayment(paymentSuccess);
             String username = principal.getName();
             Account account = accountService.findByUsername(username);
             if (account == null) {

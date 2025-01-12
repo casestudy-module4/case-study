@@ -58,14 +58,16 @@ public class CartService {
     public void removeFromCart(Integer orderDetailId) {
         orderDetailsRepository.deleteById(orderDetailId);
     }
-    public void removeProductFromCart(Integer productId) {
-        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByProductId(productId);
 
-        if (orderDetailsOptional.isPresent()) {
-            OrderDetails orderDetails = orderDetailsOptional.get();
-            orderDetailsRepository.delete(orderDetails);
-        } else {
-            throw new RuntimeException("Không tìm thấy sản phẩm có id: " + productId + " trong giỏ hàng.");
-        }
-    }
+//    public void removeProductFromCart(Integer productId) {
+//        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByProductId(productId);
+//
+//        if (orderDetailsOptional.isPresent()) {
+//            OrderDetails orderDetails = orderDetailsOptional.get();
+//            orderDetailsRepository.delete(orderDetails);
+//        } else {
+//            throw new RuntimeException("Không tìm thấy sản phẩm có id: " + productId + " trong giỏ hàng.");
+//        }
+//    }
+
 }
