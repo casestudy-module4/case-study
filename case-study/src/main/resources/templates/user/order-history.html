@@ -41,19 +41,24 @@
             border-radius: 5px;
         }
         .main-content {
-            padding: 20px;
+            paddin0g: 20px;
+        }
+
+        .sidebar .nav-link.order-history {
+            padding-left: 10px; /* Điều chỉnh giá trị này để căn chỉnh phù hợp */
         }
 
         .order-buttons {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             background-color: #f9f9f9;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 4px;
             min-height: 40px;
-            margin: 20px;
+            margin-bottom: 20px;
+            width: 100%;
         }
 
         .order-card {
@@ -62,6 +67,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         .btn {
@@ -69,6 +75,7 @@
             border-radius: 4px;
             border-color: #bb1806;
         }
+
 
         .product-image {
             width: 50px;
@@ -78,13 +85,24 @@
         }
 
         .order-buttons .btn {
-            padding: 10px 20px;
-            border: 2px solid #bb1806; /* Tăng độ dày của viền */
-            border-radius: 6px; /* Bo góc đầy đủ */
+            flex: 1; /* Các nút chiếm không gian đều nhau */
+            text-align: center; /* Canh giữa nội dung trong nút */
+            padding: 10px 0; /* Giảm khoảng cách ngang để nút đều nhau */
+            margin: 0 5px; /* Khoảng cách giữa các nút */
+            border: 2px solid #bb1806;
+            border-radius: 6px;
             color: #333;
             font-weight: 500;
             text-decoration: none;
             transition: all 0.3s ease;
+        }
+
+        .order-buttons .btn:first-child {
+            margin-left: 0; /* Xóa khoảng cách ở nút đầu tiên */
+        }
+
+        .order-buttons .btn:last-child {
+            margin-right: 0; /* Xóa khoảng cách ở nút cuối cùng */
         }
 
         .order-buttons .btn:hover {
@@ -113,7 +131,7 @@
                     <a class="nav-link" href="/profile">Thông tin cá nhân</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/order-history">Đơn hàng của bạn</a>
+                    <a class="nav-link active order-history" href="/order-history">Đơn hàng của bạn</a>
                 </li>
 
             </ul>
