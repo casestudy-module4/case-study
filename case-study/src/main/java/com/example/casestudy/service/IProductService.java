@@ -28,4 +28,5 @@ public interface IProductService extends IBaseService<Product> {
     List<TopProductDTO> getTopSellingOrDefaultProducts();
 
     Product getProductById(Integer productId);
+    void getRemainProductPay(Integer idOrder);
 }
