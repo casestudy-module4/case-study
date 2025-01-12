@@ -181,18 +181,21 @@ public class UserController {
         public String showCart (Model model, HttpSession session) {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Customer customer = accountService.findByUsername(username).getCustomer();
-            //lay  order từ session kểm tra tồn tại trong payment DB
+
+            List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
+            double cartTotal = cartService.getCartTotal();
+
+
             Order order = (Order) session.getAttribute("order");
-            paymentRepository.findByOrderId(order.getId());
-            if(paymentRepository.findByOrderId(order.getId()) == null){
-                List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
-                double cartTotal = cartService.getCartTotal();
-                model.addAttribute("cartItems", cartItems);
-                model.addAttribute("cartTotal", cartTotal);
-            } else {
-                model.addAttribute("cartItems", null);
-                model.addAttribute("cartTotal", null);
+            if(order != null) {
+                if (paymentRepository.findByOrderId(order.getId()).size() != 0) {
+                    cartItems = null;
+                    cartTotal = 0;
+                }
             }
+
+            model.addAttribute("cartItems", cartItems);
+            model.addAttribute("cartTotal", cartTotal);
             return "cart";
         }
         @PostMapping("/cart/update")
@@ -324,6 +327,9 @@ public class UserController {
             paymentSuccess.setOrder((Order) session.getAttribute("order"));
             paymentSuccess.setAmount((Double) session.getAttribute("totalAmount"));
             paymentService.savePayment(paymentSuccess);
+
+            //update product
+            productService.getRemainProductPay(((Order) session.getAttribute("order")).getId());
             String username = principal.getName();
             Account account = accountService.findByUsername(username);
             if (account == null) {

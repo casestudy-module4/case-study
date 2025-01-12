@@ -1,8 +1,10 @@
 package com.example.casestudy.service.implement;
 
-import com.example.casestudy.dto.ProductSalesDTO;
 import com.example.casestudy.dto.TopProductDTO;
+import com.example.casestudy.model.OrderDetails;
 import com.example.casestudy.model.Product;
+import com.example.casestudy.repository.OrderDetailsRepository;
+import com.example.casestudy.repository.OrderRepository;
 import com.example.casestudy.repository.ProductRepository;
 import com.example.casestudy.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,11 @@ import java.util.stream.Collectors;
 public class ProductService implements IProductService {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Override
     public Page<Product> findAll(String name, Integer pageable) {
         return productRepository.findAllByCategory_nameCategoryContainingIgnoreCase(name, PageRequest.of(pageable, 8));
@@ -56,12 +63,35 @@ public class ProductService implements IProductService {
 
     @Override
     public boolean update(int id, Product product) {
-        if(product.getRemainProductQuantity() == null){
+        if(product.getRemainProductQuantity() == 0){
             product.setRemainProductQuantity(product.getTotalProductQuantity());
+        } else {
+//            getQuantityProductAndOrder();
         }
         productRepository.save(product);
         return true;
     }
+    public void getRemainProductPay(Integer idOrder){
+        Product product = new Product();
+        for(OrderDetails orderDetails : orderDetailsRepository.findAllOrderDetails(idOrder)){
+//            int productId = orderDetails.getProduct().getId();
+            product = productRepository.findById(orderDetails.getProduct().getId()).get();
+            product.setRemainProductQuantity(product.getRemainProductQuantity() - orderDetails.getQuantity());
+            productRepository.save(product);
+        }
+    }
+
+//    public Integer getQuantityProductAndOrder() {
+//        int remainAfterPay = 0;
+//
+//            for(OrderDetails orderDetails : orderDetailsRepository.findOrderDetailsWithPaymentAndProduct()){
+//                if(productRepository.findById(orderDetails.getProduct().getId()).equals(orderDetails.getProduct().getId())) {
+//                   remainAfterPay = productRepository.findTotalProductQuantity(orderDetails.getProduct().getId()) - orderDetails.getQuantity();
+//                }
+//            }
+//            return remainAfterPay;
+//    }
+
     @Override
     public List<Product> getAll() {
         return productRepository.findAll();
