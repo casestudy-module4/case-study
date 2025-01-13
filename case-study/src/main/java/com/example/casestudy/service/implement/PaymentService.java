@@ -55,7 +55,7 @@ public class PaymentService {
                     customer.getEmail(),
                     customer.getFullName(),
                     order.getId().toString(),
-                    paymentRequest.getAmount().toString()
+                    paymentRequest.getAmount()
             );
             return true;
         }
@@ -75,7 +75,7 @@ public class PaymentService {
                         payment.getOrder().getCustomer().getEmail(),
                         payment.getOrder().getCustomer().getFullName(),
                         payment.getOrder().getId().toString(),
-                        payment.getAmount().toString()
+                        payment.getAmount()
                 );
             } catch (MessagingException e) {
                 e.printStackTrace();
@@ -86,5 +86,8 @@ public class PaymentService {
     public void scheduleSendEmailForSuccessfulPayments() {
         sendPaymentSuccessEmails();
         System.out.println("Scheduled task executed - sending emails for successful payments.");
+    }
+    public Payment savePayment(Payment payment) {
+        return paymentRepository.save(payment);
     }
 }

@@ -8,7 +8,6 @@ import com.example.casestudy.service.*;
 import com.example.casestudy.service.implement.AccountService;
 import com.example.casestudy.service.implement.EmailService;
 import com.example.casestudy.service.implement.PaymentService;
-import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
@@ -65,43 +64,45 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/home/create")
     public String createProduct(@Validated @ModelAttribute("product") Product product,
-                                @RequestParam("image") MultipartFile image,
+                                @RequestParam("image1") MultipartFile image,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes,
                                 Model model) {
+        if (image != null && !image.isEmpty()) {
+            System.out.println("File received: " + image.getOriginalFilename());
+        } else {
+            System.out.println("No file received");
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.getAll());
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "product/home";
         }
-
         // Xử lý upload file ảnh
         if (!image.isEmpty()) {
-            String uploadDir = "D:\\\\JAVA FULL STACK\\\\Module4\\\\case_study\\\\case-study\\\\case-study\\\\src\\\\main\\\\resources\\\\static\\\\images";
+            String uploadDir = "D:\\JAVA FULL STACK\\Module4\\case_study\\case-study\\case-study\\src\\main\\resources\\static\\images";
             String fileName = image.getOriginalFilename();
             File uploadFile = new File(uploadDir, fileName);
-
             try {
                 image.transferTo(uploadFile);
                 product.setImage("/images/" + fileName);
             } catch (IOException e) {
+                e.printStackTrace();
                 model.addAttribute("error", "Failed to upload image.");
                 return "product/home";
             }
         } else {
             product.setImage(null);
         }
-
         try {
-            String imagePath = saveImage(image);
-            product.setImage(imagePath);
+            product.setImage("/images/" + image.getOriginalFilename());
             if (product.getRemainProductQuantity() == null) {
                 product.setRemainProductQuantity(product.getTotalProductQuantity());
             }
             product.setRemainProductQuantity(product.getTotalProductQuantity());
             productService.addNew(product);
             redirectAttributes.addFlashAttribute("message", "Thêm sản phẩm thành công!");
-        } catch (IOException e) {
+        } catch (Exception e) {
             model.addAttribute("categories", categoryService.getAll());
             model.addAttribute("error", "Lỗi khi tải ảnh: " + e.getMessage());
             return "product/home";
@@ -111,17 +112,20 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/home/{id}/update")
     public String updateProduct(@PathVariable int id,
-                                @Validated @ModelAttribute("product") Product product,
-                                @RequestParam("image") MultipartFile image,
+                                @ModelAttribute("product") Product product,
+                                @RequestParam("images") MultipartFile image,
                                 BindingResult bindingResult,
+                                @Validated
                                 RedirectAttributes redirectAttributes,
                                 Model model) {
         if (bindingResult.hasErrors()) {
+            if (image == null || image.isEmpty()) {
+                bindingResult.rejectValue("image", "NotNull", "Please update image");
+            }
             model.addAttribute("categories", categoryService.getAll());
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "product/home";
         }
-
         try {
             if (!image.isEmpty()) {
                 String imagePath = saveImage(image);
@@ -149,16 +153,29 @@ public class AdminController {
     }
 
     private String saveImage(MultipartFile image) throws IOException {
-        String uploadDir = "D:\\JAVA FULL STACK\\Module4\\case_study\\src\\main\\resources\\static\\images";
+        String uploadDir = "D:\\JAVA FULL STACK\\Module4\\case_study\\case-study\\case-study\\src\\main\\resources\\static\\images";
         File uploadDirPath = new File(uploadDir);
+
         if (!uploadDirPath.exists()) {
             uploadDirPath.mkdirs();
         }
+
+        if (image.isEmpty() || !image.getContentType().startsWith("image/")) {
+            throw new IOException("File không hợp lệ hoặc không phải hình ảnh");
+        }
+
         String fileName = image.getOriginalFilename();
         File uploadFile = new File(uploadDirPath, fileName);
-        image.transferTo(uploadFile);
-        return "/images/" + fileName;
+
+        try {
+            image.transferTo(uploadFile);
+            System.out.println("Image file received: " + image.getOriginalFilename());
+            return "/images/" + fileName;
+        } catch (IOException e) {
+            throw new IOException("Lỗi khi lưu file", e);  // Ném ngoại lệ kèm thông tin chi tiết
+        }
     }
+
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/category")
@@ -262,20 +279,6 @@ public class AdminController {
         model.addAttribute("salesData", productService.getSalesByMonth());
         model.addAttribute("accountRegistrationData", accountService.getAccountRegistrationsByMonth());
         return "statistic";
-    }
-
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/process-payment")
-    public String processPayment(@RequestBody PaymentRequest paymentRequest, Model model) throws MessagingException {
-        boolean isPaymentSuccessful = paymentService.processPayment(paymentRequest);
-
-        if (isPaymentSuccessful) {
-            model.addAttribute("message", "Payment successful! Email sent to customer.");
-            return "success-page";
-        } else {
-            model.addAttribute("error", "Payment failed.");
-            return "error-page";
-        }
     }
 
 }

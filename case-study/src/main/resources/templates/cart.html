@@ -15,7 +15,7 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<form th:action="@{/checkout/add-to-checkout}" method="post">
+<form th:action="@{/cart/checkout}" method="get">
     <div class="container py-5">
         <h1 class="mb-4 text-center">Giỏ Hàng</h1>
         <div class="table-responsive">
@@ -75,7 +75,7 @@
         <!-- Tổng cộng và nút thanh toán -->
         <div class="text-end">
             <h4>Tổng cộng: <span th:text="${cartTotal} + ' VND'"></span></h4>
-            <button type="submit" class="btn btn-success">Thanh toán</button>
+            <button type="submit" class="btn btn-success">Đặt hàng</button>
         </div>
     </div>
 </form>
@@ -83,107 +83,4 @@
 <div th:replace="fragments/link2 :: link2"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const cartTableBody = document.querySelector('table tbody');
-        const cartTotalElement = document.querySelector('.text-end h4 span');
-        const checkoutButton = document.querySelector('.btn-success'); // Nút thanh toán
-
-        // Giả sử giỏ hàng được lưu trữ trong localStorage
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let totalAmount = 0;
-
-        // Hiển thị giỏ hàng
-        cart.forEach(item => {
-            const totalPrice = item.price * item.quantity;
-            totalAmount += totalPrice;
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-            <td><input type="checkbox" class="form-check-input product-checkbox" name="productIds" value="${item.id}"></td>
-            <td>
-                <img src="${item.image}" alt="Sản phẩm" class="me-2" style="width: 50px; height: 50px;">
-                <span>${item.name}</span>
-            </td>
-            <td>${item.price} VND</td>
-            <td>
-                <div class="quantity-controls">
-                    <button type="button" class="btn btn-sm decrease-btn">−</button>
-                    <input type="number" class="quantity-input" name="quantities[]" value="${item.quantity}" min="1">
-                    <button type="button" class="btn btn-sm increase-btn">+</button>
-                </div>
-            </td>
-            <td>${totalPrice} VND</td>
-            <td><button class="btn btn-danger btn-sm remove-btn">Xóa</button></td>
-        `;
-            cartTableBody.appendChild(row);
-
-            // Cập nhật số lượng sản phẩm
-            row.querySelector('.quantity-input').addEventListener('change', (event) => {
-                const newQuantity = parseInt(event.target.value);
-                updateCartItem(item.id, newQuantity);
-            });
-
-            // Xóa sản phẩm khỏi giỏ hàng
-            row.querySelector('.remove-btn').addEventListener('click', () => {
-                removeCartItem(item.id);
-                row.remove(); // Xóa dòng trong giao diện
-            });
-        });
-
-        // Cập nhật tổng giá trị giỏ hàng
-        cartTotalElement.textContent = `${totalAmount} VND`;
-
-        // Kiểm tra khi nhấn nút thanh toán
-        checkoutButton.addEventListener('click', (event) => {
-            // Kiểm tra xem có ít nhất 1 sản phẩm được chọn trong giỏ hàng không
-            const selectedCheckboxes = document.querySelectorAll('.product-checkbox:checked');
-            if (selectedCheckboxes.length === 0) {
-                event.preventDefault(); // Ngừng việc gửi form nếu không có sản phẩm nào được chọn
-                alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
-            }
-        });
-
-        // Giảm số lượng sản phẩm
-        document.querySelectorAll('.decrease-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const input = this.nextElementSibling;
-                const value = parseInt(input.value);
-                if (value > 1) {
-                    input.value = value - 1;
-                    // Gọi lại để cập nhật giỏ hàng
-                }
-            });
-        });
-
-        // Tăng số lượng sản phẩm
-        document.querySelectorAll('.increase-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const input = this.previousElementSibling;
-                const value = parseInt(input.value);
-                input.value = value + 1;
-                // Gọi lại để cập nhật giỏ hàng
-            });
-        });
-    });
-
-    // Cập nhật sản phẩm trong giỏ hàng
-    function updateCartItem(productId, quantity) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const product = cart.find(item => item.id === productId);
-        if (product) {
-            product.quantity = quantity;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            // Có thể gửi thông báo hoặc gọi API để cập nhật giỏ hàng ở backend
-        }
-    }
-
-    // Xóa sản phẩm khỏi giỏ hàng
-    function removeCartItem(productId) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.filter(item => item.id !== productId);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        // Có thể gọi API để xóa sản phẩm ở backend
-    }
-</script>
 </html>

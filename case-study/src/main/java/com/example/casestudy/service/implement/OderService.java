@@ -3,9 +3,10 @@ package com.example.casestudy.service.implement;
 import com.example.casestudy.dto.OrderHistoryDTO;
 import com.example.casestudy.dto.OrderItemDTO;
 import com.example.casestudy.dto.CartItem;
+import com.example.casestudy.model.Customer;
 import com.example.casestudy.model.Order;
 import com.example.casestudy.model.OrderDetails;
-import com.example.casestudy.model.Product;
+import com.example.casestudy.repository.CustomerRepository;
 import com.example.casestudy.repository.OrderDetailsRepository;
 import com.example.casestudy.repository.OrderRepository;
 import com.example.casestudy.service.IOrderService;
@@ -33,6 +34,8 @@ public class OderService implements IOrderService {
     private OrderDetailsService orderDetailsService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     public Map<String, Object> getCustomerWithMostOrders() {
         List<Object[]> results = orderRepository.findCustomerWithMostOrders();
@@ -75,83 +78,6 @@ public class OderService implements IOrderService {
         return orderRepository.save(order);
     }
     @Override
-    public List<OrderHistoryDTO> getOrderHistoryWithItems(Integer customerId) {
-        List<OrderHistoryDTO> orderHistory = orderRepository.findOrderHistoryByCustomerId(customerId);
-        for (OrderHistoryDTO order : orderHistory) {
-            List<OrderItemDTO> items = orderRepository.findOrderItemsByOrderId(order.getId());
-            order.setOrderItems(items);
-        }
-        return orderHistory;
-    }
-
-    @Override
-    public Order saveOrder(Order order, List<OrderDetails> orderDetails) {
-        Order savedOrder = orderRepository.save(order);
-        for (OrderDetails detail : orderDetails) {
-            detail.setOrder(savedOrder);
-            orderDetailsRepository.save(detail);
-        }
-        return savedOrder;
-    }
-
-    @Override
-    public void processCheckout(List<Integer> productIds, List<Integer> quantities, String name, String phone, String email) {
-        if (productIds.isEmpty() || quantities.size() != productIds.size()) {
-            throw new IllegalArgumentException("Danh sách sản phẩm hoặc số lượng không hợp lệ.");
-        }
-
-        List<OrderDetails> orderDetailsList = new ArrayList<>();
-        double totalPrice = 0;
-
-        // Tạo OrderDetails và tính tổng tiền
-        for (int i = 0; i < productIds.size(); i++) {
-            Product product = productService.getProductById(productIds.get(i));
-            int quantity = quantities.get(i);
-
-            if (product.getRemainProductQuantity() < quantity) {
-                throw new IllegalArgumentException("Sản phẩm " + product.getName() + " không đủ số lượng.");
-            }
-
-            OrderDetails details = new OrderDetails();
-            details.setProduct(product);
-            details.setQuantity(quantity);
-            details.setPriceDetailOrder(product.getPrice());
-            orderDetailsList.add(details);
-
-            totalPrice += product.getPrice() * quantity;
-        }
-
-        // Tạo Order
-        Order order = new Order();
-        order.setTimeOrder(LocalDateTime.now());
-        order.setCustomer(getLoggedCustomer());
-        order.setAddress("Địa chỉ mặc định");
-        order.setStatusOrder(1);
-        order.setTotalPrice(totalPrice);
-
-        // Lưu Order và OrderDetails
-        Order savedOrder = orderRepository.save(order);
-        orderDetailsService.saveAllOrderDetails(orderDetailsList, savedOrder);
-
-        // Cập nhật số lượng sản phẩm
-        for (OrderDetails details : orderDetailsList) {
-            Product product = details.getProduct();
-            product.setRemainProductQuantity(product.getRemainProductQuantity() - details.getQuantity());
-            productService.update(product.getId(), product);
-        }
-        for (OrderDetails details : orderDetailsList) {
-            cartService.removeFromCart(details.getId());
-        }
-    }
-//    public List<CartItem> convertOrderDetailsToCartItems(List<OrderDetails> orderDetailsList) {
-//        List<CartItem> cartItems = new ArrayList<>();
-//        for (OrderDetails details : orderDetailsList) {
-//            cartItems.add(new CartItem(details., details.getQuantity()));
-//        }
-//        return cartItems;
-//    }
-
-    @Override
     public List<Order> getActiveOrderByCustomerId(Integer customerId, Integer status) {
         return orderRepository.findByCustomerIdAndStatusOrder(customerId, 1); // 1 là trạng thái giỏ hàng chưa hoàn thành
     }
@@ -174,5 +100,25 @@ public class OderService implements IOrderService {
         double totalPrice = orderDetailsRepository.calculateTotalPriceByOrderId(order.getId());
         order.setTotalPrice(totalPrice);
         orderRepository.save(order);
+    }
+
+    @Override
+    public List<OrderHistoryDTO> getOrderHistoryWithItems(Integer customerId) {
+        List<OrderHistoryDTO> orderHistory = orderRepository.findOrderHistoryByCustomerId(customerId);
+        for (OrderHistoryDTO order : orderHistory) {
+            List<OrderItemDTO> items = orderRepository.findOrderItemsByOrderId(order.getId());
+            order.setOrderItems(items);
+        }
+        return orderHistory;
+    }
+
+    @Override
+    public Order saveOrder(Order order, List<OrderDetails> orderDetails) {
+        return null;
+    }
+
+    @Override
+    public void processCheckout(List<Integer> productIds, List<Integer> quantities, String name, String phone, String email) {
+
     }
 }

@@ -101,7 +101,7 @@
                                             class="form-control"
                                             id="productImages"
                                             name="images"
-                                            accept="image/*">
+                                            accept="images/*">
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addProductForm" action="/admins/home/create" method="post" enctype="multipart/form-data">
+                    <form id="addProductForm" th:action="@{/admins/home/create}" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -179,6 +179,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" value="" name = "image" id = "image">
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -193,7 +194,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <div th:fragment="modal-detail">
     <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
