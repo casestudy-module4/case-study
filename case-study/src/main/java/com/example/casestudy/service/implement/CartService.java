@@ -1,4 +1,5 @@
 package com.example.casestudy.service.implement;
+
 import com.example.casestudy.model.OrderDetails;
 import com.example.casestudy.model.Product;
 import com.example.casestudy.repository.OrderDetailsRepository;
@@ -11,7 +12,6 @@ import java.util.Optional;
 
 @Service
 public class CartService {
-
     @Autowired
     private ProductRepository productRepository;
 
@@ -69,5 +69,4 @@ public class CartService {
 //            throw new RuntimeException("Không tìm thấy sản phẩm có id: " + productId + " trong giỏ hàng.");
 //        }
 //    }
-
 }

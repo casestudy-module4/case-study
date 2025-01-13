@@ -1,5 +1,6 @@
 package com.example.casestudy.repository;
 
+import com.example.casestudy.model.Order;
 import com.example.casestudy.model.OrderDetails;
 import com.example.casestudy.model.Payment;
 import com.example.casestudy.model.Product;
@@ -42,4 +43,5 @@ public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Inte
     List<OrderDetails> findAllOrderDetails(Integer idOrder);
 
 
+    List<OrderDetails> findByOrder(Order order);
 }
