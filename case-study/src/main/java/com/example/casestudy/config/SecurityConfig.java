@@ -97,7 +97,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home", "/login", "/products", "/register", "/forgot-password", "/reset-password", "/style/**", "/img/**").permitAll()
+                        .requestMatchers("/home", "/login", "/products", "/register", "/forgot-password", "/reset-password", "/style/**", "/img/**", "/introduction", "/blog").permitAll()
                         .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER")
                         .anyRequest().authenticated()
                 )

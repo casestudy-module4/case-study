@@ -1,15 +1,14 @@
 package com.example.casestudy.controller;
+
 import com.example.casestudy.dto.CategoryDTO;
 import com.example.casestudy.dto.CartItem;
+import com.example.casestudy.dto.OrderHistoryDTO;
 import com.example.casestudy.dto.PaymentRequest;
 import com.example.casestudy.model.*;
 import com.example.casestudy.repository.*;
 import com.example.casestudy.service.*;
-import com.example.casestudy.service.implement.AccountService;
+import com.example.casestudy.service.implement.*;
 
-import com.example.casestudy.service.implement.CartService;
-import com.example.casestudy.service.implement.EmailService;
-import com.example.casestudy.service.implement.PaymentService;
 import com.paypal.api.payments.Links;
 import com.paypal.base.rest.PayPalRESTException;
 import jakarta.mail.MessagingException;
@@ -22,9 +21,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -73,6 +76,10 @@ public class UserController {
     private PaymentRepository paymentRepository;
     @Autowired
     private HttpSession httpSession;
+    @Autowired
+    private ICustomerService customerService;
+    @Autowired
+    private OrderHistoryService orderHistoryService;
 
 
     @GetMapping("/products")
@@ -177,75 +184,79 @@ public class UserController {
             return new UserController.Response(false, "Đã có lỗi xảy ra");
         }
     }
-        @GetMapping("/cart")
-        public String showCart (Model model, HttpSession session) {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            Customer customer = accountService.findByUsername(username).getCustomer();
 
-            List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
-            double cartTotal = cartService.getCartTotal();
+    @GetMapping("/cart")
+    public String showCart(Model model, HttpSession session) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Customer customer = accountService.findByUsername(username).getCustomer();
+
+        List<OrderDetails> cartItems = orderDetailsRepository.findAllByOrderCustomerId(customer.getId());
+        double cartTotal = cartService.getCartTotal();
 
 
-            Order order = (Order) session.getAttribute("order");
-            if(order != null) {
-                if (paymentRepository.findByOrderId(order.getId()).size() != 0) {
-                    cartItems = null;
-                    cartTotal = 0;
-                }
-            }
-
-            model.addAttribute("cartItems", cartItems);
-            model.addAttribute("cartTotal", cartTotal);
-            return "cart";
-        }
-        @PostMapping("/cart/update")
-        public String updateCart(@RequestParam Integer orderDetailId,@RequestParam int quantity){
-            cartService.updateCart(orderDetailId, quantity);
-            return "redirect:/cart";
-        }
-
-        @PostMapping("/cart/remove")
-        public String removeFromCart (@RequestParam Integer orderDetailId){
-            cartService.removeFromCart(orderDetailId);
-            return "redirect:/cart";
-        }
-        public class Response {
-            private boolean success;
-            private String message;
-
-            public Response(boolean success, String message) {
-                this.success = success;
-                this.message = message;
-            }
-
-            public boolean isSuccess() {
-                return success;
-            }
-
-            public void setSuccess(boolean success) {
-                this.success = success;
-            }
-
-            public String getMessage() {
-                return message;
-            }
-
-            public void setMessage(String message) {
-                this.message = message;
+        Order order = (Order) session.getAttribute("order");
+        if (order != null) {
+            if (paymentRepository.findByOrderId(order.getId()).size() != 0) {
+                cartItems = null;
+                cartTotal = 0;
             }
         }
 
-        @PostMapping("/cart/select")
-        @ResponseBody
-        public double calculateSelectedTotal(@RequestParam List<Integer> selectedIds) {
-            // Lấy danh sách sản phẩm từ cơ sở dữ liệu dựa trên ID được chọn
-            List<OrderDetails> selectedItems = orderDetailsRepository.findAllById(selectedIds);
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("cartTotal", cartTotal);
+        return "cart";
+    }
 
-            // Tính tổng giá trị các sản phẩm được chọn
-            return selectedItems.stream()
-                    .mapToDouble(item -> item.getQuantity() * item.getPriceDetailOrder())
-                    .sum();
+    @PostMapping("/cart/update")
+    public String updateCart(@RequestParam Integer orderDetailId, @RequestParam int quantity) {
+        cartService.updateCart(orderDetailId, quantity);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/remove")
+    public String removeFromCart(@RequestParam Integer orderDetailId) {
+        cartService.removeFromCart(orderDetailId);
+        return "redirect:/cart";
+    }
+
+    public class Response {
+        private boolean success;
+        private String message;
+
+        public Response(boolean success, String message) {
+            this.success = success;
+            this.message = message;
         }
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public void setSuccess(boolean success) {
+            this.success = success;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
+
+    @PostMapping("/cart/select")
+    @ResponseBody
+    public double calculateSelectedTotal(@RequestParam List<Integer> selectedIds) {
+        // Lấy danh sách sản phẩm từ cơ sở dữ liệu dựa trên ID được chọn
+        List<OrderDetails> selectedItems = orderDetailsRepository.findAllById(selectedIds);
+
+        // Tính tổng giá trị các sản phẩm được chọn
+        return selectedItems.stream()
+                .mapToDouble(item -> item.getQuantity() * item.getPriceDetailOrder())
+                .sum();
+    }
+
     @GetMapping("/cart/checkout")
     public String checkoutPage(Model model, Principal principal) {
         try {
@@ -267,16 +278,17 @@ public class UserController {
                     .sum();
             model.addAttribute("orderDetails", orderDetailsList);
             model.addAttribute("orderTotal", orderTotal);
-                return "payment/checkout";
+            return "payment/checkout";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Đã có lỗi xảy ra khi tải trang thanh toán");
             return "error";
         }
     }
+
     @PostMapping("/checkout/process-payment")
-    public String processPayment( @RequestParam("total") Double total, HttpSession session){
-        try{
+    public String processPayment(@RequestParam("total") Double total, HttpSession session) {
+        try {
             session.setAttribute("totalAmount", total);
             RestTemplate restTemplate = new RestTemplate();
             String response = restTemplate.getForObject(EXCHANGE_RATE_API, String.class);
@@ -311,13 +323,14 @@ public class UserController {
         }
         return "redirect:/";
     }
+
     @GetMapping("/success")
     public String paySuccess(@RequestParam("paymentId") String paymentId,
                              @RequestParam("PayerID") String payerId,
                              Principal principal,
                              HttpSession session,
                              Model model) {
-        try{
+        try {
             Payment payment = payService.executePayment(paymentId, payerId);
             model.addAttribute("payment", payment);
             com.example.casestudy.model.Payment paymentSuccess = new com.example.casestudy.model.Payment();
@@ -345,17 +358,19 @@ public class UserController {
             }
             emailService.sendPaymentSuccessEmail(customer.getEmail(), customer.getFullName(), paymentId, total);
             return "payment/success";
-        } catch (PayPalRESTException  e) {
+        } catch (PayPalRESTException e) {
             e.printStackTrace();
         } catch (MessagingException e) {
             e.printStackTrace();
         }
         return "redirect:/checkout/add-to-checkout";
     }
+
     @GetMapping("/cancle")
-    public String payCancle(){
+    public String payCancle() {
         return "payment/cancle";
     }
+
     public Integer extractPaymentId(String paymentId) {
         try {
             String idStr = paymentId.replace("PAYID-", "").trim();
@@ -364,57 +379,137 @@ public class UserController {
             throw new RuntimeException("Invalid paymentId format: " + paymentId, e);
         }
     }
+
     @GetMapping("/introduction")
-        public String introduction(Model model,
-                @RequestParam(defaultValue = "false") String success, Principal principal, HttpServletRequest request) {
-            if (principal != null) {
-                model.addAttribute("username", principal.getName());
-            } else {
-                model.addAttribute("username", null);
-            }
-            if ("true".equals(success)) {
-                model.addAttribute("message", "Đăng nhập thành công!");
-            }
-            Object errorLogin = request.getSession().getAttribute("errorLogin");
-            Object showModal = request.getSession().getAttribute("showModal");
+    public String introduction(Model model,
+                               @RequestParam(defaultValue = "false") String success, Principal principal, HttpServletRequest request) {
+        Object errorLogin = request.getSession().getAttribute("errorLogin");
+        Object showModal = request.getSession().getAttribute("showModal");
 
-            // Xóa giá trị sau khi lấy
-            request.getSession().removeAttribute("errorLogin");
-            request.getSession().removeAttribute("showModal");
+        // Xóa giá trị sau khi lấy
+        request.getSession().removeAttribute("errorLogin");
+        request.getSession().removeAttribute("showModal");
 
-            // Truyền vào model
-            model.addAttribute("errorLogin", errorLogin);
-            model.addAttribute("showModal", showModal);
-            addRegisterAttributes(request, model);
-            addPasswordResetAttributes(request, model);
-            return "introduction";
-        }
-
-        private void addRegisterAttributes(HttpServletRequest request, Model model) {
-            Object registerError = request.getSession().getAttribute("registerError");
-            Object showRegisterModal = request.getSession().getAttribute("showRegisterModal");
-
-            request.getSession().removeAttribute("registerError");
-            request.getSession().removeAttribute("showRegisterModal");
-
-            model.addAttribute("registerError", registerError);
-            model.addAttribute("showRegisterModal", showRegisterModal);
-        }
-        private void addPasswordResetAttributes(HttpServletRequest request, Model model) {
-            Object error = request.getSession().getAttribute("error");
-            Object email = request.getSession().getAttribute("email");
-            Object showForgotModal = request.getSession().getAttribute("showForgotModal");
-            Object showResetModal = request.getSession().getAttribute("showResetModal");
-
-            request.getSession().removeAttribute("error");
-            request.getSession().removeAttribute("email");
-            request.getSession().removeAttribute("showForgotModal");
-            request.getSession().removeAttribute("showResetModal");
-
-            model.addAttribute("error", error);
-            model.addAttribute("email", email);
-            model.addAttribute("showForgotModal", showForgotModal);
-            model.addAttribute("showResetModal", showResetModal);
-        }
-
+        // Truyền vào model
+        model.addAttribute("errorLogin", errorLogin);
+        model.addAttribute("showModal", showModal);
+        addRegisterAttributes(request, model);
+        addPasswordResetAttributes(request, model);
+        return "introduction";
     }
+
+    @GetMapping("/blog")
+    public String blog(Model model,
+                       @RequestParam(defaultValue = "false") String success, Principal principal, HttpServletRequest request) {
+
+        Object errorLogin = request.getSession().getAttribute("errorLogin");
+        Object showModal = request.getSession().getAttribute("showModal");
+
+        // Xóa giá trị sau khi lấy
+        request.getSession().removeAttribute("errorLogin");
+        request.getSession().removeAttribute("showModal");
+
+        // Truyền vào model
+        model.addAttribute("errorLogin", errorLogin);
+        model.addAttribute("showModal", showModal);
+        addRegisterAttributes(request, model);
+        addPasswordResetAttributes(request, model);
+        return "blog";
+    }
+
+    private void addRegisterAttributes(HttpServletRequest request, Model model) {
+        Object registerError = request.getSession().getAttribute("registerError");
+        Object showRegisterModal = request.getSession().getAttribute("showRegisterModal");
+
+        request.getSession().removeAttribute("registerError");
+        request.getSession().removeAttribute("showRegisterModal");
+
+        model.addAttribute("registerError", registerError);
+        model.addAttribute("showRegisterModal", showRegisterModal);
+    }
+
+    private void addPasswordResetAttributes(HttpServletRequest request, Model model) {
+        Object error = request.getSession().getAttribute("error");
+        Object email = request.getSession().getAttribute("email");
+        Object showForgotModal = request.getSession().getAttribute("showForgotModal");
+        Object showResetModal = request.getSession().getAttribute("showResetModal");
+
+        request.getSession().removeAttribute("error");
+        request.getSession().removeAttribute("email");
+        request.getSession().removeAttribute("showForgotModal");
+        request.getSession().removeAttribute("showResetModal");
+
+        model.addAttribute("error", error);
+        model.addAttribute("email", email);
+        model.addAttribute("showForgotModal", showForgotModal);
+        model.addAttribute("showResetModal", showResetModal);
+    }
+
+    @GetMapping("/profile")
+    public String viewUserProfile(Model model) {
+        Customer currentUser = customerService.getCurrentUser();
+        model.addAttribute("user", currentUser);
+        return "user/profile"; // Trang hiển thị thông tin người dùng
+    }
+
+    @PostMapping("profile/update")
+    public String updateUserProfile(
+            @Validated @ModelAttribute("user") Customer customer,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("error", "Vui lòng kiểm tra lại thông tin!");
+            return "redirect:/home/edit"; // Quay lại trang chỉnh sửa nếu có lỗi
+        }
+
+        try {
+            Customer currentUser = customerService.getCurrentUser();
+
+            currentUser.setFullName(customer.getFullName());
+            currentUser.setAddress(customer.getAddress());
+            currentUser.setPhoneNumber(customer.getPhoneNumber());
+            currentUser.setGender(customer.getGender());
+            currentUser.setBirthdate(customer.getBirthdate());
+            currentUser.setEmail(customer.getEmail());
+
+            customerService.updateCustomer(currentUser);
+            redirectAttributes.addFlashAttribute("message", "Cập nhật thông tin thành công!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi cập nhật thông tin!");
+            return "redirect:/profile/edit"; // Quay lại trang chỉnh sửa nếu lỗi
+        }
+
+        return "redirect:/profile"; // Chuyển về trang thông tin người dùng
+    }
+    /*---- đây la phuong thuc order-history-----*/
+    @GetMapping("/order-history")
+    public String viewOrderHistory(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        Customer customer = customerService.findByUsername(userDetails.getUsername());
+        List<OrderHistoryDTO> orders = orderHistoryService.getOrderHistory(customer);
+        model.addAttribute("orders", orders);
+        return "user/order-history";
+    }
+
+    @GetMapping("/filter")
+    public String filterOrders(@RequestParam Integer statusOrder, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        Customer customer = customerService.findByUsername(userDetails.getUsername());
+        List<OrderHistoryDTO> orders = orderHistoryService.getOrderHistoryByStatus(customer, statusOrder);
+        model.addAttribute("orders", orders);
+        return "user/order-history";
+    }
+
+    @PostMapping("/reorder/{orderId}")
+    public String reorder(@PathVariable Integer orderId, @AuthenticationPrincipal UserDetails userDetails) {
+        Customer customer = customerService.findByUsername(userDetails.getUsername());
+        orderHistoryService.reorder(orderId, customer);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/review/{orderId}")
+    public String addReview(@PathVariable Integer orderId, @RequestParam String review, @AuthenticationPrincipal UserDetails userDetails) {
+        Customer customer = customerService.findByUsername(userDetails.getUsername());
+        orderHistoryService.addReview(orderId, review, customer);
+        return "redirect:/user/order-history";
+    }
+}

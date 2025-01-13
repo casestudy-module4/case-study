@@ -1738,3 +1738,10 @@
         font-size: var(--wp--preset--font-size--x-large) !important;
     }
 }
+
+.logo-products {
+    width: 300px;
+    height: 300px;
+    border-radius: 47%;
+    object-fit: cover;
+}
