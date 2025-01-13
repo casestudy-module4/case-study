@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.casestudy.config.SecurityUtils.getLoggedCustomer;
 
 @Service
 public class OderService implements IOrderService {
@@ -62,7 +61,6 @@ public class OderService implements IOrderService {
             data.put("totalSpending", topSpender[1]);
             return data;
         }
-        // Trả về giá trị mặc định nếu không có dữ liệu
         Map<String, Object> defaultData = new HashMap<>();
         defaultData.put("customerName", "N/A");
         defaultData.put("totalSpending", 0);
